@@ -2,7 +2,7 @@
 include_once '../Candide.php';
 $exceptions = ["../Candide.php"];
 // Parcourir tout les fichiers *.php dans ../ direct
-$allFiles = glob("../*.php");
+$allFiles = array_merge(glob("../*.php"),glob("../pages/*.php"));
 $files = array_diff($allFiles,$exceptions);
 
 // Fonction d'update pour chaque c

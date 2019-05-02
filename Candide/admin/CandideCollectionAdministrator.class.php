@@ -12,7 +12,9 @@ class CandideCollectionAdministrator extends CandideCollection {
     }
 
     public function getStructure():Array {
-        $this->_structure = json_decode(file_get_contents($this->getStructureUrl()),true);
+        if (file_exists($this->getStructureUrl())) {
+            $this->_structure = json_decode(file_get_contents($this->getStructureUrl()),true);
+        }
         return $this->_structure;
     }
 
