@@ -1,0 +1,22 @@
+@import "_config.scss";
+
+@import "partials/sidebar";
+@import "partials/form";
+@import "partials/font";
+@import "partials/collection";
+
+body {
+  margin: 0;
+  background: $background-color;
+  color: $text-color;
+  font-family: $font-primary;
+}
+
+#content {
+  margin-left: 25vw;
+  width: 75vw;
+  height: 100vh;
+  overflow: auto;
+  padding: 30px 60px;
+  box-sizing: border-box;
+}
