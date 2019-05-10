@@ -31,6 +31,14 @@ class CandideBasic extends Basic {
         }
     }
 
+    protected function resize($tmp,$width,$height) {
+        $imgSize = getimagesize($tmp);
+        $img = imagecreatefromjpeg($tmp);
+        $newImg = imagecreatetruecolor($width , $height) or die ("Erreur");
+        imagecopyresampled($newImg, $img, 0,0, 0,0, $width, $height, $imgSize[0],$imgSize[1]);
+        return $newImg;
+    }
+
     /**
      * @return String
      */

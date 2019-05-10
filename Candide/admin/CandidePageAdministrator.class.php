@@ -28,14 +28,16 @@ class CandidePageAdministrator extends CandideBasic {
     private function setImages(Array $files){
         foreach ($files as $key => $file) {
             if ($file["size"] != 0) {
+                // Créer le dossier
                 if (!file_exists(self::FILES_DIRECTORY.$this->getPage())) {
                     mkdir(self::FILES_DIRECTORY.$this->getPage(),0777,true);
                 }
+                // Resize de l'image
+                $img = $this->resize($file["tmp_name"],$this->_data[$key]['width'],$this->_data[$key]['height']);
                 // Enregistrer l'image dans un dossier
-                if (move_uploaded_file($file["tmp_name"],self::FILES_DIRECTORY.$this->getPage()."/".$file["name"])){
-                    // Editer l'url de l'image
-                    $this->_data[$key]['data'] = "/CandideData/files/".$this->getPage()."/".$file["name"];
-                }
+                imagejpeg($img, self::FILES_DIRECTORY.$this->getPage()."/".$file["name"], 80);
+                // Editer l'url de l'image
+                $this->_data[$key]['data'] = "/CandideData/files/".$this->getPage()."/".$file["name"];
             }
         }
     }

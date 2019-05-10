@@ -74,6 +74,9 @@ function setEditPage() {
             if (response.status == 200){
                 submitContainer.classList.remove('clickable')
             }
+            return response.text()
+        }).then(function (text) {
+            console.log(text)
         });
     })
     setForm()

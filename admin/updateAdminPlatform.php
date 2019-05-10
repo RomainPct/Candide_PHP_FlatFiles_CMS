@@ -4,6 +4,7 @@ $exceptions = ["../Candide.php"];
 // Parcourir tout les fichiers *.php dans ../ direct
 $allFiles = array_merge(glob("../*.php"),glob("../pages/*.php"));
 $files = array_diff($allFiles,$exceptions);
+var_dump($files);
 
 // Fonction d'update pour chaque c
 function updatePageForVariable($candide,$indexAdmin){
@@ -24,6 +25,7 @@ function updatePageForVariable($candide,$indexAdmin){
 $indexAdmin = new CandideIndexAdmin();
 $_GET["updateAdminPlatform"] = true;
 foreach ($files as $file) {
+    echo $file." XXXXXXXX";
     require $file;
     if (isset($c)) {
         updatePageForVariable($c,$indexAdmin);
