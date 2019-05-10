@@ -28,7 +28,7 @@ class CandideCollectionAdministrator extends CandideCollection {
     }
 
     public function getElementTitle($id){
-        $secondKey = array_keys($this->_data[$id])[1];
+        $secondKey = array_keys($this->_data[$id])[0];
         echo substr($this->_data[$id][$secondKey]['data'],0,100);
     }
 

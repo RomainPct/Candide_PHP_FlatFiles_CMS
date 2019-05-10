@@ -46,7 +46,7 @@ class CandideCollectionItem extends CandideBasic {
                 $this->_structure[$name]["height"] = $size[1];
             }
         }
-        if (array_key_exists($name,$this->_data)) {
+        if (array_key_exists($name,$this->_data) && array_key_exists("data",$this->_data[$name])) {
             echo $this->formatText($this->_data[$name]["data"]);
         } else {
             echo "";

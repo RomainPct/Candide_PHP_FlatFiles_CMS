@@ -22,11 +22,8 @@ class CandideCollection extends CandideBasic {
         if ($this->_updateCall) {
             return [0];
         } else {
-            return array_reverse(array_map(array($this, 'mapToIdArray'),$this->_data));
+            return array_reverse(array_keys($this->_data));
         }
-    }
-    private function mapToIdArray($array) {
-        return $array["id"];
     }
 
     public function text($title,$index){

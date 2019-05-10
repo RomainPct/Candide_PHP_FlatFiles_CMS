@@ -57,7 +57,7 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
 
     public function setData(Array $texts, Array $files){
         // Gestion information de l'item
-        $this->_data = array_merge($this->_data,$this->_structure);
+        $this->_data = array_merge($this->_structure,$this->_data);
         $this->setTexts($texts);
         $this->setImages($files);
         $this->saveData();
