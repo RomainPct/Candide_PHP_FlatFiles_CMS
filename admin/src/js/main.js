@@ -142,6 +142,7 @@ function setEditCollectionItem() {
             }
             return response.text()
         }).then(function (text) {
+            console.log(text)
             if (editCollectionItemForm.getAttribute("data-id") == "newItem"){
                 let pageName = backButton.getAttribute("href").substring(1);
                 let id = text

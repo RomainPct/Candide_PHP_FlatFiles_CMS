@@ -37,9 +37,12 @@ class CandideCollectionAdministrator extends CandideCollection {
             $this->_data[$id] = [];
             $this->_data[$id]["id"] = $id;
         }
-        $this->_data[$id] = array_merge($this->_data[$id],$this->_structure);
+        //var_dump($this->_data[$id]);
+        $this->_data[$id] = array_merge($this->_structure,$this->_data[$id]);
+        //var_dump($this->_data[$id]);
         $this->setTexts($texts,$id);
         $this->setImages($files,$id);
+        //var_dump($this->_data[$id]);
         $this->saveData();
     }
 
@@ -55,7 +58,8 @@ class CandideCollectionAdministrator extends CandideCollection {
         foreach ($files as $key => $file) {
             if ($file["size"] != 0) {
                 // Editer l'url de l'image
-                $this->_data[$id][$key]['data'] = "/CandideData/files/".$this->getPage()."/".$id."/".$file["name"];
+                //echo $key." collection edited";
+                $this->_data[$id][$key]['data'] = "/CandideData/files/".$this->getPage()."/".$id."/".$key."_".$file["name"];
             }
         }
     }

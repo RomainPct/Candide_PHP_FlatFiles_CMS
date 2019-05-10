@@ -78,14 +78,16 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
     private function setImages(Array $files){
         foreach ($files as $key => $file) {
             if ($file["size"] != 0) {
+                //echo $key." item edited";
                 if (!file_exists(self::FILES_DIRECTORY.$this->getPage()."/".$this->_id)) {
                     mkdir(self::FILES_DIRECTORY.$this->getPage()."/".$this->_id,0777,true);
                 }
+                // Resize de l'image
+                $img = $this->resize($file["tmp_name"],$this->_fullStructure[$key]['width'],$this->_fullStructure[$key]['height']);
                 // Enregistrer l'image dans un dossier
-                if (move_uploaded_file($file["tmp_name"],self::FILES_DIRECTORY.$this->getPage()."/".$this->_id."/".$file["name"])){
-                    // Editer l'url de l'image
-                    $this->_data[$key]['data'] = "/CandideData/files/".$this->getPage()."/".$this->_id."/".$file["name"];
-                }
+                imagejpeg($img, self::FILES_DIRECTORY.$this->getPage()."/".$this->_id."/".$key."_".$file["name"], 100);
+                // Editer l'url de l'image
+                $this->_data[$key]['data'] = "/CandideData/files/".$this->getPage()."/".$this->_id."/".$key."_".$file["name"];
             }
         }
     }
