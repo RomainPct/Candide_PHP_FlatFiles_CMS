@@ -34,8 +34,27 @@ class CandideBasic extends Basic {
     protected function resize($tmp,$width,$height) {
         $imgSize = getimagesize($tmp);
         $img = imagecreatefromjpeg($tmp);
+        if ($img == false){
+            $img = imagecreatefrompng($tmp);
+        }
         $newImg = imagecreatetruecolor($width , $height) or die ("Erreur");
-        imagecopyresampled($newImg, $img, 0,0, 0,0, $width, $height, $imgSize[0],$imgSize[1]);
+        if (
+            ($imgSize[0] < $imgSize[1] && $height/$width < $imgSize[1]/$imgSize[0])
+            ||
+            ($imgSize[0] > $imgSize[1] && $width/$height < $imgSize[0]/$imgSize[1])
+        ) {
+            $captureHeight = $imgSize[1];
+            $captureWidth = $imgSize[1] * ($width/$height);
+            $offsetX = ($imgSize[0] - $captureWidth) / 2;
+            $offsetY = 0;
+        } else {
+            $captureWidth = $imgSize[0]; // t'es un tocard
+            $captureHeight = $imgSize[0] * ($height/$width);
+            $offsetX = 0;
+            $offsetY = ($imgSize[1] - $captureHeight) / 2;
+        }
+        echo $width." - ".$height." || ".$captureWidth." - ".$captureHeight. " -- ".$offsetX." - ".$offsetY;
+        imagecopyresampled($newImg, $img, 0,0, $offsetX,$offsetY, $width, $height, $captureWidth,$captureHeight);
         return $newImg;
     }
 

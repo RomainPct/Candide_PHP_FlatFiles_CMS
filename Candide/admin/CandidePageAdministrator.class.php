@@ -35,7 +35,7 @@ class CandidePageAdministrator extends CandideBasic {
                 // Resize de l'image
                 $img = $this->resize($file["tmp_name"],$this->_data[$key]['width'],$this->_data[$key]['height']);
                 // Enregistrer l'image dans un dossier
-                imagejpeg($img, self::FILES_DIRECTORY.$this->getPage()."/".$file["name"], 80);
+                imagejpeg($img, self::FILES_DIRECTORY.$this->getPage()."/".$file["name"], 100);
                 // Editer l'url de l'image
                 $this->_data[$key]['data'] = "/CandideData/files/".$this->getPage()."/".$file["name"];
             }
