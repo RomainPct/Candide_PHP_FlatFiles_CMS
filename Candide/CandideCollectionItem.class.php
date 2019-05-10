@@ -33,17 +33,21 @@ class CandideCollectionItem extends CandideBasic {
         $this->getElement($title,"text");
     }
 
-    public function image($title){
-        $this->getElement($title,"image");
+    public function image($title,$size){
+        $this->getElement($title,"image",$size);
     }
 
-    protected function getElement($title,$prefix) {
+    protected function getElement($title,$prefix,$size = []) {
         $name = $prefix."_".$title;
         if (!in_array($name,$this->_structure)) {
             $this->_structure[$name] = ["type" => $prefix];
+            if ($prefix == "image") {
+                $this->_structure[$name]["width"] = $size[0];
+                $this->_structure[$name]["height"] = $size[1];
+            }
         }
         if (array_key_exists($name,$this->_data)) {
-            echo $this->_data[$name]["data"];
+            echo $this->formatText($this->_data[$name]["data"]);
         } else {
             echo "";
         }

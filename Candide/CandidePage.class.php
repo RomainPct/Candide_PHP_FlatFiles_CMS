@@ -9,11 +9,12 @@ class CandidePage extends CandideBasic {
         $this->getElement($title,"text");
     }
 
-    public function image($title){
-        $this->getElement($title,"image");
+    public function image($title, $size){
+        $this->getElement($title,"image",$size);
+
     }
 
-    protected function getElement($title, $type) {
+    protected function getElement($title, $type, $size = []) {
         $name = $type."_".$title;
         if (!in_array($name,$this->_calledElements)) {
             $this->_calledElements[] = $name;
@@ -24,7 +25,12 @@ class CandidePage extends CandideBasic {
             } else {
                 $this->_data[$name]["data"] = "default_text";
             }
+            $this->_newElementAdded = true;
+        }
+        if ($type == "image") {
             $this->_data[$name]["type"] = $type;
+            $this->_data[$name]["width"] = $size[0];
+            $this->_data[$name]["height"] = $size[1];
             $this->_newElementAdded = true;
         }
         echo $this->formatText($this->_data[$name]["data"]);
