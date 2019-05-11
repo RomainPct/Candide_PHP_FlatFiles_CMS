@@ -1,5 +1,6 @@
 <?php
 include_once '../../Candide.php';
+include_once '../CandideAdmin.php';
 $c = new CandideCollectionItemAdministrator($_GET["page"],$_GET["id"]);
 ?>
 <h1><a id="backButton" href="#<?php echo $_GET['page'] ?>"></a><?php $c->getTitle() ?></h1>

@@ -1,5 +1,6 @@
 <?php
 include_once '../../Candide.php';
+include_once '../CandideAdmin.php';
 $c = new CandidePageAdministrator($_GET["page"]);
 ?>
 <h1>Page "<?php echo $_GET["page"] ?>"</h1>
