@@ -39,7 +39,7 @@ class CandideBasic extends Basic {
         }
         $newImg = imagecreatetruecolor($width , $height) or die ("Erreur");
         if (
-            ($imgSize[0] < $imgSize[1] && $height/$width < $imgSize[1]/$imgSize[0])
+            ($imgSize[0] < $imgSize[1] && $height/$width > $imgSize[1]/$imgSize[0])
             ||
             ($imgSize[0] > $imgSize[1] && $width/$height < $imgSize[0]/$imgSize[1])
         ) {
