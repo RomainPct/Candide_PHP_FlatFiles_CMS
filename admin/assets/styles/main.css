@@ -68,7 +68,7 @@ nav {
     min-height: 200px; }
   .inputContainer input[type="file"] {
     display: none; }
-  .inputContainer textarea {
+  .inputContainer textarea, .inputContainer input[type='text'], .inputContainer input[type='password'] {
     padding: 15px;
     background-color: #FEFEFE;
     font-size: 20px;

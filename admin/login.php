@@ -1,22 +1,34 @@
 <?php
 session_start();
 include_once '../Candide.php';
-
-if ( !empty($_POST["identifier"]) && !empty($_POST["password"]) ) {
+$errors = [];
+if (key_exists("logout",$_GET)) {
+    unset($_SESSION[PROJECT_NAME."_logedin"]);
+} else if ( key_exists(PROJECT_NAME."_logedin",$_SESSION)) {
+    $authorized = false;
+    foreach (ADMINISTRATORS as $user) {
+        if ($_SESSION[PROJECT_NAME."_logedin"] == hash("sha256",$user[0]).hash("sha256",$user[1])) {
+            $authorized = true;
+        }
+    }
+    if ($authorized) {
+        header("Location: index.php");
+    }
+} else if ( !empty($_POST["identifier"])) {
     foreach (ADMINISTRATORS as $user) {
         if ($user[0] == $_POST["identifier"]) {
             if (strtoupper($user[1]) == strtoupper(hash("sha256",$_POST["password"]))) {
                 $_SESSION[PROJECT_NAME."_logedin"] = hash("sha256",$user[0]).hash("sha256",$user[1]);
                 header("Location: index.php");
             } else {
-                echo "Mot de passe incorrect";
+                $errors["password"] = "Mot de passe incorrect";
+                $errors["identifier"] = "ok";
             }
         } else {
-            echo "Cet identifiant n'existe pas";
+            $errors["identifier"] = (array_key_exists("identifier",$errors) && $errors["identifier"] == "ok") ? "ok" : "Cet identifiant n'existe pas";
         }
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -32,11 +44,13 @@ if ( !empty($_POST["identifier"]) && !empty($_POST["password"]) ) {
     <h1>Connexion</h1>
     <div class="inputContainer">
         <h2>Identifiant :</h2>
-        <textarea name='identifier'><?php echo key_exists("identifier",$_POST) ? $_POST["identifier"] : "" ?></textarea>
+        <input type="text" name="identifier" value="<?php echo key_exists("identifier",$_POST) ? $_POST["identifier"] : "" ?>">
+        <p class="error"><?php echo (array_key_exists('identifier',$errors) && $errors['identifier'] != "ok") ? $errors['identifier'] : "" ?></p>
     </div>
     <div class="inputContainer">
         <h2>Mot de passe :</h2>
-        <textarea name="password"><?php echo key_exists("password",$_POST) ? $_POST["password"] : "" ?></textarea>
+        <input type="password" name="password" value="<?php echo key_exists("password",$_POST) ? $_POST["password"] : "" ?>">
+        <p class="error"><?php echo (array_key_exists('password',$errors) && $errors['password'] != "ok") ? $errors['password'] : "" ?></p>
     </div>
     <div class="submitContainer clickable">
         <input type="submit" value="Se connecter">

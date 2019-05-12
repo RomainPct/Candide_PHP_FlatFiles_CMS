@@ -29,6 +29,7 @@ $c = new CandideIndex();
         }
         ?>
     </ul>
+    <a id="logout" href="login.php?logout=yes">Déconnexion</a>
     <a id="siteAccessButton" href="../" >Accéder au site</a>
 </nav>
 
