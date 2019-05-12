@@ -185,6 +185,26 @@ h2 {
   .collectionItemBox.waiting h2, .collectionItemBox.waiting a {
     visibility: hidden; }
 
+#login {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(to right bottom, #96fbc4 0%, #f9f586 100%); }
+  #login form {
+    width: 60vw;
+    background-color: #FEFEFE;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center; }
+    #login form .inputContainer {
+      text-align: left;
+      width: 100%; }
+    #login form .submitContainer {
+      position: static;
+      display: inline-block; }
+
 body {
   margin: 0;
   background: #FEFEFE;

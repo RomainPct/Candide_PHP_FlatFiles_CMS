@@ -13,15 +13,16 @@ const KEY_PASSWORD = PROJECT_NAME."_password";
 
     <link rel="stylesheet" href="assets/styles/main.min.css">
 </head>
-<body>
+<body id="login">
 
 <form action="login.php" method="post">
+    <h1>Connexion</h1>
     <div class="inputContainer">
-        <label for="identifier" id="identifier">Identifiant :</label>
+        <h2>Identifiant :</h2>
         <textarea name='identifier'></textarea>
     </div>
     <div class="inputContainer">
-        <label for="password" id="password">Mot de passe :</label>
+        <h2>Mot de passe :</h2>
         <textarea name="password"></textarea>
     </div>
     <div class="submitContainer clickable">

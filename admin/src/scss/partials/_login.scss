@@ -1,0 +1,23 @@
+#login {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(to right bottom,#96fbc4 0%,#f9f586 100%);
+  form {
+    width: 60vw;
+    background-color: $background-color;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    .inputContainer {
+      text-align: left;
+      width: 100%;
+    }
+    .submitContainer {
+      position: static;
+      display: inline-block;
+    }
+  }
+}
