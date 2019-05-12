@@ -33,6 +33,14 @@ nav {
       nav ul li:not(.sectionTitle) a {
         color: #101010;
         text-decoration: none; }
+  nav a#logout {
+    display: block;
+    text-align: center;
+    color: darkred;
+    font-size: 14px;
+    text-decoration: none;
+    margin-bottom: 15px;
+    padding-bottom: 15px; }
   nav a#siteAccessButton {
     display: block;
     margin: 30px;

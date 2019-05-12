@@ -40,6 +40,15 @@ nav {
       }
     }
   }
+  a#logout {
+    display: block;
+    text-align: center;
+    color: darkred;
+    font-size: $font-size-info;
+    text-decoration: none;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+  }
   a#siteAccessButton {
     display: block;
     margin: 30px;
