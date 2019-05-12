@@ -13,6 +13,8 @@ if (key_exists("logout",$_GET)) {
     }
     if ($authorized) {
         header("Location: index.php");
+    } else {
+        unset($_SESSION[PROJECT_NAME."_logedin"]);
     }
 } else if ( !empty($_POST["identifier"])) {
     foreach (ADMINISTRATORS as $user) {
