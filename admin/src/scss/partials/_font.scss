@@ -6,3 +6,8 @@ h2 {
   font-size: $font-size-body;
   font-weight: bold;
 }
+
+p.error {
+  font-size: $font-size-info;
+  color: darkred;
+}

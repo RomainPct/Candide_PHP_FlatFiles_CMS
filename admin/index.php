@@ -6,7 +6,9 @@ $c = new CandideIndex();
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
     <title>Candide</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="assets/styles/main.min.css">
 </head>
