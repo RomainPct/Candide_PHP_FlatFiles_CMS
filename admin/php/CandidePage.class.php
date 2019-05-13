@@ -20,7 +20,7 @@ class CandidePage extends CandideBasic {
             $this->_calledElements[] = $name;
         }
         $this->_data[$name]["type"] = $type;
-        if (!array_key_exists($name,$this->_data)) {
+        if (!array_key_exists($name,$this->_data) || !array_key_exists("data",$this->_data[$name])) {
             if ($type == "image") {
                 $this->_data[$name]["data"] = "default.jpg";
             } else {
