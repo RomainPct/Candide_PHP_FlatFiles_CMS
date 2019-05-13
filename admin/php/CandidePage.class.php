@@ -19,6 +19,7 @@ class CandidePage extends CandideBasic {
         if (!in_array($name,$this->_calledElements)) {
             $this->_calledElements[] = $name;
         }
+        $this->_data[$name]["type"] = $type;
         if (!array_key_exists($name,$this->_data)) {
             if ($type == "image") {
                 $this->_data[$name]["data"] = "default.jpg";
@@ -28,7 +29,6 @@ class CandidePage extends CandideBasic {
             $this->_newElementAdded = true;
         }
         if ($type == "image") {
-            $this->_data[$name]["type"] = $type;
             $this->_data[$name]["width"] = $size[0];
             $this->_data[$name]["height"] = $size[1];
             $this->_newElementAdded = true;
