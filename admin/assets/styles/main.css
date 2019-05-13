@@ -145,6 +145,9 @@ h2 {
   font-size: 20px;
   font-weight: bold; }
 
+p {
+  font-size: 20px; }
+
 p.error {
   font-size: 14px;
   color: darkred; }

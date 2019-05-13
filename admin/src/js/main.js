@@ -15,7 +15,7 @@ function loadContent(url, callback) {
 
 header.addEventListener('click',function (e) {
     e.preventDefault()
-    loadContent("pages/home.php")
+    loadContent("pages/home.php",setHome)
 })
 
 for (let i = 0; i < navLinks.length; i++){
@@ -30,6 +30,22 @@ for (let i = 0; i < navLinks.length; i++){
                 loadContent("pages/editCollection.php?page="+pageName,setEditCollection)
                 break
         }
+    })
+}
+
+let updateAdminPlatform
+function setHome(){
+    updateAdminPlatform = document.querySelector('#updateAdminPlatform')
+    updateAdminPlatform.addEventListener('click',function (e) {
+        e.preventDefault()
+        fetch("updateAdminPlatform.php")
+            .then(function (response) {
+                return response.text()
+            })
+            .then(function (text) {
+                console.log(text)
+                window.location.reload()
+            })
     })
 }
 
@@ -152,3 +168,5 @@ function setEditCollectionItem() {
     })
     setForm()
 }
+
+setHome()

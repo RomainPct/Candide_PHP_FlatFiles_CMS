@@ -25,7 +25,7 @@ function updatePageForVariable($candide,$indexAdmin){
 $indexAdmin = new CandideIndexAdmin();
 $_GET["updateAdminPlatform"] = true;
 foreach ($files as $file) {
-    echo $file." XXXXXXXX";
+    echo $file." ANALYSED";
     require $file;
     if (isset($c)) {
         updatePageForVariable($c,$indexAdmin);
@@ -48,4 +48,3 @@ foreach ($files as $file) {
     usleep(10);
 }
 $indexAdmin->end();
-header("Location: index.php");
