@@ -28,9 +28,9 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
 
     public function getTitle(){
         if ($this->_newItem){
-            echo 'Ajouter un élément à la collection "'.$this->_page.'"';
+            echo 'Ajouter un élément à la collection "'.$this->formatTitle($this->_page).'"';
         } else {
-            echo 'Modifier l\'élément de la collection "'.$this->_page.'"';
+            echo 'Modifier l\'élément de la collection "'.$this->formatTitle($this->_page).'"';
         }
     }
     public function getCallToActionText(){

@@ -6,6 +6,10 @@ class CandideBasic extends Basic {
     protected $_data;
     protected $_updateCall = false;
 
+    public function getPageName() {
+        echo $this->formatTitle($this->_page);
+    }
+
     protected function getPageUrl(){
         if (!file_exists(self::DATA_DIRECTORY.$this->_page)){
             mkdir(self::DATA_DIRECTORY.$this->_page,0777,true);

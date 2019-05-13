@@ -3,7 +3,7 @@ include_once '../../Candide.php';
 include_once '../CandideAdmin.php';
 $c = new CandideCollectionAdministrator($_GET["page"]);
 ?>
-<h1>Collection "<?php echo $_GET["page"] ?>"</h1>
+<h1>Collection "<?php $c->getPageName() ?>"</h1>
 <div class="submitContainer clickable">
     <a id="newElement" href="#<?php echo $_GET["page"] ?>">Nouvel élément</a>
 </div>
