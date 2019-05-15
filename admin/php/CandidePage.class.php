@@ -5,8 +5,8 @@ class CandidePage extends CandideBasic {
     private $_calledElements = [];
     private $_newElementAdded = false;
 
-    public function text($title){
-        $this->getElement($title,"text");
+    public function text($title,$wysiwyg = false){
+        $this->getElement($title,"text",[],$wysiwyg);
     }
 
     public function image($title, $size){
@@ -14,7 +14,7 @@ class CandidePage extends CandideBasic {
 
     }
 
-    protected function getElement($title, $type, $size = []) {
+    protected function getElement($title, $type, $size = [], $wysiwyg = false) {
         $name = $type."_".$title;
         if (!in_array($name,$this->_calledElements)) {
             $this->_calledElements[] = $name;
@@ -32,6 +32,8 @@ class CandidePage extends CandideBasic {
             $this->_data[$name]["width"] = $size[0];
             $this->_data[$name]["height"] = $size[1];
             $this->_newElementAdded = true;
+        } else if ($type=="text") {
+            $this->_data[$name]["wysiwyg"] = $wysiwyg;
         }
         echo $this->formatText($this->_data[$name]["data"]);
     }
