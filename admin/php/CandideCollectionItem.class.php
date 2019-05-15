@@ -29,21 +29,23 @@ class CandideCollectionItem extends CandideBasic {
         return $this->_id;
     }
 
-    public function text($title){
-        $this->getElement($title,"text");
+    public function text($title,$wysiwyg = false){
+        $this->getElement($title,"text",[],$wysiwyg);
     }
 
     public function image($title,$size){
         $this->getElement($title,"image",$size);
     }
 
-    protected function getElement($title,$prefix,$size = []) {
+    protected function getElement($title,$prefix,$size = [],$wysiwyg = false) {
         $name = $prefix."_".$title;
         if (!in_array($name,$this->_structure)) {
             $this->_structure[$name] = ["type" => $prefix];
             if ($prefix == "image") {
                 $this->_structure[$name]["width"] = $size[0];
                 $this->_structure[$name]["height"] = $size[1];
+            } else if ($prefix == "text") {
+                $this->_structure[$name]["wysiwyg"] = $wysiwyg;
             }
         }
         if (array_key_exists($name,$this->_data) && array_key_exists("data",$this->_data[$name])) {
