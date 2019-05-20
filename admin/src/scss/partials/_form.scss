@@ -24,7 +24,7 @@
   input[type="file"] {
     display: none;
   }
-  textarea, input[type='text'], input[type='password'] {
+  textarea, input[type='text'], input[type='password'], trix-editor {
     padding: 15px;
     background-color: $background-color;
     font-size: $font-size-body;
@@ -37,6 +37,9 @@
     height: auto;
     box-sizing: border-box;
     outline: none;
+  }
+  .attachment__caption {
+    display: none;
   }
 }
 .submitContainer {

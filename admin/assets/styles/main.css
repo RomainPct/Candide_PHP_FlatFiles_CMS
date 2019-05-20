@@ -76,7 +76,7 @@ nav {
     min-height: 200px; }
   .inputContainer input[type="file"] {
     display: none; }
-  .inputContainer textarea, .inputContainer input[type='text'], .inputContainer input[type='password'] {
+  .inputContainer textarea, .inputContainer input[type='text'], .inputContainer input[type='password'], .inputContainer trix-editor {
     padding: 15px;
     background-color: #FEFEFE;
     font-size: 20px;
@@ -89,6 +89,8 @@ nav {
     height: auto;
     box-sizing: border-box;
     outline: none; }
+  .inputContainer .attachment__caption {
+    display: none; }
 
 .submitContainer {
   position: fixed;

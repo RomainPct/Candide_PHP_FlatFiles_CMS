@@ -49,9 +49,10 @@ function setHome(){
     })
 }
 
-let textareas, filesInput, submitContainer
+let textareas, trixEditors, filesInput, submitContainer
 function setForm() {
     textareas = document.querySelectorAll('textarea')
+    trixEditors = document.querySelectorAll('trix-editor')
     filesInput = document.querySelectorAll('input[type="file"]')
     submitContainer = document.querySelector('.submitContainer')
     for (let i = 0; i < textareas.length; i++) {
@@ -60,6 +61,11 @@ function setForm() {
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight) + 'px';
             submitContainer.classList.add('clickable')
+        })
+    }
+    for (let i = 0; i < trixEditors.length; i++) {
+        trixEditors[i].addEventListener('input',function () {
+            submitContainer.classList.add("clickable")
         })
     }
     for (let i = 0; i < filesInput.length ; i++) {
