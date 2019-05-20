@@ -7,7 +7,7 @@ class CandidePageAdministrator extends CandideBasic {
     public function getFields() {
         foreach ($this->_data as $key => $value){
             // Afficher input type text ou image
-            echo $this->getField($key,$value['type'],$value['data']);
+            echo $this->getField($key,$value['type'],$value['data'],$value);
         }
     }
 

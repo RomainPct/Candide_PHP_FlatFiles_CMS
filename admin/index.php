@@ -11,7 +11,7 @@ $c = new CandideIndex();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="assets/styles/main.min.css">
-    <link rel="stylesheet" type="text/css" href="src/trix/dist/trix.css">
+    <link rel="stylesheet" type="text/css" href="src/trix-master/dist/trix.css">
 </head>
 <body>
 <nav>
@@ -41,7 +41,7 @@ $c = new CandideIndex();
 </div>
 
 <script src="src/js/main.js"></script>
-<script type="text/javascript" src="src/trix/dist/trix.js"></script>
-<script type="text/javascript" src="src/trix/dist/trix-extension.js"></script>
+<script type="text/javascript" src="src/trix-master/dist/trix.js"></script>
+<script type="text/javascript" src="src/trix-extension.js"></script>
 </body>
 </html>

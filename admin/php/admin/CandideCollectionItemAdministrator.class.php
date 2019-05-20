@@ -44,7 +44,7 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
     public function getFields() {
         foreach ($this->_fullStructure as $key => $value){
             $data = (key_exists($key,$this->_fullData)) ? $this->_fullData[$key]['data'] : "";
-            echo $this->getField($key,$value["type"],$data);
+            echo $this->getField($key,$value["type"],$data,$value);
         }
     }
 
