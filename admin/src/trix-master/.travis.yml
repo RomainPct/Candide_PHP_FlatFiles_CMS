@@ -1,0 +1,10 @@
+dist: trusty
+sudo: false
+cache:
+  - bundler
+  - yarn
+install:
+  - bundle install
+  - cd test && yarn install && cd -
+script:
+  - bin/ci
