@@ -81,7 +81,13 @@ function uploadFile(file, successCallback) {
 }
 
 addEventListener('trix-attachment-remove',function (e) {
-    console.log("remove")
     console.log(e.attachment)
-    // GERER SUPPRESSION MEDIA
+    let url = e.attachment.attachment.attributes.values.url
+    trixFilesToDelete.push(url)
+})
+addEventListener('trix-change',function (e) {
+    trixEditorsChanges++
+    if (trixEditorsChanges > document.querySelectorAll('trix-editor').length) {
+        submitContainer.classList.add("clickable")
+    }
 })

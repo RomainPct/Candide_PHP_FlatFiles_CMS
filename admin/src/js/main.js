@@ -1,8 +1,10 @@
 const content = document.querySelector("#content")
 const navLinks = document.querySelectorAll("#navLinks li a")
-const header = document.querySelector("#header");
+const header = document.querySelector("#header")
+let trixFilesToDelete = [], trixEditorsChanges = 0
 
 function loadContent(url, callback) {
+    trixEditorsChanges = 0
     console.log(url)
     fetch(url)
         .then(function (response) {
@@ -49,10 +51,9 @@ function setHome(){
     })
 }
 
-let textareas, trixEditors, filesInput, submitContainer
+let textareas, filesInput, submitContainer
 function setForm() {
     textareas = document.querySelectorAll('textarea')
-    trixEditors = document.querySelectorAll('trix-editor')
     filesInput = document.querySelectorAll('input[type="file"]')
     submitContainer = document.querySelector('.submitContainer')
     for (let i = 0; i < textareas.length; i++) {
@@ -61,11 +62,6 @@ function setForm() {
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight) + 'px';
             submitContainer.classList.add('clickable')
-        })
-    }
-    for (let i = 0; i < trixEditors.length; i++) {
-        trixEditors[i].addEventListener('input',function () {
-            submitContainer.classList.add("clickable")
         })
     }
     for (let i = 0; i < filesInput.length ; i++) {
@@ -88,6 +84,8 @@ function setEditPage() {
         e.preventDefault()
         submitContainer.classList.add('loading')
         let formData  = new FormData(this);
+        formData.append("trixFilesToDelete",JSON.stringify(trixFilesToDelete))
+        trixFilesToDelete = []
         fetch(this.getAttribute('action'), {
             method: 'POST',
             body: formData
@@ -154,6 +152,7 @@ function setEditCollectionItem() {
         e.preventDefault()
         submitContainer.classList.add('loading')
         let formData  = new FormData(this);
+        formData.append("trixFilesToDelete",trixFilesToDelete)
         fetch(this.getAttribute('action'), {
             method: 'POST',
             body: formData

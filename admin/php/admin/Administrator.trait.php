@@ -20,16 +20,7 @@ trait Administrator {
         return $html;
     }
 
-    private function delete_all_between($beginning, $end, $string, $offset = 0) {
-        $beginningPos = strpos($string, $beginning,0);
-        $endPos = strpos($string, $end,0);
-        if ($beginningPos === false || $endPos === false) {
-            return $string;
-        }
 
-        $textToDelete = substr($string, $beginningPos, ($endPos + strlen($end)) - $beginningPos);
-        return $this->delete_all_between($beginning, $end, str_replace($textToDelete, '', $string)); // recursion to ensure all occurrences are replaced
-    }
 
     protected function deleteFiles($target) {
         if(is_dir($target)){
