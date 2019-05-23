@@ -1,4 +1,7 @@
 addEventListener("trix-initialize", function(event) {
+    Trix.config.attachments.preview.caption = {
+        name: false
+    };
     Trix.config.blockAttributes.heading1 = {
         tagName: "h1",
         terminal: true,

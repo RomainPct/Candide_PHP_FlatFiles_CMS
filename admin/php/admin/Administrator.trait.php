@@ -6,7 +6,7 @@ trait Administrator {
         switch ($type) {
             case "text":
                 if (key_exists("wysiwyg",$fieldInfos) && $fieldInfos["wysiwyg"]) {
-                    $data = $this->delete_all_between('data-trix-attachment="{','}" data-trix-content-type',$data);
+                    $data = htmlspecialchars($data,ENT_QUOTES);
                     $html = $html."<input type='hidden' id='".$name."' name='".$name."' value='".$data."'><trix-editor input='".$name."'></trix-editor>";
                 } else {
                     $html = $html."<textarea name='".$name."'>".$data."</textarea>";
@@ -20,15 +20,14 @@ trait Administrator {
         return $html;
     }
 
-    private function delete_all_between($beginning, $end, $string) {
-        $beginningPos = strpos($string, $beginning);
-        $endPos = strpos($string, $end);
+    private function delete_all_between($beginning, $end, $string, $offset = 0) {
+        $beginningPos = strpos($string, $beginning,0);
+        $endPos = strpos($string, $end,0);
         if ($beginningPos === false || $endPos === false) {
             return $string;
         }
 
         $textToDelete = substr($string, $beginningPos, ($endPos + strlen($end)) - $beginningPos);
-
         return $this->delete_all_between($beginning, $end, str_replace($textToDelete, '', $string)); // recursion to ensure all occurrences are replaced
     }
 
