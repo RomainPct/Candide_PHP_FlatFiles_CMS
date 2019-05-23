@@ -64,8 +64,9 @@ function uploadFileAttachment(attachment) {
 function uploadFile(file, successCallback) {
     let formData = new FormData()
     formData.append("file", file)
+    let pageName = document.querySelector('#pageName').getAttribute('data-url')
     // GERER DESTINATION DU FICHIER
-    formData.append("destination","directory")
+    formData.append("destination","files/"+pageName)
     const url = "actions/savePictureFromTrix.php"
 
     fetch(url, {
