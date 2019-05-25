@@ -1,24 +1,15 @@
 addEventListener("trix-initialize", function(event) {
     Trix.config.attachments.preview.caption = {
         name: false
-    };
+    }
     Trix.config.blockAttributes.heading1 = {
-        tagName: "h1",
-        terminal: true,
-        breakOnReturn: true,
-        group: false
+        tagName: "h1", terminal: true, breakOnReturn: true, group: false
     }
     Trix.config.blockAttributes.heading2 = {
-        tagName: "h2",
-        terminal: true,
-        breakOnReturn: true,
-        group: false
+        tagName: "h2", terminal: true, breakOnReturn: true, group: false
     }
     Trix.config.blockAttributes.heading3 = {
-        tagName: "h3",
-        terminal: true,
-        breakOnReturn: true,
-        group: false
+        tagName: "h3", terminal: true, breakOnReturn: true, group: false
     }
 
     let h1ButtonHTML = newButton("heading1","heading","Titre 1")
@@ -31,6 +22,23 @@ addEventListener("trix-initialize", function(event) {
     groupElement.insertBefore(h3ButtonHTML,groupElement.children[2])
     groupElement.children[3].remove()
 })
+addEventListener('trix-attachment-add',function (e) {
+    let attachment = e.attachment
+    if (attachment.file) {
+        uploadFileAttachment(attachment)
+    }
+})
+addEventListener('trix-attachment-remove',function (e) {
+    console.log(e.attachment)
+    let url = e.attachment.attachment.attributes.values.url
+    trixFilesToDelete.push(url)
+})
+addEventListener('trix-change',function (e) {
+    trixEditorsChanges++
+    if (trixEditorsChanges > document.querySelectorAll('trix-editor').length) {
+        submitContainer.classList.add("clickable")
+    }
+})
 
 function newButton(trixAttribute,title,text) {
     let button = document.createElement("button")
@@ -41,13 +49,6 @@ function newButton(trixAttribute,title,text) {
     button.innerText = text
     return button
 }
-
-addEventListener('trix-attachment-add',function (e) {
-    let attachment = e.attachment
-    if (attachment.file) {
-        uploadFileAttachment(attachment)
-    }
-})
 
 function uploadFileAttachment(attachment) {
     uploadFile(attachment.file, setAttributes)
@@ -62,14 +63,11 @@ function uploadFileAttachment(attachment) {
 }
 
 function uploadFile(file, successCallback) {
+    let pageName = document.querySelector('#pageName').getAttribute('data-url')
     let formData = new FormData()
     formData.append("file", file)
-    let pageName = document.querySelector('#pageName').getAttribute('data-url')
-    // GERER DESTINATION DU FICHIER
     formData.append("destination","files/"+pageName)
-    const url = "actions/savePictureFromTrix.php"
-
-    fetch(url, {
+    fetch("actions/savePictureFromTrix.php", {
         method: 'POST',
         body: formData
     }).then(function (response) {
@@ -79,15 +77,3 @@ function uploadFile(file, successCallback) {
     })
 
 }
-
-addEventListener('trix-attachment-remove',function (e) {
-    console.log(e.attachment)
-    let url = e.attachment.attachment.attributes.values.url
-    trixFilesToDelete.push(url)
-})
-addEventListener('trix-change',function (e) {
-    trixEditorsChanges++
-    if (trixEditorsChanges > document.querySelectorAll('trix-editor').length) {
-        submitContainer.classList.add("clickable")
-    }
-})
