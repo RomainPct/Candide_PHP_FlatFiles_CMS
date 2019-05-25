@@ -222,6 +222,32 @@ p.error {
       position: static;
       display: inline-block; }
 
+.inputContainer trix-editor {
+  max-height: 75vh;
+  overflow-y: auto; }
+  .inputContainer trix-editor p, .inputContainer trix-editor h1, .inputContainer trix-editor h2, .inputContainer trix-editor h3, .inputContainer trix-editor h4, .inputContainer trix-editor div, .inputContainer trix-editor figure {
+    margin: 0;
+    padding: 0; }
+  .inputContainer trix-editor figure {
+    text-align: center; }
+    .inputContainer trix-editor figure img {
+      margin: 0;
+      max-width: 100%; }
+  .inputContainer trix-editor h1 {
+    font-size: 30px;
+    font-weight: bold; }
+  .inputContainer trix-editor h2 {
+    font-size: 25px;
+    font-weight: bold; }
+  .inputContainer trix-editor h3 {
+    font-size: 20px;
+    font-weight: bold; }
+  .inputContainer trix-editor h4 {
+    font-size: 20px; }
+  .inputContainer trix-editor div {
+    font-size: 20px;
+    line-height: 1.4; }
+
 body {
   margin: 0;
   background: #FEFEFE;

@@ -49,7 +49,7 @@ gulpfile.task('cssMinfier', function() {
 gulpfile.task('js', gulpfile.series('jsLint', 'jsMinifier'))
 gulpfile.task('css', gulpfile.series('sass', 'cssMinfier'))
 gulpfile.task('watch', function() {
-    gulpfile.watch('./src/scripts/*.js', gulpfile.series('js'))
+    gulpfile.watch('./src/js/*.js', gulpfile.series('js'))
     gulpfile.watch('./src/scss/**/*.scss', gulpfile.series('css'))
 });
 

@@ -2,15 +2,6 @@ addEventListener("trix-initialize", function(event) {
     Trix.config.attachments.preview.caption = {
         name: false
     }
-    Trix.config.blockAttributes.heading1 = {
-        tagName: "h1", terminal: true, breakOnReturn: true, group: false
-    }
-    Trix.config.blockAttributes.heading2 = {
-        tagName: "h2", terminal: true, breakOnReturn: true, group: false
-    }
-    Trix.config.blockAttributes.heading3 = {
-        tagName: "h3", terminal: true, breakOnReturn: true, group: false
-    }
 
     let h1ButtonHTML = newButton("heading1","heading","Titre 1")
     let h2ButtonHTML = newButton("heading2","heading","T2")

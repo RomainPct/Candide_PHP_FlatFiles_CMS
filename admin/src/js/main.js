@@ -68,7 +68,6 @@ function setForm() {
         filesInput[i].addEventListener('change',function () {
             let img = document.querySelector('#image_'+this.getAttribute('name'))
             img.file = this.files[0]
-
             const reader = new FileReader();
             reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
             reader.readAsDataURL(this.files[0]);

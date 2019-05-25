@@ -41,6 +41,6 @@ $c = new CandideIndex();
 </div>
 
 <script src="assets/scripts/main.min.js"></script>
-<script type="text/javascript" src="src/trix-master/dist/trix.js"></script>
+<!--<script type="text/javascript" src="src/trix-master/dist/trix.js"></script>-->
 </body>
 </html>
