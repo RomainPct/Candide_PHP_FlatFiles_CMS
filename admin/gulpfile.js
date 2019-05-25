@@ -7,27 +7,50 @@ var plugins = require('gulp-load-plugins')(); // tous les plugins de package.jso
 // Variables de chemins
 var source = 'src/'; // dossier de travail
 var destination = 'assets/'; // dossier à livrer
+const jsSource = 'src/js/',
+    jsDestination = 'assets/scripts/'
 
-gulpfile.task('css',function () {
-    return gulpfile.src(source+'scss/main.scss')
+gulpfile.task('jsMinifier', function(done) {
+    gulpfile.src(jsSource+"*.js") // path to your files
+        .pipe(plugins.concat("main.js"))
+        .pipe(plugins.minify({
+            ext:{
+                src:'-debug.js',
+                min:'.min.js'
+            }
+        }))
+        .pipe(gulpfile.dest(jsDestination));
+    done()
+});
+
+gulpfile.task('jsLint', function(done) {
+    gulpfile.src(jsSource+"/**/*.js") // path to your files
+        .pipe(plugins.jshint())
+        .pipe(plugins.jshint.reporter()); // Dump results
+    done()
+})
+
+gulpfile.task('sass', function() {
+    return gulpfile.src(source + 'scss/main.scss')
         .pipe(plugins.sass().on('error', plugins.sass.logError))
         .pipe(plugins.autoprefixer())
-        .pipe(gulpfile.dest(destination+'styles/'))
+        .pipe(gulpfile.dest(destination + 'styles/'))
 });
 
-gulpfile.task('minify',function () {
-    return gulpfile.src(destination+'styles/main.css')
+gulpfile.task('cssMinfier', function() {
+    return gulpfile.src(destination + 'styles/main.css')
         .pipe(plugins.csso())
         .pipe(plugins.rename({
-            'suffix':'.min'
+            'suffix': '.min'
         }))
-        .pipe(gulpfile.dest(destination+'styles/'))
+        .pipe(gulpfile.dest(destination + 'styles/'))
 });
 
-gulpfile.task('build', gulpfile.series('css','minify'));
-
-gulpfile.task('watch',function () {
-   gulpfile.watch('./src/scss/**/*.scss',gulpfile.series('build'))
+gulpfile.task('js', gulpfile.series('jsLint', 'jsMinifier'))
+gulpfile.task('css', gulpfile.series('sass', 'cssMinfier'))
+gulpfile.task('watch', function() {
+    gulpfile.watch('./src/scripts/*.js', gulpfile.series('js'))
+    gulpfile.watch('./src/scss/**/*.scss', gulpfile.series('css'))
 });
 
-gulpfile.task('default', gulpfile.series('watch'));
+gulpfile.task('default', gulpfile.series('js','css','watch'));

@@ -40,8 +40,7 @@ $c = new CandideIndex();
     <?php include 'pages/home.php' ?>
 </div>
 
-<script src="src/js/main.js"></script>
+<script src="assets/scripts/main.min.js"></script>
 <script type="text/javascript" src="src/trix-master/dist/trix.js"></script>
-<script type="text/javascript" src="src/trix-extension.js"></script>
 </body>
 </html>
