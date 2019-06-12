@@ -9,6 +9,7 @@ class CandidePage extends CandideBasic {
         $this->getElement($title,"text",[],$wysiwyg);
     }
 
+    // $size => [largeur,hauteur]
     public function image($title, $size){
         $this->getElement($title,"image",$size);
 
