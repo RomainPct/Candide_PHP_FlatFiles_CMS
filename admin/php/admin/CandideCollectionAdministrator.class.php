@@ -67,7 +67,6 @@ class CandideCollectionAdministrator extends CandideCollection {
         foreach ($files as $key => $file) {
             if ($file["size"] != 0) {
                 // Editer l'url de l'image
-                //echo $key." collection edited";
                 $this->_data[$id][$key]['data'] = "/CandideData/files/".$this->getPage()."/".$id."/".$key."_".$file["name"];
             }
         }
