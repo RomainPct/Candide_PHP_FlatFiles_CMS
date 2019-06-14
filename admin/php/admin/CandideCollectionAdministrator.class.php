@@ -28,8 +28,17 @@ class CandideCollectionAdministrator extends CandideCollection {
     }
 
     public function getElementTitle($id){
-        $secondKey = array_keys($this->_data[$id])[0];
-        echo substr($this->_data[$id][$secondKey]['data'],0,100);
+        $title = 0;
+        while (is_int($title) && $title < count($this->_data[$id])) {
+            $key = array_keys($this->_data[$id])[$title];
+            if ($this->_data[$id][$key]["type"] == "text" && $this->_data[$id][$key]["data"] != ""){
+                $title = $this->_data[$id][$key]["data"];
+            } else {
+                $title++;
+            }
+        }
+        $title = (is_int($title)) ? "Sans nom" : $title;
+        echo substr($title,0,100);
     }
 
     public function setData(Array $texts, Array $files, Int $id){
