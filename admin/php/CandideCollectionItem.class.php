@@ -41,14 +41,12 @@ class CandideCollectionItem extends CandideBasic {
         $name = $prefix."_".$title;
         // Gérer l'update
         if ($this->_updateCall) {
-            if (!in_array($name,$this->_structure)) {
-                $this->_structure[$name] = ["type" => $prefix];
-                if ($prefix == "image") {
-                    $this->_structure[$name]["width"] = $size[0];
-                    $this->_structure[$name]["height"] = $size[1];
-                } else if ($prefix == "text") {
-                    $this->_structure[$name]["wysiwyg"] = $wysiwyg;
-                }
+            $this->_structure[$name] = ["type" => $prefix];
+            if ($prefix == "image") {
+                $this->_structure[$name]["width"] = $size[0];
+                $this->_structure[$name]["height"] = $size[1];
+            } else if ($prefix == "text") {
+                $this->_structure[$name]["wysiwyg"] = $wysiwyg;
             }
         }
         // Gérer l'affichage

@@ -66,8 +66,9 @@ class CandideCollectionAdministrator extends CandideCollection {
     private function setImages(Array $files, Int $id){
         foreach ($files as $key => $file) {
             if ($file["size"] != 0) {
+                $name = $key."_".time().$file["name"];
                 // Editer l'url de l'image
-                $this->_data[$id][$key]['data'] = "/CandideData/files/".$this->getPage()."/".$id."/".$key."_".$file["name"];
+                $this->_data[$id][$key]['data'] = "/CandideData/files/".$this->getPage()."/".$id."/".$name;
             }
         }
     }

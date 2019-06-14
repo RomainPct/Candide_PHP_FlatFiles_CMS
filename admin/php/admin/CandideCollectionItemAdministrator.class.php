@@ -85,12 +85,13 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
                 if (!file_exists(self::FILES_DIRECTORY.$this->getPage()."/".$this->_id)) {
                     mkdir(self::FILES_DIRECTORY.$this->getPage()."/".$this->_id,0777,true);
                 }
+                $name = $key."_".time().$file["name"];
                 // Resize de l'image
                 $img = $this->resize($file["tmp_name"],$this->_fullStructure[$key]['width'],$this->_fullStructure[$key]['height']);
                 // Enregistrer l'image dans un dossier
-                imagejpeg($img, self::FILES_DIRECTORY.$this->getPage()."/".$this->_id."/".$key."_".$file["name"], 100);
+                imagejpeg($img, self::FILES_DIRECTORY.$this->getPage()."/".$this->_id."/".$name, 100);
                 // Editer l'url de l'image
-                $this->_data[$key]['data'] = "/CandideData/files/".$this->getPage()."/".$this->_id."/".$key."_".$file["name"];
+                $this->_data[$key]['data'] = "/CandideData/files/".$this->getPage()."/".$this->_id."/".$name;
             }
         }
     }

@@ -35,12 +35,13 @@ class CandidePageAdministrator extends CandideBasic {
                 if (!file_exists(self::FILES_DIRECTORY.$this->getPage())) {
                     mkdir(self::FILES_DIRECTORY.$this->getPage(),0777,true);
                 }
+                $name = $key."_".time().$file["name"];
                 // Resize de l'image
                 $img = $this->resize($file["tmp_name"],$this->_data[$key]['width'],$this->_data[$key]['height']);
                 // Enregistrer l'image dans un dossier
-                imagejpeg($img, self::FILES_DIRECTORY.$this->getPage()."/".$file["name"], 100);
+                imagejpeg($img, self::FILES_DIRECTORY.$this->getPage()."/".$name, 100);
                 // Editer l'url de l'image
-                $this->_data[$key]['data'] = "/CandideData/files/".$this->getPage()."/".$file["name"];
+                $this->_data[$key]['data'] = "/CandideData/files/".$this->getPage()."/".$name;
             }
         }
     }

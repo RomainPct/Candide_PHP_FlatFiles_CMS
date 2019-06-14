@@ -3,7 +3,6 @@
 class CandidePage extends CandideBasic {
 
     private $_calledElements = [];
-    private $_newElementAdded = false;
 
     public function text($title,$wysiwyg = false){
         $this->getElement($title,"text",[],$wysiwyg);
@@ -24,12 +23,10 @@ class CandidePage extends CandideBasic {
             $this->_data[$name]["type"] = $type;
             if (!array_key_exists($name,$this->_data) || !array_key_exists("data",$this->_data[$name])) {
                 $this->_data[$name]["data"] = "undefined";
-                $this->_newElementAdded = true;
             }
             if ($type == "image") {
                 $this->_data[$name]["width"] = $size[0];
                 $this->_data[$name]["height"] = $size[1];
-                $this->_newElementAdded = true;
             } else if ($type=="text") {
                 $this->_data[$name]["wysiwyg"] = $wysiwyg;
             }   
@@ -43,15 +40,6 @@ class CandidePage extends CandideBasic {
     }
 
     public function end() {
-        if ($this->_updateCall) {
-            if (count($this->_data) != count($this->_calledElements) || $this->_newElementAdded) {
-                $oldData = $this->_data;
-                $this->_data = [];
-                foreach ($this->_calledElements as $key => $element) {
-                    $this->_data[$element] = $oldData[$element];
-                }
-                $this->saveData();
-            }
-        }
+        $this->saveData();
     }
 }
