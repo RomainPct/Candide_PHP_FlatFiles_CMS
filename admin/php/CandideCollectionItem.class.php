@@ -39,19 +39,23 @@ class CandideCollectionItem extends CandideBasic {
 
     protected function getElement($title,$prefix,$size = [],$wysiwyg = false) {
         $name = $prefix."_".$title;
-        if (!in_array($name,$this->_structure)) {
-            $this->_structure[$name] = ["type" => $prefix];
-            if ($prefix == "image") {
-                $this->_structure[$name]["width"] = $size[0];
-                $this->_structure[$name]["height"] = $size[1];
-            } else if ($prefix == "text") {
-                $this->_structure[$name]["wysiwyg"] = $wysiwyg;
+        // Gérer l'update
+        if ($this->_updateCall) {
+            if (!in_array($name,$this->_structure)) {
+                $this->_structure[$name] = ["type" => $prefix];
+                if ($prefix == "image") {
+                    $this->_structure[$name]["width"] = $size[0];
+                    $this->_structure[$name]["height"] = $size[1];
+                } else if ($prefix == "text") {
+                    $this->_structure[$name]["wysiwyg"] = $wysiwyg;
+                }
             }
         }
+        // Gérer l'affichage
         if (array_key_exists($name,$this->_data) && array_key_exists("data",$this->_data[$name])) {
             echo $this->formatText($this->_data[$name]["data"]);
         } else {
-            echo "";
+            echo "update candide on the admin platform";
         }
     }
 

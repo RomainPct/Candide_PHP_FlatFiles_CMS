@@ -16,26 +16,30 @@ class CandidePage extends CandideBasic {
 
     protected function getElement($title, $type, $size = [], $wysiwyg = false) {
         $name = $type."_".$title;
-        if (!in_array($name,$this->_calledElements)) {
-            $this->_calledElements[] = $name;
-        }
-        $this->_data[$name]["type"] = $type;
-        if (!array_key_exists($name,$this->_data) || !array_key_exists("data",$this->_data[$name])) {
-            if ($type == "image") {
-                $this->_data[$name]["data"] = "default.jpg";
-            } else {
-                $this->_data[$name]["data"] = "default_text";
+        // Gérer l'update
+        if ($this->_updateCall) {
+            if (!in_array($name,$this->_calledElements)) {
+                $this->_calledElements[] = $name;
             }
-            $this->_newElementAdded = true;
+            $this->_data[$name]["type"] = $type;
+            if (!array_key_exists($name,$this->_data) || !array_key_exists("data",$this->_data[$name])) {
+                $this->_data[$name]["data"] = "undefined";
+                $this->_newElementAdded = true;
+            }
+            if ($type == "image") {
+                $this->_data[$name]["width"] = $size[0];
+                $this->_data[$name]["height"] = $size[1];
+                $this->_newElementAdded = true;
+            } else if ($type=="text") {
+                $this->_data[$name]["wysiwyg"] = $wysiwyg;
+            }   
         }
-        if ($type == "image") {
-            $this->_data[$name]["width"] = $size[0];
-            $this->_data[$name]["height"] = $size[1];
-            $this->_newElementAdded = true;
-        } else if ($type=="text") {
-            $this->_data[$name]["wysiwyg"] = $wysiwyg;
+        // Gérer l'affichage
+        if (array_key_exists($name,$this->_data) && array_key_exists("data",$this->_data[$name])) {
+            echo $this->formatText($this->_data[$name]["data"]);
+        } else {
+            echo "update candide on the admin platform";
         }
-        echo $this->formatText($this->_data[$name]["data"]);
     }
 
     public function end() {
