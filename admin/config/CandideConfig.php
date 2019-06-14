@@ -7,3 +7,7 @@ const API_KEY = "xxxxxx";
 const ADMINISTRATORS = [
     ["admin","4194D1706ED1F408D5E02D672777019F4D5385C766A8C6CA8ACBA3167D36A7B9"] // administrator
 ];
+const CANDIDE_FILES_FOLDERS = [
+    "/",
+    "/pages/"
+]; // Relative url from root directory
