@@ -67,10 +67,22 @@ function setForm() {
     for (let i = 0; i < filesInput.length ; i++) {
         filesInput[i].addEventListener('change',function () {
             let img = document.querySelector('#image_'+this.getAttribute('name'))
-            img.file = this.files[0]
-            const reader = new FileReader();
-            reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
-            reader.readAsDataURL(this.files[0]);
+            let width = img.parentElement.offsetWidth
+            let height = img.parentElement.offsetHeight
+            img.onload = function(){
+                if ( height/width > this.naturalHeight/this.naturalWidth ) {
+                    img.classList.add('fullHeight')
+                    img.classList.remove('fullWidth')
+                } else {
+                    img.classList.remove('fullHeight')
+                    img.classList.add('fullWidth')
+                }
+            }
+            let fr = new FileReader
+            fr.onload = (e) => {
+                img.src = e.target.result
+            }
+            fr.readAsDataURL(this.files[0])
             submitContainer.classList.add('clickable')
         })
     }

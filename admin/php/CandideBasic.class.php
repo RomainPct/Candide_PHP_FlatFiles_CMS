@@ -42,11 +42,7 @@ class CandideBasic extends Basic {
             $img = imagecreatefrompng($tmp);
         }
         $newImg = imagecreatetruecolor($width , $height) or die ("Erreur");
-        if (
-            ($imgSize[0] < $imgSize[1] && $height/$width > $imgSize[1]/$imgSize[0])
-            ||
-            ($imgSize[0] > $imgSize[1] && $width/$height < $imgSize[0]/$imgSize[1])
-        ) {
+        if ( $height/$width > $imgSize[1]/$imgSize[0] ) {
             $captureHeight = $imgSize[1];
             $captureWidth = $imgSize[1] * ($width/$height);
             $offsetX = ($imgSize[0] - $captureWidth) / 2;

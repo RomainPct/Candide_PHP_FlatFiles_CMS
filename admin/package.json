@@ -9,15 +9,15 @@
   "author": "Romain Penchenat",
   "license": "ISC",
   "devDependencies": {
-    "gulp": "^4.0.0",
+    "gulp": "^4.0.2",
     "gulp-autoprefixer": "latest",
     "gulp-concat": "latest",
     "gulp-csso": "latest",
     "gulp-jshint": "latest",
     "gulp-load-plugins": "latest",
+    "gulp-minify": "latest",
     "gulp-rename": "latest",
     "gulp-sass": "latest",
-    "jshint": "latest",
-    "gulp-minify": "latest"
+    "jshint": "latest"
   }
 }

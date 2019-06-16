@@ -67,13 +67,24 @@ nav {
     position: absolute;
     left: 0;
     bottom: 30px; }
-  .inputContainer img {
+  .inputContainer .image_input_preview {
     max-width: calc(100% - 30px);
     margin-left: 30px;
     border-radius: 5px;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.16);
     min-width: 300px;
-    min-height: 200px; }
+    min-height: 200px;
+    overflow: hidden;
+    position: relative; }
+    .inputContainer .image_input_preview img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); }
+      .inputContainer .image_input_preview img.fullHeight {
+        height: 100%; }
+      .inputContainer .image_input_preview img.fullWidth {
+        width: 100%; }
   .inputContainer input[type="file"] {
     display: none; }
   .inputContainer textarea, .inputContainer input[type='text'], .inputContainer input[type='password'], .inputContainer trix-editor {

@@ -13,13 +13,27 @@
     left: 0;
     bottom: 30px;
   }
-  img {
+  .image_input_preview {
     max-width: calc(100% - 30px);
     margin-left: 30px;
     border-radius: 5px;
     box-shadow: $shadow-medium;
     min-width: 300px;
     min-height: 200px;
+    overflow: hidden;
+    position: relative;
+    img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      &.fullHeight {
+        height: 100%;
+      }
+      &.fullWidth {
+        width: 100%;
+      }
+    }
   }
   input[type="file"] {
     display: none;
