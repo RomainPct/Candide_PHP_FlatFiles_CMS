@@ -72,8 +72,6 @@ nav {
     margin-left: 30px;
     border-radius: 5px;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.16);
-    min-width: 300px;
-    min-height: 200px;
     overflow: hidden;
     position: relative; }
     .inputContainer .image_input_preview img {
