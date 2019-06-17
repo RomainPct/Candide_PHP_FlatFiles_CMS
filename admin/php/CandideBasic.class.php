@@ -36,12 +36,19 @@ class CandideBasic extends Basic {
     }
 
     protected function resize($tmp,$width,$height) {
+        $type = "jpg";
         $imgSize = getimagesize($tmp);
         $img = imagecreatefromjpeg($tmp);
         if ($img == false){
+            $type = "png";
             $img = imagecreatefrompng($tmp);
+            imagealphablending($img,true);
+            imagesavealpha($img,true);
         }
         $newImg = imagecreatetruecolor($width , $height) or die ("Erreur");
+        imagealphablending($newImg,true);
+        $transparent = imagecolorallocatealpha($newImg, 0, 0, 0, 127);
+        imagefill($newImg, 0, 0, $transparent);
         if ( $height/$width > $imgSize[1]/$imgSize[0] ) {
             $captureHeight = $imgSize[1];
             $captureWidth = $imgSize[1] * ($width/$height);
@@ -55,7 +62,9 @@ class CandideBasic extends Basic {
         }
         echo $width." - ".$height." || ".$captureWidth." - ".$captureHeight. " -- ".$offsetX." - ".$offsetY;
         imagecopyresampled($newImg, $img, 0,0, $offsetX,$offsetY, $width, $height, $captureWidth,$captureHeight);
-        return $newImg;
+        imagealphablending($img, false);
+        imagesavealpha($newImg,true);
+        return [$newImg,$type];
     }
 
     /**
