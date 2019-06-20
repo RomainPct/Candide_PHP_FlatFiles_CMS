@@ -59,10 +59,10 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
         // Gestion information de l'item
         $this->_data = array_merge($this->_structure,$this->_data);
         $this->setTexts($texts);
-        $this->setImages($files);
+        $newFiles = $this->setImages($files);
         $this->saveData();
         // Information de la collection
-        $this->_collectionAdministrator->setData($texts,$files,$this->_id);
+        $this->_collectionAdministrator->setData($texts,$newFiles,$this->_id);
         foreach (json_decode($texts["trixFilesToDelete"]) as $file){
             $this->deleteFiles("../".$file);
         }
@@ -78,7 +78,8 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
         }
     }
 
-    private function setImages(Array $files){
+    private function setImages(Array $files) : Array {
+        $newFiles = [];
         foreach ($files as $key => $file) {
             if ($file["size"] != 0) {
                 if (!file_exists(self::FILES_DIRECTORY.$this->getPage()."/".$this->_id)) {
@@ -86,6 +87,7 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
                 }
                 $fileName = preg_replace("[^a-zA-Z0-9]", "", $file["name"]);
                 $name = $key."_".time().$fileName;
+                $newFiles[$key] = $name;
                 // Resize de l'image
                 $img = $this->resize($file["tmp_name"],$this->_fullStructure[$key]['width'],$this->_fullStructure[$key]['height']);
                 // Enregistrer l'image dans un dossier
@@ -98,6 +100,7 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
                 $this->_data[$key]['data'] = "/CandideData/files/".$this->getPage()."/".$this->_id."/".$name;
             }
         }
+        return $newFiles;
     }
 
 }
