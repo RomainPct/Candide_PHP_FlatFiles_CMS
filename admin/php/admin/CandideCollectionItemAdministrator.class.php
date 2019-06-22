@@ -81,23 +81,11 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
     private function setImages(Array $files) : Array {
         $newFiles = [];
         foreach ($files as $key => $file) {
-            if ($file["size"] != 0) {
-                if (!file_exists(self::FILES_DIRECTORY.$this->getPage()."/".$this->_id)) {
-                    mkdir(self::FILES_DIRECTORY.$this->getPage()."/".$this->_id,0777,true);
-                }
-                $fileName = preg_replace("/[^a-zA-Z0-^._]/", "_", $file["name"]);
-                $name = strtolower($key."_".time().$fileName);
-                $newFiles[$key] = $name;
-                // Resize de l'image
-                $img = $this->resize($file["tmp_name"],$this->_fullStructure[$key]['width'],$this->_fullStructure[$key]['height']);
-                // Enregistrer l'image dans un dossier
-                if ($img[1] == "png") {
-                    imagepng($img[0], self::FILES_DIRECTORY.$this->getPage()."/".$this->_id."/".$name);
-                } else {
-                    imagejpeg($img[0], self::FILES_DIRECTORY.$this->getPage()."/".$this->_id."/".$name, 100);
-                }
-                // Editer l'url de l'image
-                $this->_data[$key]['data'] = "/CandideData/files/".$this->getPage()."/".$this->_id."/".$name;
+            if ($file["size"] != 0) {                
+                $dir = $this->getPage()."/".$this->_id;
+                $url = $this->savePicture($key,$file,$dir,$this->_data[$key],$this->_fullStructure[$key]);
+                $newFiles[$key] = $url;
+                $this->_data[$key]['data'] = $url;
             }
         }
         return $newFiles;

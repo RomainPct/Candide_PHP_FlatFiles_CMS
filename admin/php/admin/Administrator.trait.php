@@ -21,8 +21,6 @@ trait Administrator {
         return $html;
     }
 
-
-
     protected function deleteFiles($target) {
         if(is_dir($target)){
             $files = glob( $target . '*', GLOB_MARK ); //GLOB_MARK adds a slash to directories returned
@@ -34,4 +32,31 @@ trait Administrator {
             unlink( $target );
         }
     }
+
+    protected function cleanFileName($key,$name):String {
+        $fileName = preg_replace("/[^a-zA-Z0-^._]/", "_", $name);
+        return strtolower($key."_".time().$fileName);
+    }
+
+    protected function savePicture($key,$file,$directory,$entry,$struct = []):String {
+        if (!file_exists(self::FILES_DIRECTORY.$directory)) {
+            mkdir(self::FILES_DIRECTORY.$directory,0777,true);
+        }
+        $fileName = $this->cleanFileName($key,$file["name"]);
+        // Resize de l'image
+        if (key_exists("width",$entry)){
+            $img = $this->resize($file["tmp_name"],$entry["width"],$entry["height"]);
+        } else {
+            $img = $this->resize($file["tmp_name"],$struct["width"],$struct["height"]);
+        }
+        // Enregistrer l'image dans un dossier
+        if ($img[1] == "png") {
+            imagepng($img[0], self::FILES_DIRECTORY.$directory."/".$fileName);
+        } else {
+            imagejpeg($img[0], self::FILES_DIRECTORY.$directory."/".$fileName, 100);
+        }
+        $this->deleteFiles("../..".$entry["data"]);
+        return "/CandideData/files/".$directory."/".$fileName;
+    }
+
 }

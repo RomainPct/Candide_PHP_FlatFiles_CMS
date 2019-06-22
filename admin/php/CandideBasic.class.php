@@ -60,7 +60,6 @@ class CandideBasic extends Basic {
             $offsetX = 0;
             $offsetY = ($imgSize[1] - $captureHeight) / 2;
         }
-        echo $width." - ".$height." || ".$captureWidth." - ".$captureHeight. " -- ".$offsetX." - ".$offsetY;
         imagecopyresampled($newImg, $img, 0,0, $offsetX,$offsetY, $width, $height, $captureWidth,$captureHeight);
         imagealphablending($img, false);
         imagesavealpha($newImg,true);
