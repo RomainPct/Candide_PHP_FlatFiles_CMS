@@ -48,7 +48,7 @@ class CandideCollection extends CandideBasic {
         }
         // Gérer l'affichage
         if (array_key_exists($index,$this->_data) && array_key_exists($name,$this->_data[$index])) {
-            echo $this->_data[$index][$name]["data"];
+            echo $this->formatText($this->_data[$index][$name]["data"]);
         } else {
             echo "update candide on the admin platform";
         }

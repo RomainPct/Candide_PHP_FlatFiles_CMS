@@ -85,8 +85,8 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
                 if (!file_exists(self::FILES_DIRECTORY.$this->getPage()."/".$this->_id)) {
                     mkdir(self::FILES_DIRECTORY.$this->getPage()."/".$this->_id,0777,true);
                 }
-                $fileName = preg_replace("[^a-zA-Z0-9]", "", $file["name"]);
-                $name = $key."_".time().$fileName;
+                $fileName = preg_replace("/[^a-zA-Z0-^._]/", "_", $file["name"]);
+                $name = strtolower($key."_".time().$fileName);
                 $newFiles[$key] = $name;
                 // Resize de l'image
                 $img = $this->resize($file["tmp_name"],$this->_fullStructure[$key]['width'],$this->_fullStructure[$key]['height']);
