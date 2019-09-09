@@ -1,27 +1,16 @@
 <?php
 include_once '../Candide.php';
+
 $exceptions = ["../Candide.php"];
-// Parcourir tout les fichiers *.php dans ../ direct
+
+// Get all files in each CANDIDE_FILES_FOLDERS
 $allFiles = array_map(function($f){
     return glob("..".$f."*.php");
 },CANDIDE_FILES_FOLDERS);
+// Merge all of them into the $files array except file exceptions
 $files = [];
 foreach($allFiles as $filesInDir){
     $files = array_merge($files,array_diff($filesInDir,$exceptions));
-}
-
-// Update a specific page
-function updatePageForVariable($candide,$indexAdmin){
-    // 
-    if (is_a($candide, "CandideBasic")) {
-        $candide->end();
-    }
-    if (is_a($candide, "CandidePage")) {
-        $indexAdmin->newPage($candide->getPage());
-    } elseif (is_a($candide, "CandideCollection")) {
-        $indexAdmin->newCollection($candide->getPage());
-    }
-    unset($candide);
 }
 
 // Create Candide Indexation Manager
@@ -52,4 +41,4 @@ foreach ($files as $file) {
     unset($c);
     usleep(10);
 }
-$indexAdmin->end();
+$indexAdmin->saveIndex();

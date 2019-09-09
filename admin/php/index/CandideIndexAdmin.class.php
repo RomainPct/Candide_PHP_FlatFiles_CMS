@@ -33,7 +33,7 @@ class CandideIndexAdmin extends CandideIndexBasic {
         }
     }
 
-    public function end(){
+    public function saveIndex(){
         $this->savePages();
         $this->saveCollections();
     }
