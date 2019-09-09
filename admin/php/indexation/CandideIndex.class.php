@@ -2,11 +2,6 @@
 
 class CandideIndex extends CandideIndexBasic {
 
-    public function __construct() {
-        $this->_pages = (file_exists(self::PAGES_INDEX_URL)) ? json_decode(file_get_contents(self::PAGES_INDEX_URL)) : [];
-        $this->_collections = (file_exists(self::COLLECTION_INDEX_URL)) ? json_decode(file_get_contents(self::COLLECTION_INDEX_URL)) : [];
-    }
-
     public function getPageName($index):String {
         return $this->_pages[$index];
     }

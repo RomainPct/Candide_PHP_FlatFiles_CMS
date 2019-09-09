@@ -3,20 +3,20 @@
 
 class CandideIndexAdmin extends CandideIndexBasic {
 
-    public function __construct() {
-        $this->_pages = [];
-        $this->_collections = [];
-    }
+    use Administrator;
+
+    protected $_newPages;
+    protected $_newCollections;
 
     public function newPage($title) {
-        if (!in_array($title,$this->_pages)) {
-            $this->_pages[] = $title;
+        if (!in_array($title,$this->_newPages)) {
+            $this->_newPages[] = $title;
         }
     }
 
     public function newCollection($title) {
-        if (!in_array($title,$this->_collections)) {
-            $this->_collections[] = $title;
+        if (!in_array($title,$this->_newCollections)) {
+            $this->_newCollections[] = $title;
         }
     }
 
@@ -36,13 +36,25 @@ class CandideIndexAdmin extends CandideIndexBasic {
     public function saveIndex(){
         $this->savePages();
         $this->saveCollections();
+        $this->removeOldData();
     }
 
     private function savePages(){
-        file_put_contents(self::PAGES_INDEX_URL,json_encode($this->_pages));
+        file_put_contents(self::PAGES_INDEX_URL,json_encode($this->_newPages));
     }
+
     private function saveCollections(){
-        file_put_contents(self::COLLECTION_INDEX_URL,json_encode($this->_collections));
+        file_put_contents(self::COLLECTION_INDEX_URL,json_encode($this->_newCollections));
+    }
+
+    private function removeOldData(){
+        $oldFolders = array_merge($this->_pages,$this->_collections);
+        $newFolders = array_merge($this->_newPages,$this->_newCollections);
+        $folders = array_diff($oldFolders,$newFolders);
+        foreach($folders as $folder) {
+            $this->deleteFiles(self::DATA_DIRECTORY.$folder);
+            $this->deleteFiles(self::FILES_DIRECTORY.$folder);
+        }
     }
 
 }
