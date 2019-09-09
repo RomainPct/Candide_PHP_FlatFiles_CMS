@@ -2,7 +2,7 @@
 
 class CandidePage extends CandideBasic {
 
-    private $_calledElements = [];
+    private $_existingElements = [];
 
     public function text($title,$wysiwyg = false){
         $this->getElement($title,"text",[],$wysiwyg);
@@ -16,9 +16,19 @@ class CandidePage extends CandideBasic {
     protected function getElement($title, $type, $size = [], $wysiwyg = false) {
         $name = $type."_".$title;
         // Gérer l'update
+        $this->manageUpdate($name,$type,$size,$wysiwyg);
+        // Gérer l'affichage
+        if (array_key_exists($name,$this->_data) && array_key_exists("data",$this->_data[$name])) {
+            echo $this->formatText($this->_data[$name]["data"]);
+        } else {
+            echo "Update candide on the admin platform";
+        }
+    }
+
+    protected function manageUpdate($name,$type,$size,$wysiwyg){
         if ($this->_updateCall) {
-            if (!in_array($name,$this->_calledElements)) {
-                $this->_calledElements[] = $name;
+            if (!in_array($name,$this->_existingElements)) {
+                $this->_existingElements[] = $name;
             }
             $this->_data[$name]["type"] = $type;
             if (!array_key_exists($name,$this->_data) || !array_key_exists("data",$this->_data[$name])) {
@@ -31,15 +41,12 @@ class CandidePage extends CandideBasic {
                 $this->_data[$name]["wysiwyg"] = $wysiwyg;
             }   
         }
-        // Gérer l'affichage
-        if (array_key_exists($name,$this->_data) && array_key_exists("data",$this->_data[$name])) {
-            echo $this->formatText($this->_data[$name]["data"]);
-        } else {
-            echo "update candide on the admin platform";
-        }
     }
 
     public function save() {
+        $this->_data = array_filter($this->_data, function($key) {
+            return in_array($key,$this->_existingElements);
+        },ARRAY_FILTER_USE_KEY);
         $this->saveData();
     }
 }
