@@ -56,7 +56,7 @@ trait Administrator {
             imagejpeg($img[0], self::FILES_DIRECTORY.$directory."/".$fileName, 100);
         }
         if (key_exists("data",$entry)) {
-            $this->deleteFiles("../..".$entry["data"]);
+            $this->deleteFiles(ROOT_DIR.$entry["data"]);
         }
         return "/CandideData/files/".$directory."/".$fileName;
     }
