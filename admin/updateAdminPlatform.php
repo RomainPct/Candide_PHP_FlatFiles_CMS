@@ -9,7 +9,6 @@ $files = [];
 foreach($allFiles as $filesInDir){
     $files = array_merge($files,array_diff($filesInDir,$exceptions));
 }
-var_dump($files);
 
 // Fonction d'update pour chaque c
 function updatePageForVariable($candide,$indexAdmin){
@@ -26,30 +25,32 @@ function updatePageForVariable($candide,$indexAdmin){
     }
 }
 
-// Effectuer les requetes pour update le dossier Data
+// Create Candide Indexation Manager
 $indexAdmin = new CandideIndexAdmin();
+// Set variable to allow structure and data to be update
 $_GET["updateAdminPlatform"] = true;
+// Browse each file
 foreach ($files as $file) {
-    echo $file." ANALYSED";
+    echo "\n\n\n___________\n Begin file analyse of : ".$file."\n";
     require $file;
+
+    // If Candide is used in the page
     if (isset($c)) {
-        updatePageForVariable($c,$indexAdmin);
+
+        // If there is a single instance of Candide
+        if (is_object($c)) {
+            updatePageForVariable($c,$indexAdmin);
+        }
+        // If there is many instances of Candide
+        else if (is_array($c)) {
+            foreach($c as $candideInstance){
+                updatePageForVariable($candideInstance,$indexAdmin);
+            }
+        }
+
     }
-    if (isset($c1)) {
-        updatePageForVariable($c1,$indexAdmin);
-    }
-    if (isset($c2)) {
-        updatePageForVariable($c2,$indexAdmin);
-    }
-    if (isset($c3)) {
-        updatePageForVariable($c3,$indexAdmin);
-    }
-    if (isset($c4)) {
-        updatePageForVariable($c4,$indexAdmin);
-    }
-    if (isset($c5)) {
-        updatePageForVariable($c5,$indexAdmin);
-    }
+    echo "\n\n".$file." ANALYSED\n------------";
+    unset($c);
     usleep(10);
 }
 $indexAdmin->end();
