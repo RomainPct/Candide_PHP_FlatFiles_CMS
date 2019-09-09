@@ -20,6 +20,19 @@ class CandideIndexAdmin extends CandideIndexBasic {
         }
     }
 
+    function updateCandideInstance($candideInstance){
+        // Call the end function to save data changes
+        if (is_a($candideInstance, "CandideBasic")) {
+            $candideInstance->save();
+        }
+        // Manage pages indexation
+        if (is_a($candideInstance, "CandidePage")) {
+            $this->newPage($candideInstance->getPage());
+        } elseif (is_a($candideInstance, "CandideCollection")) {
+            $this->newCollection($candideInstance->getPage());
+        }
+    }
+
     public function end(){
         $this->savePages();
         $this->saveCollections();

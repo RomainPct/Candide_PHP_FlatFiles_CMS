@@ -39,7 +39,7 @@ class CandidePage extends CandideBasic {
         }
     }
 
-    public function end() {
+    public function save() {
         $this->saveData();
     }
 }

@@ -10,19 +10,18 @@ foreach($allFiles as $filesInDir){
     $files = array_merge($files,array_diff($filesInDir,$exceptions));
 }
 
-// Fonction d'update pour chaque c
+// Update a specific page
 function updatePageForVariable($candide,$indexAdmin){
-    if (isset($candide)) {
-        if (is_a($candide, "CandideBasic")) {
-            $candide->end();
-        }
-        if (is_a($candide, "CandidePage")) {
-            $indexAdmin->newPage($candide->getPage());
-        } elseif (is_a($candide, "CandideCollection")) {
-            $indexAdmin->newCollection($candide->getPage());
-        }
-        unset($candide);
+    // 
+    if (is_a($candide, "CandideBasic")) {
+        $candide->end();
     }
+    if (is_a($candide, "CandidePage")) {
+        $indexAdmin->newPage($candide->getPage());
+    } elseif (is_a($candide, "CandideCollection")) {
+        $indexAdmin->newCollection($candide->getPage());
+    }
+    unset($candide);
 }
 
 // Create Candide Indexation Manager
@@ -39,12 +38,12 @@ foreach ($files as $file) {
 
         // If there is a single instance of Candide
         if (is_object($c)) {
-            updatePageForVariable($c,$indexAdmin);
+            $indexAdmin->updateCandideInstance($c);
         }
         // If there is many instances of Candide
         else if (is_array($c)) {
             foreach($c as $candideInstance){
-                updatePageForVariable($candideInstance,$indexAdmin);
+                $indexAdmin->updateCandideInstance($candideInstance);
             }
         }
 

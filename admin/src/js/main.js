@@ -5,7 +5,6 @@ let trixFilesToDelete = [], trixEditorsChanges = 0
 
 function loadContent(url, callback) {
     trixEditorsChanges = 0
-    console.log(url)
     fetch(url)
         .then(function (response) {
             return response.text()

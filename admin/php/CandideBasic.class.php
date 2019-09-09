@@ -73,6 +73,6 @@ class CandideBasic extends Basic {
         return $this->_page;
     }
 
-    public function end(){}
+    public function save(){}
 
 }
