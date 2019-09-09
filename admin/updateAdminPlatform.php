@@ -1,5 +1,6 @@
 <?php
 include_once '../Candide.php';
+include_once 'CandideAdmin.php';
 
 $exceptions = ["../Candide.php"];
 

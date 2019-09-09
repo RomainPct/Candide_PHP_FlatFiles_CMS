@@ -13,7 +13,7 @@ foreach ($c->avalaibleItemIds() as $itemId){
     <div class="collectionItemBox">
         <h2><?php $c->getElementTitle($itemId) ?></h2>
         <a class="button editButton" href="#<?php echo $itemId ?>"></a>
-        <a class="button deleteButton" href="actions/deleteCollectionItem.php?candide_page_name=<?php echo $_GET["page"] ?>&candide_index=<?php echo $itemId ?>"></a>
+        <a class="button deleteButton" href="php/actions/deleteCollectionItem.php?candide_page_name=<?php echo $_GET["page"] ?>&candide_index=<?php echo $itemId ?>"></a>
     </div>
     <?php
 }

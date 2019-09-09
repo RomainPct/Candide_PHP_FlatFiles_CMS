@@ -15,8 +15,12 @@ if ( key_exists(PROJECT_NAME."_logedin",$_SESSION)) {
     header("Location: login.php");
 }
 
-include_once 'php/admin/Administrator.trait.php';
+include_once 'php/administration/Administrator.trait.php';
 
-include_once 'php/admin/CandidePageAdministrator.class.php';
-include_once 'php/admin/CandideCollectionAdministrator.class.php';
-include_once 'php/admin/CandideCollectionItemAdministrator.class.php';
+include_once 'php/administration/CandidePageAdministrator.class.php';
+include_once 'php/administration/CandideCollectionAdministrator.class.php';
+include_once 'php/administration/CandideCollectionItemAdministrator.class.php';
+
+include_once 'php/indexation/CandideIndexBasic.class.php';
+include_once 'php/indexation/CandideIndex.class.php';
+include_once 'php/indexation/CandideIndexAdmin.class.php';

@@ -93,7 +93,7 @@ function uploadFile(file, successCallback) {
     let formData = new FormData()
     formData.append("file", file)
     formData.append("destination","files/"+pageName)
-    fetch("actions/savePictureFromTrix.php", {
+    fetch("php/actions/savePictureFromTrix.php", {
         method: 'POST',
         body: formData
     }).then(function (response) {
