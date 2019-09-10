@@ -51,16 +51,26 @@ function setHome(){
     })
 }
 
-let textareas, filesInput, submitContainer
+let textareas, filesInput, numberInputs, submitContainer
 function setForm() {
     textareas = document.querySelectorAll('textarea')
     filesInput = document.querySelectorAll('input[type="file"]')
+    numberInputs = document.querySelectorAll('input[name^=number_]')
     submitContainer = document.querySelector('.submitContainer')
     for (let i = 0; i < textareas.length; i++) {
         textareas[i].style.height = (textareas[i].scrollHeight) + 'px'
         textareas[i].addEventListener('input',function () {
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight) + 'px';
+            submitContainer.classList.add('clickable')
+        })
+    }
+    for (let i = 0; i < numberInputs.length; i++){
+        numberInputs[i].addEventListener('input',function(){
+            if (isNaN(this.value)) {
+                this.value = this.value.replace(",",".")
+                this.value = this.value.replace(/[^\d\.]+/g,"")
+            }
             submitContainer.classList.add('clickable')
         })
     }
