@@ -10,5 +10,6 @@ include_once 'admin/php/base/Basic.class.php';
 
 include_once 'admin/php/base/CandideBasic.class.php';
 include_once 'admin/php/base/CandidePage.class.php';
+include_once 'admin/php/base/CandideCollectionBasic.class.php';
 include_once 'admin/php/base/CandideCollection.class.php';
 include_once 'admin/php/base/CandideCollectionItem.class.php';

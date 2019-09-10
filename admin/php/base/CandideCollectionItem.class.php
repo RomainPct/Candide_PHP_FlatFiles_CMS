@@ -1,7 +1,7 @@
 <?php
 
 
-class CandideCollectionItem extends CandideBasic {
+class CandideCollectionItem extends CandideCollectionBasic {
 
     protected $_structure = [];
     protected $_id;
@@ -30,34 +30,22 @@ class CandideCollectionItem extends CandideBasic {
     }
 
     public function text($title,$wysiwyg = false){
-        $this->getElement($title,"text",[],$wysiwyg);
+        $this->getElement($title,"text",["wysiwyg"=>$wysiwyg]);
     }
 
     public function image($title,$size){
-        $this->getElement($title,"image",$size);
+        $this->getElement($title,"image",["size"=>$size]);
     }
 
-    protected function getElement($title,$prefix,$size = [],$wysiwyg = false) {
-        $name = $prefix."_".$title;
+    protected function getElement($title,$type,$options) {
+        $name = $type."_".$title;
         // Gérer l'update
-        $this->manageUpdate($name,$prefix,$size,$wysiwyg);
+        $this->manageStructureUpdate($name,$type,$options);
         // Gérer l'affichage
         if (array_key_exists($name,$this->_data) && array_key_exists("data",$this->_data[$name])) {
             echo $this->formatText($this->_data[$name]["data"]);
         } else {
             echo "update candide on the admin platform";
-        }
-    }
-
-    protected function manageUpdate($name,$prefix,$size,$wysiwyg){
-        if ($this->_updateCall) {
-            $this->_structure[$name] = ["type" => $prefix];
-            if ($prefix == "image") {
-                $this->_structure[$name]["width"] = $size[0];
-                $this->_structure[$name]["height"] = $size[1];
-            } else if ($prefix == "text") {
-                $this->_structure[$name]["wysiwyg"] = $wysiwyg;
-            }
         }
     }
 

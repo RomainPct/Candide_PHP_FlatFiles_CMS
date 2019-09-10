@@ -5,18 +5,21 @@ class CandidePage extends CandideBasic {
     private $_existingElements = [];
 
     public function text($title,$wysiwyg = false){
-        $this->getElement($title,"text",[],$wysiwyg);
+        $this->getElement($title,"text",["wysiwyg" => $wysiwyg]);
     }
 
     public function image($title, $size){
-        $this->getElement($title,"image",$size);
-
+        $this->getElement($title,"image",["size" => $size]);
     }
 
-    protected function getElement($title, $type, $size = [], $wysiwyg = false) {
+    public function number($title,$format = NumberFormatter::DECIMAL) {
+        $this->getElement($title,"number",["format" => $format]);
+    }
+
+    protected function getElement($title, $type, $options) {
         $name = $type."_".$title;
         // Gérer l'update
-        $this->manageUpdate($name,$type,$size,$wysiwyg);
+        $this->manageUpdate($name,$type,$options);
         // Gérer l'affichage
         if (array_key_exists($name,$this->_data) && array_key_exists("data",$this->_data[$name])) {
             echo $this->formatText($this->_data[$name]["data"]);
@@ -25,21 +28,41 @@ class CandidePage extends CandideBasic {
         }
     }
 
-    protected function manageUpdate($name,$type,$size,$wysiwyg){
+    protected function manageUpdate($name,$type,$options){
         if ($this->_updateCall) {
             if (!in_array($name,$this->_existingElements)) {
                 $this->_existingElements[] = $name;
             }
             $this->_data[$name]["type"] = $type;
-            if (!array_key_exists($name,$this->_data) || !array_key_exists("data",$this->_data[$name])) {
-                $this->_data[$name]["data"] = "undefined";
+            $this->setDefaultValueIfNeeded($name,$type);
+            switch ($type) {
+                case "image":
+                    $this->_data[$name]["width"] = $options["size"][0];
+                    $this->_data[$name]["height"] = $options["size"][1];
+                    break;
+                case "text":
+                    $this->_data[$name]["wysiwyg"] = $options["wysiwyg"];
+                    break;
+                case "number":
+                    $this->_data[$name]["format"] = $options["format"];
+                    break;
+            } 
+        }
+    }
+
+    protected function setDefaultValueIfNeeded($name,$type){
+        if (!array_key_exists("data",$this->_data[$name])) {
+            switch ($type) {
+                case "text":
+                    $this->_data[$name]["data"] = "undefined";
+                    break;
+                case "image":
+                    $this->_data[$name]["data"] = "undefined.jpg";
+                    break;
+                case "number":
+                    $this->_data[$name]["data"] = "undefined";
+                    break;
             }
-            if ($type == "image") {
-                $this->_data[$name]["width"] = $size[0];
-                $this->_data[$name]["height"] = $size[1];
-            } else if ($type=="text") {
-                $this->_data[$name]["wysiwyg"] = $wysiwyg;
-            }   
         }
     }
 

@@ -17,6 +17,8 @@ trait Administrator {
                 $style = "style='width: ".$fieldInfos["width"]."px; height: ".$fieldInfos["height"]."px'";
                 $html = $html."<div ".$style." class='image_input_preview'><img id='image_".$name."' class='fullHeight' src='".$data."'/></div><label for='".$name."'>Modifier</label><input id='".$name."' type='file' name='".$name."'/>";
                 break;
+            case "number":
+                $html = $html."<input name='".$name."' type='text' value='".$data."'>";
         }
         $html = $html."</div>";
         return $html;

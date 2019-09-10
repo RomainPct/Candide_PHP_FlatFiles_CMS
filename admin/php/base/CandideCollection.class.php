@@ -1,6 +1,6 @@
 <?php
 
-class CandideCollection extends CandideBasic {
+class CandideCollection extends CandideCollectionBasic {
 
     protected $_structure = [];
 
@@ -27,34 +27,26 @@ class CandideCollection extends CandideBasic {
     }
 
     public function text($title,$index,$wysiwyg = false){
-        $this->getElement($title,$index,"text",[],$wysiwyg);
+        $this->getElement($title,$index,"text",["wysiwyg"=>$wysiwyg]);
     }
 
     public function image($title,$index,$size){
-        $this->getElement($title,$index,"image",$size);
+        $this->getElement($title,$index,"image",["size"=>$size]);
     }
 
-    protected function getElement($title,$index,$prefix,$size = [],$wysiwyg = false) {
-        $name = $prefix."_".$title;
+    public function number($title,$index,$format = NumberFormatter::DECIMAL){
+        $this->getElement($title,$index,"number",["format"=>$format]);
+    }
+
+    protected function getElement($title,$index,$type,$options) {
+        $name = $type."_".$title;
         // Gérer l'update
-        $this->manageUpdate($name,$prefix,$size,$wysiwyg);
+        $this->manageStructureUpdate($name,$type,$options);
         // Gérer l'affichage
-        if (array_key_exists($index,$this->_data) && array_key_exists($name,$this->_data[$index])) {
+        if (array_key_exists($index,$this->_data) && array_key_exists($name,$this->_data[$index]) && array_key_exists("data",$this->_data[$index][$name])) {
             echo $this->formatText($this->_data[$index][$name]["data"]);
         } else {
             echo "update candide on the admin platform";
-        }
-    }
-
-    protected function manageUpdate($name,$prefix,$size,$wysiwyg) {
-        if ($this->_updateCall) {
-            $this->_structure[$name] = ["type" => $prefix];
-            if ($prefix == "image") {
-                $this->_structure[$name]["width"] = $size[0];
-                $this->_structure[$name]["height"] = $size[1];
-            } else if ($prefix == "text"){
-                $this->_structure[$name]["wysiwyg"] = $wysiwyg;
-            }   
         }
     }
 
