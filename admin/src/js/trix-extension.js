@@ -49,7 +49,6 @@ function setAddImageButton(trix,toolBar) {
     button.setAttribute("tabindex", "-1");
 
     // Attachment of the button to the toolBar
-    console.log(toolBar)
     uploadButton = toolBar.appendChild(button);
 
     // When the button is clicked
@@ -83,7 +82,6 @@ function uploadFileAttachment(attachment) {
             url: "../"+respUrl,
             href: "../"+respUrl + "?content-disposition=attachment"
         }
-        console.log(attributes)
         attachment.setAttributes(attributes)
     }
 }

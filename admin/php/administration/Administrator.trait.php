@@ -1,6 +1,7 @@
 <?php
 
 trait Administrator {
+
     protected function getField($name,$type,$data,$fieldInfos) {
         $html = "<div class='inputContainer'><h2>".$this->formatTitle($name,true)."</h2>";
         switch ($type) {
