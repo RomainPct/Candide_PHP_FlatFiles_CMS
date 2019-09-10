@@ -37,6 +37,16 @@ class CandideCollection extends CandideBasic {
     protected function getElement($title,$index,$prefix,$size = [],$wysiwyg = false) {
         $name = $prefix."_".$title;
         // Gérer l'update
+        $this->manageUpdate($name,$prefix,$size,$wysiwyg);
+        // Gérer l'affichage
+        if (array_key_exists($index,$this->_data) && array_key_exists($name,$this->_data[$index])) {
+            echo $this->formatText($this->_data[$index][$name]["data"]);
+        } else {
+            echo "update candide on the admin platform";
+        }
+    }
+
+    protected function manageUpdate($name,$prefix,$size,$wysiwyg) {
         if ($this->_updateCall) {
             $this->_structure[$name] = ["type" => $prefix];
             if ($prefix == "image") {
@@ -45,12 +55,6 @@ class CandideCollection extends CandideBasic {
             } else if ($prefix == "text"){
                 $this->_structure[$name]["wysiwyg"] = $wysiwyg;
             }   
-        }
-        // Gérer l'affichage
-        if (array_key_exists($index,$this->_data) && array_key_exists($name,$this->_data[$index])) {
-            echo $this->formatText($this->_data[$index][$name]["data"]);
-        } else {
-            echo "update candide on the admin platform";
         }
     }
 
