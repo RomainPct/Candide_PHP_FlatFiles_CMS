@@ -3,7 +3,6 @@
 
 class CandideCollectionItem extends CandideCollectionBasic {
 
-    protected $_structure = [];
     protected $_id;
 
     protected function getPageUrl() {
@@ -45,17 +44,12 @@ class CandideCollectionItem extends CandideCollectionBasic {
         $name = $type."_".$title;
         // Gérer l'update
         $this->manageStructureUpdate($name,$type,$options);
+        $this->manageItemDataUpdate($this->_data,$name,$type,$options);
         // Gérer l'affichage
         if (array_key_exists($name,$this->_data) && array_key_exists("data",$this->_data[$name])) {
             echo $this->formatElement($this->_data[$name]);
         } else {
             echo "update candide on the admin platform";
-        }
-    }
-
-    public function save() {
-        if ($this->_updateCall) {
-            file_put_contents($this->getStructureUrl(),json_encode($this->_structure));
         }
     }
 

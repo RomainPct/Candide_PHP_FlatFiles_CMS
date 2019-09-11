@@ -2,8 +2,6 @@
 
 class CandideCollection extends CandideCollectionBasic {
 
-    protected $_structure = [];
-
     protected function getPageUrl() {
         if (!file_exists(self::DATA_DIRECTORY.$this->_page."/global")){
             mkdir(self::DATA_DIRECTORY.$this->_page."/global",0777,true);
@@ -42,6 +40,7 @@ class CandideCollection extends CandideCollectionBasic {
         $name = $type."_".$title;
         // Gérer l'update
         $this->manageStructureUpdate($name,$type,$options);
+        $this->manageDataUpdate($name,$type,$options);
         // Gérer l'affichage
         if (array_key_exists($index,$this->_data) && array_key_exists($name,$this->_data[$index]) && array_key_exists("data",$this->_data[$index][$name])) {
             echo $this->formatElement($this->_data[$index][$name]);
@@ -50,9 +49,11 @@ class CandideCollection extends CandideCollectionBasic {
         }
     }
 
-    public function save() {
-        if ($this->_updateCall && count($this->_structure) > 0) {
-            file_put_contents($this->getStructureUrl(),json_encode($this->_structure));
+    protected function manageDataUpdate($name,$type,$options){
+        if ($this->_updateCall) {
+            foreach($this->_data as &$item) {
+                $this->manageItemDataUpdate($item,$name,$type,$options);
+            }
         }
     }
 
