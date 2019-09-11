@@ -13,8 +13,18 @@ class Basic {
         return ucfirst(str_replace("_"," ",$title));
     }
 
-    protected function formatText(String $text):String {
-        return str_replace("\r\n","<br>",$text);
+    protected function formatElement(Array $element):String {
+        switch($element['type']) {
+            case "text":
+                return str_replace("\r\n","<br>",$element["data"]);
+                break;
+            case "number":
+                $fmt = new NumberFormatter(LOCALE, $element["format"]);
+                return $fmt->format($element['data']);
+                break;
+            default:
+                return $element["data"];
+        }
     }
 
 }

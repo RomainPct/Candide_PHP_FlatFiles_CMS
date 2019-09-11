@@ -23,14 +23,8 @@ class CandidePageAdministrator extends CandideBasic {
     private function setTexts(Array $texts) {
         foreach ($texts as $key => $text){
             if (key_exists($key,$this->_data)) {
-                switch($this->_data[$key]['type']) {
-                    case "text":
-                        $this->_data[$key]['data'] = $text;
-                        break;
-                    case "number":
-                        $fmt = new NumberFormatter(LOCALE, $this->_data[$key]["format"]);
-                        $this->_data[$key]['data'] = $fmt->format($text);
-                        break;
+                if ($this->_data[$key]['type'] == "text" || $this->_data[$key]['type'] == "number") {
+                    $this->_data[$key]['data'] = $text;
                 }
             }
         }

@@ -43,7 +43,7 @@ class CandideCollectionItem extends CandideCollectionBasic {
         $this->manageStructureUpdate($name,$type,$options);
         // Gérer l'affichage
         if (array_key_exists($name,$this->_data) && array_key_exists("data",$this->_data[$name])) {
-            echo $this->formatText($this->_data[$name]["data"]);
+            echo $this->formatElement($this->_data[$name]);
         } else {
             echo "update candide on the admin platform";
         }

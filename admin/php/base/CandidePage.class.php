@@ -22,7 +22,7 @@ class CandidePage extends CandideBasic {
         $this->manageUpdate($name,$type,$options);
         // Gérer l'affichage
         if (array_key_exists($name,$this->_data) && array_key_exists("data",$this->_data[$name])) {
-            echo $this->formatText($this->_data[$name]["data"]);
+            echo $this->formatElement($this->_data[$name]);
         } else {
             echo "Update candide on the admin platform";
         }
@@ -60,7 +60,7 @@ class CandidePage extends CandideBasic {
                     $this->_data[$name]["data"] = "undefined.jpg";
                     break;
                 case "number":
-                    $this->_data[$name]["data"] = "undefined";
+                    $this->_data[$name]["data"] = "0";
                     break;
             }
         }
