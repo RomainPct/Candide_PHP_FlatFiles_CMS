@@ -37,6 +37,10 @@ class CandideCollectionItem extends CandideCollectionBasic {
         $this->getElement($title,"image",["size"=>$size]);
     }
 
+    public function number($title,$format = NumberFormatter::DECIMAL){
+        $this->getElement($title,"number",["format"=>$format]);
+    }
+
     protected function getElement($title,$type,$options) {
         $name = $type."_".$title;
         // Gérer l'update

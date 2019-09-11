@@ -18,7 +18,7 @@ trait Administrator {
                 $html = $html."<div ".$style." class='image_input_preview'><img id='image_".$name."' class='fullHeight' src='".$data."'/></div><label for='".$name."'>Modifier</label><input id='".$name."' type='file' name='".$name."'/>";
                 break;
             case "number":
-                $html = $html."<input placeholder='12.67' name='".$name."' type='text' value='".$data."'>";
+                $html = $html."<input placeholder='ex: 12.67' name='".$name."' type='text' value='".$data."'>";
         }
         $html = $html."</div>";
         return $html;
