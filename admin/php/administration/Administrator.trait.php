@@ -65,4 +65,23 @@ trait Administrator {
         return "/CandideData/files/".$directory."/".$fileName;
     }
 
+    protected function removeWysiwygFiles($jsonWysiwygFilesToDelete) {
+        $wysiwygFilesToDelete = json_decode($jsonWysiwygFilesToDelete);
+        if (is_array($wysiwygFilesToDelete)) {
+            // Filter files to delete which finally are still used
+            $wysiwygFilesToDelete = array_filter($wysiwygFilesToDelete,function($file){
+                $keep = true;
+                foreach ($this->_data as $fieldData) {
+                    if (key_exists("wysiwyg",$fieldData) && $fieldData["wysiwyg"] && strstr($fieldData["data"],$file) != false) {
+                        $keep = false;
+                    }
+                }
+                return $keep;
+            });
+            foreach ($wysiwygFilesToDelete as $file){
+                $this->deleteFiles(ROOT_DIR.$file);
+            }
+        }
+    }
+
 }

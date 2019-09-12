@@ -46,7 +46,7 @@ gulpfile.task('cssMinfier', function() {
         .pipe(gulpfile.dest(destination + 'styles/'))
 });
 
-gulpfile.task('js', gulpfile.series('jsLint', 'jsMinifier'))
+gulpfile.task('js', gulpfile.series('jsMinifier'))
 gulpfile.task('css', gulpfile.series('sass', 'cssMinfier'))
 gulpfile.task('watch', function() {
     gulpfile.watch('./src/js/*.js', gulpfile.series('js'))

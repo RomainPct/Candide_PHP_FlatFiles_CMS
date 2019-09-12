@@ -63,12 +63,8 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
         $this->saveData();
         // Information de la collection
         $this->_collectionAdministrator->setData($texts,$newFiles,$this->_id);
-        $wysiwygFilesToDelete = json_decode($texts["wysiwygFilesToDelete"]);
-        if (is_array($wysiwygFilesToDelete)) {
-            foreach ($wysiwygFilesToDelete as $file){
-                $this->deleteFiles(ROOT_DIR.$file);
-            }
-        }
+        // Gestion des fichiers genants
+        $this->removeWysiwygFiles($texts["wysiwygFilesToDelete"]);
         // Afficher le nouvel id
         echo $this->_id;
     }
