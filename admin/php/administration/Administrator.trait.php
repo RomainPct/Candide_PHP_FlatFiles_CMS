@@ -8,14 +8,15 @@ trait Administrator {
             case "text":
                 if (key_exists("wysiwyg",$fieldInfos) && $fieldInfos["wysiwyg"]) {
                     $data = htmlspecialchars($data,ENT_QUOTES);
-                    $html = $html."<input type='hidden' id='".$name."' name='".$name."' value='".$data."'><trix-editor input='".$name."'></trix-editor>";
+                    $html = $html."<div class='pell-input-box'><input type='hidden' class='wysiwyg-output' name='".$name."' value='".$data."'><div class='pell'></div><input class='pell-file-input' type='file' accept='image/*'></input></div>";
+                    // $html = $html."<input type='hidden' id='".$name."' name='".$name."' value='".$data."'><trix-editor input='".$name."'></trix-editor>";
                 } else {
                     $html = $html."<textarea name='".$name."'>".$data."</textarea>";
                 }
                 break;
             case "image":
                 $style = "style='width: ".$fieldInfos["width"]."px; height: ".$fieldInfos["height"]."px'";
-                $html = $html."<div ".$style." class='image_input_preview'><img id='image_".$name."' class='fullHeight' src='".$data."'/></div><label for='".$name."'>Modifier</label><input id='".$name."' type='file' name='".$name."'/>";
+                $html = $html."<div ".$style." class='image_input_preview'><img id='image_".$name."' class='fullHeight' src='".$data."'/></div><label for='".$name."'>Modifier</label><input id='".$name."' type='file' accept='image/*' name='".$name."' class='classic-image-input'/>";
                 break;
             case "number":
                 $html = $html."<input placeholder='ex: 12.67' name='".$name."' type='text' value='".$data."'>";
