@@ -110,32 +110,38 @@ function setHome(){
     }
 }
 
+function getFormData(form){
+    let formData  = new FormData(form)
+    formData.append("wysiwygFilesToDelete",JSON.stringify(wysiwygFilesToDelete))
+    wysiwygFilesToDelete = []
+    return formData
+}
 let textareas, filesInput, numberInputs, submitContainer
 function setForm() {
     submitContainer = document.querySelector('.submitContainer')
     textareas = document.querySelectorAll('textarea')
-    for (let i = 0; i < textareas.length; i++) {
-        textareas[i].style.height = (textareas[i].scrollHeight) + 'px'
-        textareas[i].addEventListener('input',function () {
+    textareas.forEach(textarea => {
+        textarea.style.height = (textarea.scrollHeight) + 'px'
+        textarea.addEventListener('input',function () {
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight) + 'px';
             submitContainer.classList.add('clickable')
         })
-    }
+    })
     wysiwygInputs = document.querySelectorAll('.pell-input-box')
     wysiwygInputs.forEach(input => {
         setPellEditorFor(input)
-    });
+    })
     numberInputs = document.querySelectorAll('input[name^=number_]')
-    for (let i = 0; i < numberInputs.length; i++){
-        numberInputs[i].addEventListener('input',function(){
+    numberInputs.forEach(numberInput => {
+        numberInput.addEventListener('input',function(){
             if (isNaN(this.value)) {
                 this.value = this.value.replace(",",".")
                 this.value = this.value.replace(/[^\d\.]+/g,"")
             }
             submitContainer.classList.add('clickable')
-        })
-    }
+        })  
+    })
     filesInput = document.querySelectorAll('input[type="file"]')
     filesInput.forEach(input => {
         input.addEventListener('change',function () {
@@ -150,12 +156,9 @@ function setEditPage() {
     editPageForm.addEventListener('submit',function (e) {
         e.preventDefault()
         submitContainer.classList.add('loading')
-        let formData  = new FormData(this);
-        formData.append("wysiwygFilesToDelete",JSON.stringify(wysiwygFilesToDelete))
-        wysiwygFilesToDelete = []
         fetch(this.getAttribute('action'), {
             method: 'POST',
-            body: formData
+            body: getFormData(this)
         }).then(function (response) {
             submitContainer.classList.remove('loading')
             if (response.status == 200){
@@ -172,11 +175,11 @@ function setEditPage() {
 let deleteCollectionItemButtons
 function setEditCollection() {
     deleteCollectionItemButtons = document.querySelectorAll('.deleteButton')
-    for (let i = 0; i < deleteCollectionItemButtons.length; i++) {
-        deleteCollectionItemButtons[i].addEventListener('click',function (e) {
+    deleteCollectionItemButtons.forEach(button => {
+        button.addEventListener('click',function (e) {
             e.preventDefault()
             if (window.confirm("Voulez vous vraiment supprimer cet élément ?")){
-                let container = deleteCollectionItemButtons[i].parentNode
+                let container = button.parentNode
                 container.classList.add("waiting")
                 fetch(this.getAttribute('href'))
                     .then(function (response) {
@@ -187,8 +190,8 @@ function setEditCollection() {
                         }
                     })
             }
-        })
-    }
+        })  
+    })
 }
 
 let editCollectionItemForm
@@ -197,12 +200,9 @@ function setEditCollectionItem() {
     editCollectionItemForm.addEventListener('submit',function (e) {
         e.preventDefault()
         submitContainer.classList.add('loading')
-        let formData  = new FormData(this);
-        formData.append("wysiwygFilesToDelete",JSON.stringify(wysiwygFilesToDelete))
-        wysiwygFilesToDelete = []
         fetch(this.getAttribute('action'), {
             method: 'POST',
-            body: formData
+            body: getFormData(this)
         }).then(function (response) {
             submitContainer.classList.remove('loading')
             if (response.status == 200){
