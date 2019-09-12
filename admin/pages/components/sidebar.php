@@ -9,7 +9,7 @@ $c = new CandideIndex();
         <li class="sectionTitle">Pages</li>
         <?php
         for ($i = 0; $i < $c->countPages(); $i++){
-            echo '<li><a data-type="page" href="?'.$c->getPageName($i).'">'.$c->getPage($i).'</a></li>';
+            echo '<li><a href="editPage?page='.$c->getPageName($i).'">'.$c->getPage($i).'</a></li>';
         }
         ?>
         <li class="sectionTitle">Collections</li>

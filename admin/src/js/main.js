@@ -1,39 +1,4 @@
-const content = document.querySelector("#content")
-const navLinks = document.querySelectorAll("#navLinks li a")
-const header = document.querySelector("#header")
 let trixFilesToDelete = [], trixEditorsChanges = 0
-
-// function loadContent(url, callback) {
-//     trixEditorsChanges = 0
-//     console.log(url)
-//     fetch(url)
-//         .then(function (response) {
-//             return response.text()
-//         }).then(function(html) {
-//         content.innerHTML = html
-//         callback()
-//     })
-// }
-
-// header.addEventListener('click',function (e) {
-//     e.preventDefault()
-//     loadContent("pages/home.php",setHome)
-// })
-
-// for (let i = 0; i < navLinks.length; i++){
-//     navLinks[i].addEventListener('click',function (e) {
-//         e.preventDefault()
-//         let pageName = navLinks[i].getAttribute("href").substring(1);
-//         switch (navLinks[i].getAttribute("data-type")) {
-//             case "page":
-//                 loadContent("pages/editPage.php?page="+pageName,setEditPage)
-//                 break
-//             case "collection":
-//                 loadContent("pages/editCollection.php?page="+pageName,setEditCollection)
-//                 break
-//         }
-//     })
-// }
 
 let updateAdminPlatform
 function setHome(){
@@ -52,7 +17,6 @@ function setHome(){
         })
     }
 }
-setHome()
 
 let textareas, filesInput, numberInputs, submitContainer
 function setForm() {
@@ -148,11 +112,6 @@ function setEditCollection() {
     }
 }
 
-if (document.URL.indexOf("editCollection") != -1){
-    setEditCollection()
-    console.log("setEditCollection()")
-}
-
 let editCollectionItemForm
 function setEditCollectionItem() {
     editCollectionItemForm = document.querySelector("#editCollectionItemForm");
@@ -179,7 +138,13 @@ function setEditCollectionItem() {
     })
     setForm()
 }
-if (document.URL.indexOf("editCollectionItem") != -1){
+
+if (document.URL.indexOf("editPage") != -1){
+    setEditPage()
+} else if (document.URL.indexOf("editCollection") != -1){
+    setEditCollection()
+} else if (document.URL.indexOf("editCollectionItem") != -1){
     setEditCollectionItem()
-    console.log("setEditCollectionItem()")
+} else {
+    setHome()
 }
