@@ -1,12 +1,12 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"].'/admin/config/CandideConfig.php';
-if (devMode) {
+if (DEV_MODE) {
 ?>
     <div class="submitContainer clickable">
-        <a id="updateAdminPlatform" href="updateAdminPlatform.php">Mettre à jour la plateforme administrateur</a>
+        <a id="updateAdminPlatform" href="updateAdminPlatform.php"><?php $texts->echo("updateAdminPlatform") ?></a>
     </div>
 <?php
 }
 ?>
-<h1><?php echo welcomeTitle ?></h1>
-<p><?php echo welcomeParagraph ?></p>
+<h1><?php echo WELCOME_TITLE ?></h1>
+<p><?php echo WELCOME_PARAGRAPH ?></p>

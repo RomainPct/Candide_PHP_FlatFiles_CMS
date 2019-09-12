@@ -1,0 +1,19 @@
+{  
+    "sidebar" : {
+        "pages" : "Pages",
+        "collections" : "Collections",
+        "open_website" : "Open the website",
+        "logout" : "Log out"
+    },
+    "login" : {
+        "title":"Login",
+        "identifier":"Identifier",
+        "password":"Password",
+        "action":"Login",
+        "error_identifier":"This identifier does not exist",
+        "error_password":"Incorrect password"
+    },
+    "home" : {
+        "updateAdminPlatform":"Update the admin platform"
+    }
+ }

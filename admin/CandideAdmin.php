@@ -21,6 +21,8 @@ include_once 'php/administration/CandidePageAdministrator.class.php';
 include_once 'php/administration/CandideCollectionAdministrator.class.php';
 include_once 'php/administration/CandideCollectionItemAdministrator.class.php';
 
+include_once 'php/administration/AdminTextsManager.class.php';
+
 include_once 'php/indexation/CandideIndexBasic.class.php';
 include_once 'php/indexation/CandideIndex.class.php';
 include_once 'php/indexation/CandideIndexAdmin.class.php';
