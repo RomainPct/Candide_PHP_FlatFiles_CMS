@@ -1,4 +1,19 @@
-let trixFilesToDelete = []
+let wysiwygFilesToDelete = []
+
+function manageImageDeletionInWysiwyg(oldHtml, newHtml){
+    let oldParts = oldHtml.split('<img src="'),
+        newParts = newHtml.split('<img src="')
+    if (oldParts.length > newParts.length) {
+        for (let i = 0; i < oldParts.length; i++) {
+            if ( i == oldParts.length - 1 || oldParts[i].indexOf('">') != newParts[i].indexOf('">')) {
+                let endIndex = oldParts[i].indexOf('">')
+                wysiwygFilesToDelete.push(oldParts[i].substring(0,endIndex))
+                console.log(wysiwygFilesToDelete)
+                break
+            }
+        }
+    }
+}
 
 function setPellEditorFor(input){
     let pellEditor = input.querySelector('.pell'),
@@ -6,6 +21,7 @@ function setPellEditorFor(input){
     pell.init({
         element: pellEditor,
         onChange: html => {
+            manageImageDeletionInWysiwyg(output.value,html)
             output.value = html
             submitContainer.classList.add('clickable')
         },
@@ -14,8 +30,8 @@ function setPellEditorFor(input){
             { name: 'heading1', icon: 'H1' },
             { name: 'heading2', icon: 'H2' },
             { name: 'paragraph', icon: 'P' },
-            { name: 'bold', icon:"<strong>B</strong>"},
             { name: 'quote', icon: '“ ”' },
+            { name: 'bold', icon:"<strong>B</strong>"},
             { name: 'olist', icon: '1.' },
             { name: 'ulist', icon: '•' },
             { name: 'link', icon: '🔗' },
@@ -54,7 +70,7 @@ function manageWysiwygImageInputEdition(input){
         input.parentElement.querySelector('.pell-content').focus()
         uploadFile(input.files[0], (url) => {
             input.parentElement.querySelector('.pell-content').focus()
-            document.execCommand('insertImage', false, "/"+url)
+            document.execCommand('insertImage', false, url)
             submitContainer.classList.add('clickable')
         })
     }
@@ -135,8 +151,8 @@ function setEditPage() {
         e.preventDefault()
         submitContainer.classList.add('loading')
         let formData  = new FormData(this);
-        formData.append("trixFilesToDelete",JSON.stringify(trixFilesToDelete))
-        trixFilesToDelete = []
+        formData.append("wysiwygFilesToDelete",JSON.stringify(wysiwygFilesToDelete))
+        wysiwygFilesToDelete = []
         fetch(this.getAttribute('action'), {
             method: 'POST',
             body: formData
@@ -182,7 +198,8 @@ function setEditCollectionItem() {
         e.preventDefault()
         submitContainer.classList.add('loading')
         let formData  = new FormData(this);
-        formData.append("trixFilesToDelete",trixFilesToDelete)
+        formData.append("wysiwygFilesToDelete",JSON.stringify(wysiwygFilesToDelete))
+        wysiwygFilesToDelete = []
         fetch(this.getAttribute('action'), {
             method: 'POST',
             body: formData

@@ -15,8 +15,11 @@ class CandidePageAdministrator extends CandideBasic {
         $this->setTexts($texts);
         $this->setImages($files);
         $this->saveData();
-        foreach (json_decode($texts["trixFilesToDelete"]) as $file){
-            $this->deleteFiles("../".$file);
+        $wysiwygFilesToDelete = json_decode($texts["wysiwygFilesToDelete"]);
+        if (is_array($wysiwygFilesToDelete)) {
+            foreach ($wysiwygFilesToDelete as $file){
+                $this->deleteFiles(ROOT_DIR.$file);
+            }
         }
     }
 
