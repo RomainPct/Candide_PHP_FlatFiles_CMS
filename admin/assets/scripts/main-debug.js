@@ -8,7 +8,6 @@ function manageImageDeletionInWysiwyg(oldHtml, newHtml){
             if ( i == oldParts.length - 1 || oldParts[i].indexOf('">') != newParts[i].indexOf('">')) {
                 let endIndex = oldParts[i].indexOf('">')
                 wysiwygFilesToDelete.push(oldParts[i].substring(0,endIndex))
-                console.log(wysiwygFilesToDelete)
                 break
             }
         }
@@ -159,13 +158,15 @@ function setEditPage() {
         fetch(this.getAttribute('action'), {
             method: 'POST',
             body: getFormData(this)
-        }).then(function (response) {
+        })
+        .then(function (response) {
             submitContainer.classList.remove('loading')
             if (response.status == 200){
                 submitContainer.classList.remove('clickable')
             }
             return response.text()
-        }).then(function (text) {
+        })
+        .then(function (text) {
             console.log(text)
         });
     })
@@ -221,10 +222,10 @@ function setEditCollectionItem() {
 
 if (document.URL.indexOf("editPage") != -1){
     setEditPage()
-} else if (document.URL.indexOf("editCollection") != -1){
-    setEditCollection()
 } else if (document.URL.indexOf("editCollectionItem") != -1){
     setEditCollectionItem()
+} else if (document.URL.indexOf("editCollection") != -1){
+    setEditCollection()
 } else {
     setHome()
 }

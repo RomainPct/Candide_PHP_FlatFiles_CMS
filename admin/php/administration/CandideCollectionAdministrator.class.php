@@ -50,6 +50,7 @@ class CandideCollectionAdministrator extends CandideCollection {
         $this->setTexts($texts,$id);
         $this->setImages($files,$id);
         $this->saveData();
+        return $this->_data[$id];
     }
 
     private function setTexts(Array $texts, Int $id) {
