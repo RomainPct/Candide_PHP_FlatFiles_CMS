@@ -1,11 +1,14 @@
-let trixFilesToDelete = [], trixEditorsChanges = 0
+let trixFilesToDelete = []
 
 function setPellEditorFor(input){
     let pellEditor = input.querySelector('.pell'),
         output = input.querySelector('.wysiwyg-output')
     pell.init({
         element: pellEditor,
-        onChange: html => output.value = html,
+        onChange: html => {
+            output.value = html
+            submitContainer.classList.add('clickable')
+        },
         defaultParagraphSeparator: 'p',
         actions: [
             { name: 'heading1', icon: 'H1' },
