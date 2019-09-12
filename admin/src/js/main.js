@@ -3,37 +3,37 @@ const navLinks = document.querySelectorAll("#navLinks li a")
 const header = document.querySelector("#header")
 let trixFilesToDelete = [], trixEditorsChanges = 0
 
-function loadContent(url, callback) {
-    trixEditorsChanges = 0
-    console.log(url)
-    fetch(url)
-        .then(function (response) {
-            return response.text()
-        }).then(function(html) {
-        content.innerHTML = html
-        callback()
-    })
-}
+// function loadContent(url, callback) {
+//     trixEditorsChanges = 0
+//     console.log(url)
+//     fetch(url)
+//         .then(function (response) {
+//             return response.text()
+//         }).then(function(html) {
+//         content.innerHTML = html
+//         callback()
+//     })
+// }
 
-header.addEventListener('click',function (e) {
-    e.preventDefault()
-    loadContent("pages/home.php",setHome)
-})
+// header.addEventListener('click',function (e) {
+//     e.preventDefault()
+//     loadContent("pages/home.php",setHome)
+// })
 
-for (let i = 0; i < navLinks.length; i++){
-    navLinks[i].addEventListener('click',function (e) {
-        e.preventDefault()
-        let pageName = navLinks[i].getAttribute("href").substring(1);
-        switch (navLinks[i].getAttribute("data-type")) {
-            case "page":
-                loadContent("pages/editPage.php?page="+pageName,setEditPage)
-                break
-            case "collection":
-                loadContent("pages/editCollection.php?page="+pageName,setEditCollection)
-                break
-        }
-    })
-}
+// for (let i = 0; i < navLinks.length; i++){
+//     navLinks[i].addEventListener('click',function (e) {
+//         e.preventDefault()
+//         let pageName = navLinks[i].getAttribute("href").substring(1);
+//         switch (navLinks[i].getAttribute("data-type")) {
+//             case "page":
+//                 loadContent("pages/editPage.php?page="+pageName,setEditPage)
+//                 break
+//             case "collection":
+//                 loadContent("pages/editCollection.php?page="+pageName,setEditCollection)
+//                 break
+//         }
+//     })
+// }
 
 let updateAdminPlatform
 function setHome(){
@@ -126,20 +126,20 @@ function setEditPage() {
 let newElementButton, editCollectionItemButtons, deleteCollectionItemButtons
 function setEditCollection() {
     newElementButton = document.querySelector('#newElement')
-    newElementButton.addEventListener('click',function (e) {
-        e.preventDefault()
-        let pageName = this.getAttribute("href").substring(1);
-        loadContent('pages/editCollectionItem.php?page='+pageName+'&id=newItem',setEditCollectionItem)
-    })
+    // newElementButton.addEventListener('click',function (e) {
+    //     e.preventDefault()
+    //     let pageName = this.getAttribute("href").substring(1);
+    //     loadContent('pages/editCollectionItem.php?page='+pageName+'&id=newItem',setEditCollectionItem)
+    // })
     editCollectionItemButtons = document.querySelectorAll('.editButton')
-    for (let i = 0; i < editCollectionItemButtons.length; i++) {
-        editCollectionItemButtons[i].addEventListener('click',function (e) {
-            e.preventDefault()
-            let pageName = newElementButton.getAttribute("href").substring(1);
-            let id = this.getAttribute("href").substring(1);
-            loadContent('pages/editCollectionItem.php?page='+pageName+'&id='+id,setEditCollectionItem)
-        })
-    }
+    // for (let i = 0; i < editCollectionItemButtons.length; i++) {
+    //     editCollectionItemButtons[i].addEventListener('click',function (e) {
+    //         e.preventDefault()
+    //         let pageName = newElementButton.getAttribute("href").substring(1);
+    //         let id = this.getAttribute("href").substring(1);
+    //         loadContent('pages/editCollectionItem.php?page='+pageName+'&id='+id,setEditCollectionItem)
+    //     })
+    // }
     deleteCollectionItemButtons = document.querySelectorAll('.deleteButton')
     for (let i = 0; i < deleteCollectionItemButtons.length; i++) {
         deleteCollectionItemButtons[i].addEventListener('click',function (e) {
@@ -163,35 +163,35 @@ function setEditCollection() {
 let backButton, editCollectionItemForm
 function setEditCollectionItem() {
     backButton = document.querySelector('#backButton')
-    backButton.addEventListener('click',function (e) {
-        e.preventDefault()
-        let pageName = this.getAttribute("href").substring(1);
-        loadContent("pages/editCollection.php?page="+pageName,setEditCollection)
-    })
+    // backButton.addEventListener('click',function (e) {
+    //     e.preventDefault()
+    //     let pageName = this.getAttribute("href").substring(1);
+    //     loadContent("pages/editCollection.php?page="+pageName,setEditCollection)
+    // })
     editCollectionItemForm = document.querySelector("#editCollectionItemForm");
-    editCollectionItemForm.addEventListener('submit',function (e) {
-        e.preventDefault()
-        submitContainer.classList.add('loading')
-        let formData  = new FormData(this);
-        formData.append("trixFilesToDelete",trixFilesToDelete)
-        fetch(this.getAttribute('action'), {
-            method: 'POST',
-            body: formData
-        }).then(function (response) {
-            submitContainer.classList.remove('loading')
-            if (response.status == 200){
-                submitContainer.classList.remove('clickable')
-            }
-            return response.text()
-        }).then(function (text) {
-            console.log(text)
-            if (editCollectionItemForm.getAttribute("data-id") == "newItem"){
-                let pageName = backButton.getAttribute("href").substring(1);
-                let id = text
-                loadContent('pages/editCollectionItem.php?page='+pageName+'&id='+id,setEditCollectionItem)
-            }
-        });
-    })
+    // editCollectionItemForm.addEventListener('submit',function (e) {
+    //     e.preventDefault()
+    //     submitContainer.classList.add('loading')
+    //     let formData  = new FormData(this);
+    //     formData.append("trixFilesToDelete",trixFilesToDelete)
+    //     fetch(this.getAttribute('action'), {
+    //         method: 'POST',
+    //         body: formData
+    //     }).then(function (response) {
+    //         submitContainer.classList.remove('loading')
+    //         if (response.status == 200){
+    //             submitContainer.classList.remove('clickable')
+    //         }
+    //         return response.text()
+    //     }).then(function (text) {
+    //         console.log(text)
+    //         if (editCollectionItemForm.getAttribute("data-id") == "newItem"){
+    //             let pageName = backButton.getAttribute("href").substring(1);
+    //             let id = text
+    //             loadContent('pages/editCollectionItem.php?page='+pageName+'&id='+id,setEditCollectionItem)
+    //         }
+    //     });
+    // })
     setForm()
 }
 

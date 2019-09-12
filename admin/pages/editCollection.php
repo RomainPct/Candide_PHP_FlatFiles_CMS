@@ -1,6 +1,4 @@
 <?php
-include_once '../../Candide.php';
-include_once '../CandideAdmin.php';
 $c = new CandideCollectionAdministrator($_GET["page"]);
 ?>
 <h1>Collection "<?php $c->getPageName() ?>"</h1>

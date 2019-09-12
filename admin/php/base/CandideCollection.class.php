@@ -20,6 +20,7 @@ class CandideCollection extends CandideCollectionBasic {
         if ($this->_updateCall) {
             return [0];
         } else {
+            // return $this->_data;
             return array_reverse(array_keys($this->_data));
         }
     }
@@ -50,7 +51,7 @@ class CandideCollection extends CandideCollectionBasic {
     }
 
     protected function manageDataUpdate($name,$type,$options){
-        if ($this->_updateCall) {
+        if ($this->_updateCall && count($this->_data) > 0) {
             foreach($this->_data as &$item) {
                 $this->manageItemDataUpdate($item,$name,$type,$options);
             }
