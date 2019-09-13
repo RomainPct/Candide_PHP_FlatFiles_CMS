@@ -5,17 +5,7 @@ class CandideBasic extends Basic {
     protected $_page;
     protected $_data;
     protected $_updateCall = false;
-
-    public function getPageName() {
-        echo $this->formatTitle($this->_page);
-    }
-
-    protected function getPageUrl(){
-        if (!file_exists(self::DATA_DIRECTORY.$this->_page)){
-            mkdir(self::DATA_DIRECTORY.$this->_page,0777,true);
-        }
-        return self::DATA_DIRECTORY.$this->_page."/base.json";
-    }
+    protected $_methods = [];
 
     public function __construct(String $page) {
         if (array_key_exists("updateAdminPlatform",$_GET)) {
@@ -27,6 +17,30 @@ class CandideBasic extends Basic {
         } else {
             $this->_data = json_decode(file_get_contents($this->getPageUrl()),true);
         }
+        // POUR AJOUTER UNE MÉTHODE
+        // $this->addMethod("method2", function (String $arg1, String $arg2 = "vide") {
+        //     echo "<h1>".$arg1.$arg2."</h1>";
+        // });
+    }
+
+    // Gestion ajout de méthode via les plugins
+    function addMethod($name, $method) {
+        $this->_methods[$name] = $method;
+    }
+
+    public function __call($name, $arguments) {
+        return call_user_func_array( $this->_methods[$name], $arguments);
+    }
+
+    public function getPageName() {
+        echo $this->formatTitle($this->_page);
+    }
+
+    protected function getPageUrl(){
+        if (!file_exists(self::DATA_DIRECTORY.$this->_page)){
+            mkdir(self::DATA_DIRECTORY.$this->_page,0777,true);
+        }
+        return self::DATA_DIRECTORY.$this->_page."/base.json";
     }
 
     protected function saveData(){
