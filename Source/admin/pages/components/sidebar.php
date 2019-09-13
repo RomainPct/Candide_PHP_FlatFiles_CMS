@@ -4,7 +4,7 @@ $texts = new AdminTextsManager("sidebar");
 ?>
 <nav>
     <div id="header">
-        <a class="logo" href="/admin" title="Accueil">Candide</a>
+        <a class="logo" href="../admin" title="Accueil">Candide</a>
     </div>
     <ul id="navLinks">
         <li class="sectionTitle"><?php $texts->echo("pages") ?></li>

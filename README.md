@@ -1,0 +1,1 @@
+# Candide - Lightweight PHP CMS for webdevelopers

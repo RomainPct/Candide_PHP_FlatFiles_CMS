@@ -1,6 +1,7 @@
-/*
-!Candide
-!admin
-!Candide.php
+/Source/*
+!/Source/Candide
+!/Source/admin
+!/Source/Candide.php
 !.gitignore
-admin/node_modules
+/Source/admin/node_modules
+/Candide.xd

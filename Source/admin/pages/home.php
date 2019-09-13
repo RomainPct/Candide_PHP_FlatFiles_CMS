@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"].'/admin/config/CandideConfig.php';
+include_once 'config/CandideConfig.php';
 if (DEV_MODE) {
 ?>
     <div class="submitContainer clickable">

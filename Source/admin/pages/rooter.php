@@ -4,6 +4,7 @@ if ($url == "" || $url == "/") {
     $texts = new AdminTextsManager("home");
     include_once 'pages/home.php';
 } else {
+    $url = substr($url, strrpos($url, '/') + 1);
     $texts = new AdminTextsManager($url);
-    include_once 'pages'.$url.'.php';
+    include_once 'pages/'.$url.'.php';
 }
