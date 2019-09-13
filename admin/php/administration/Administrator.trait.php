@@ -9,7 +9,6 @@ trait Administrator {
                 if (key_exists("wysiwyg",$fieldInfos) && $fieldInfos["wysiwyg"]) {
                     $data = htmlspecialchars($data,ENT_QUOTES);
                     $html = $html."<div class='pell-input-box'><input type='hidden' class='wysiwyg-output' name='".$name."' value='".$data."'><div class='pell'></div><input class='pell-file-input' type='file' accept='image/*'></input></div>";
-                    // $html = $html."<input type='hidden' id='".$name."' name='".$name."' value='".$data."'><trix-editor input='".$name."'></trix-editor>";
                 } else {
                     $html = $html."<textarea name='".$name."'>".$data."</textarea>";
                 }

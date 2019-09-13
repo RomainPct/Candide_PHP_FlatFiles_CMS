@@ -1,9 +1,9 @@
 <?php
 $c = new CandideCollectionAdministrator($_GET["page"]);
 ?>
-<h1>Collection "<?php $c->getPageName() ?>"</h1>
+<h1><?php $texts->echo("collection") ?> "<?php $c->getPageName() ?>"</h1>
 <div class="submitContainer clickable">
-    <a href="editCollectionItem?page=<?php echo $_GET["page"] ?>&id=newItem">Nouvel élément</a>
+    <a href="editCollectionItem?page=<?php echo $_GET["page"] ?>&id=newItem"><?php $texts->echo("new_item") ?></a>
 </div>
 <?php
 foreach ($c->avalaibleItemIds() as $itemId){

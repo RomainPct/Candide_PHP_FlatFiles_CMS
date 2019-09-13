@@ -26,19 +26,15 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
         }
     }
 
-    public function getTitle(){
+    public function getTitle(AdminTextsManager $texts){
         if ($this->_newItem){
-            echo 'Ajouter un élément à la collection "'.$this->formatTitle($this->_page).'"';
+            echo $texts->get("new_item_in_collection").' "'.$this->formatTitle($this->_page).'"';
         } else {
-            echo 'Modifier l\'élément de la collection "'.$this->formatTitle($this->_page).'"';
+            echo $texts->get("edit_item_of_the_collection").' "'.$this->formatTitle($this->_page).'"';
         }
     }
-    public function getCallToActionText(){
-        if ($this->_newItem){
-            echo "Ajouter";
-        } else {
-            echo "Enregistrer";
-        }
+    public function getCallToActionText(AdminTextsManager $texts){
+        echo ($this->_newItem) ? $texts->get("add") : $texts->get("save");
     }
 
     public function getFields() {

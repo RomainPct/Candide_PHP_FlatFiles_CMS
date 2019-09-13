@@ -85,7 +85,7 @@ nav {
         width: 100%; }
   .inputContainer input[type="file"] {
     display: none; }
-  .inputContainer textarea, .inputContainer input[type='text'], .inputContainer input[type='password'], .inputContainer trix-editor {
+  .inputContainer textarea, .inputContainer input[type='text'], .inputContainer input[type='password'] {
     padding: 15px;
     background-color: #FEFEFE;
     font-size: 20px;
@@ -98,8 +98,8 @@ nav {
     height: auto;
     box-sizing: border-box;
     outline: none; }
-  .inputContainer .attachment__caption {
-    display: none; }
+  .inputContainer input[name^='number_'] {
+    max-width: 250px; }
 
 .submitContainer {
   position: fixed;
@@ -112,6 +112,7 @@ nav {
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.16);
   opacity: 0; }
   .submitContainer input[type="submit"], .submitContainer a {
+    outline: none;
     display: block;
     text-decoration: none;
     cursor: pointer;
@@ -230,32 +231,6 @@ p.error {
     #login form .submitContainer {
       position: static;
       display: inline-block; }
-
-.inputContainer trix-editor {
-  max-height: 75vh;
-  overflow-y: auto; }
-  .inputContainer trix-editor p, .inputContainer trix-editor h1, .inputContainer trix-editor h2, .inputContainer trix-editor h3, .inputContainer trix-editor h4, .inputContainer trix-editor div, .inputContainer trix-editor figure {
-    margin: 0;
-    padding: 0; }
-  .inputContainer trix-editor figure {
-    text-align: center; }
-    .inputContainer trix-editor figure img {
-      margin: 0;
-      max-width: 100%; }
-  .inputContainer trix-editor h1 {
-    font-size: 30px;
-    font-weight: bold; }
-  .inputContainer trix-editor h2 {
-    font-size: 25px;
-    font-weight: bold; }
-  .inputContainer trix-editor h3 {
-    font-size: 20px;
-    font-weight: bold; }
-  .inputContainer trix-editor h4 {
-    font-size: 20px; }
-  .inputContainer trix-editor div {
-    font-size: 20px;
-    line-height: 1.4; }
 
 body {
   margin: 0;

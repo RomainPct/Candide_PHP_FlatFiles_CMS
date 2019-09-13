@@ -36,7 +36,7 @@
   input[type="file"] {
     display: none;
   }
-  textarea, input[type='text'], input[type='password'], trix-editor {
+  textarea, input[type='text'], input[type='password'] {
     padding: 15px;
     background-color: $background-color;
     font-size: $font-size-body;
@@ -50,8 +50,8 @@
     box-sizing: border-box;
     outline: none;
   }
-  .attachment__caption {
-    display: none;
+  input[name^='number_'] {
+    max-width: 250px;
   }
 }
 .submitContainer {
@@ -65,6 +65,7 @@
   box-shadow: $shadow-medium;
   opacity: 0;
   input[type="submit"], a {
+    outline: none;
     display: block;
     text-decoration: none;
     cursor: pointer;

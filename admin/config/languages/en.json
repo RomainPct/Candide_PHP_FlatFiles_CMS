@@ -15,5 +15,19 @@
     },
     "home" : {
         "updateAdminPlatform":"Update the admin platform"
+    },
+    "/editPage" : {
+        "page":"Page",
+        "save":"Save"
+    },
+    "/editCollection" : {
+        "collection":"Collection",
+        "new_item":"Add a new item"
+    },
+    "/editCollectionItem" : {
+        "new_item_in_collection":"Add a new item to the collection",
+        "edit_item_of_the_collection":"Edit an item of the collection",
+        "add":"Add",
+        "save":"Save"
     }
  }

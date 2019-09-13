@@ -6,13 +6,12 @@ class AdminTextsManager {
             $_texts = [];
 
     public function __construct($page){
-        // echo $page."<br>";
         $code = substr(LOCALE,0,2);
         if (!file_exists($this->_languagesPath.$code.".json")) {
             $code = "en";
         }
-        $this->_texts = json_decode(file_get_contents($this->_languagesPath.$code.".json"),true)[$page];
-        // var_dump($this->_texts);
+        $tmp_texts = json_decode(file_get_contents($this->_languagesPath.$code.".json"),true);
+        $this->_texts = (key_exists($page,$tmp_texts)) ? $tmp_texts[$page] : [] ;
     }
 
     public function echo($key) {
