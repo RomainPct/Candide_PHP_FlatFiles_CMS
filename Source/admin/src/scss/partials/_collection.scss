@@ -2,11 +2,11 @@
   display: flex;
   align-items: center;
   justify-content: stretch;
-  padding: 15px;
+  padding: $s-marge;
   background-color: $background-color;
   box-shadow: $shadow-medium;
-  margin-bottom: 30px;
-  border-radius: 5px;
+  margin-bottom: $m-marge;
+  border-radius: $radius;
   transition: box-shadow .2s, background-color .2s;
   h2 {
     flex: 3;
@@ -14,7 +14,7 @@
   a.button {
     position: relative;
     display: block;
-    margin: 0 30px;
+    margin: 0 $m-marge;
     height: 40px;
     width: 40px;
   }

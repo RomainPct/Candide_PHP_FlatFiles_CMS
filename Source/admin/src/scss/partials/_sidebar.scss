@@ -8,7 +8,7 @@ nav {
   box-shadow: $shadow-large;
   #header {
     width: 100%;
-    padding: 30px 60px;
+    padding: $m-marge 0;
     box-sizing: border-box;
     background: $gradient;
     text-align: center;
@@ -22,18 +22,18 @@ nav {
   ul {
     list-style: none;
     padding: 0;
-    margin: 0 30px;
+    margin: 0 $m-marge;
     overflow: auto;
     flex: 3;
     li {
       font-size: $font-size-body;
     }
     li.sectionTitle {
-      margin-top: 30px;
+      margin-top: $m-marge;
       font-weight: bold;
     }
     li:not(.sectionTitle) {
-      margin-top: 15px;
+      margin-top: $s-marge;
       a {
         color: $text-color;
         text-decoration: none;
@@ -46,19 +46,19 @@ nav {
     color: darkred;
     font-size: $font-size-info;
     text-decoration: none;
-    margin-bottom: 15px;
-    padding-bottom: 15px;
+    margin-bottom: $s-marge;
+    padding-bottom: $s-marge;
   }
   a#siteAccessButton {
     display: block;
-    margin: 30px;
-    padding: 15px;
+    margin: $m-marge;
+    padding: $s-marge;
     text-align: center;
     box-shadow: $shadow-medium;
     text-decoration: none;
     color: $text-color;
     font-size: $font-size-body;
     font-weight: bold;
-    border-radius: 5px;
+    border-radius: $radius;
   }
 }

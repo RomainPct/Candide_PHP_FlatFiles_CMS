@@ -4,10 +4,18 @@ $text-color: #101010;
 $color-grey: #838383;
 $gradient: linear-gradient(to right bottom, #96FBC4 0%, #F9F586 100%);
 
-$shadow-large: 0 0 10px rgba(0,0,0,0.16);
-$shadow-medium: 0 0 3px rgba(0,0,0,0.16);
+$radius: 5px;
 
-$font-size-logo: 50px;
-$font-size-title: 30px;
-$font-size-body: 20px;
-$font-size-info: 14px;
+$shadow-large: 0 0 10px rgba(0,0,0,0.16);
+$shadow-medium: 0 0 3px rgba(0,0,0,0.1);
+
+$font-size-logo: 47px;
+$font-size-title: 29px;
+$font-size-body: 18px;
+$font-size-info: 12px;
+
+$xs-marge: 11px;
+$s-marge: 18px;
+$m-marge: 29px;
+$l-marge: 47px;
+$xl-marge: 76px;

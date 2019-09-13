@@ -4,12 +4,12 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  background: linear-gradient(to right bottom,#96fbc4 0%,#f9f586 100%);
+  background: $gradient;
   form {
     width: 60vw;
     background-color: $background-color;
-    padding: 30px;
-    border-radius: 10px;
+    padding: $m-marge;
+    border-radius: $radius;
     text-align: center;
     .inputContainer {
       text-align: left;

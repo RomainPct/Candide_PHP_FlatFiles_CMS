@@ -1,22 +1,22 @@
 .inputContainer {
   position: relative;
-  margin-bottom: 30px;
+  margin-bottom: $m-marge;
   label {
     font-size: $font-size-body;
     font-weight: bold;
     cursor: pointer;
-    padding: 15px 30px;
-    border-radius: 5px;
+    padding: $s-marge $m-marge;
+    border-radius: $radius;
     background: $background-color;
     box-shadow: $shadow-medium;
     position: absolute;
     left: 0;
-    bottom: 30px;
+    bottom: $m-marge;
   }
   .image_input_preview {
-    max-width: calc(100% - 30px);
-    margin-left: 30px;
-    border-radius: 5px;
+    max-width: calc(100% - $m-marge);
+    margin-left: $m-marge;
+    border-radius: $radius;
     box-shadow: $shadow-medium;
     overflow: hidden;
     position: relative;
@@ -37,15 +37,17 @@
     display: none;
   }
   textarea, input[type='text'], input[type='password'] {
-    padding: 15px;
+    padding: $s-marge;
     background-color: $background-color;
     font-size: $font-size-body;
+    line-height: 1.5;
     display: block;
     resize: none;
     border: none;
-    border-radius: 5px;
+    border-radius: $radius;
     box-shadow: $shadow-medium;
     width: 100%;
+    max-width: 600px;
     height: auto;
     box-sizing: border-box;
     outline: none;
@@ -57,8 +59,8 @@
 .submitContainer {
   position: fixed;
   z-index: 10;
-  top: 30px;
-  right: 60px;
+  top: $m-marge;
+  right: $xl-marge;
   padding: 5px;
   background: $gradient;
   border-radius: 10px;
@@ -70,8 +72,8 @@
     text-decoration: none;
     cursor: pointer;
     -webkit-appearance: none;
-    padding: 10px 25px;
-    border-radius: 5px;
+    padding: $s-marge $m-marge;
+    border-radius: $radius;
     border: none;
     font-size: $font-size-body;
     color: $text-color;
@@ -101,6 +103,6 @@
   background: url("../images/icons/arrow_left.svg") no-repeat;
   background-size: 100%;
   box-shadow: $shadow-medium;
-  border-radius: 5px;
-  margin-right: 30px;
+  border-radius: $radius;
+  margin-right: $m-marge;
 }
