@@ -14,6 +14,13 @@ function manageImageDeletionInWysiwyg(oldHtml, newHtml){
     }
 }
 
+function getFormData(form){
+    let formData  = new FormData(form)
+    formData.append("wysiwygFilesToDelete",JSON.stringify(wysiwygFilesToDelete))
+    wysiwygFilesToDelete = []
+    return formData
+}
+
 function setPellEditorFor(input){
     let pellEditor = input.querySelector('.pell'),
         output = input.querySelector('.wysiwyg-output')
@@ -109,14 +116,9 @@ function setHome(){
     }
 }
 
-function getFormData(form){
-    let formData  = new FormData(form)
-    formData.append("wysiwygFilesToDelete",JSON.stringify(wysiwygFilesToDelete))
-    wysiwygFilesToDelete = []
-    return formData
-}
 let textareas, filesInput, numberInputs, submitContainer
 function setForm() {
+    allowCmdS()
     submitContainer = document.querySelector('.submitContainer')
     textareas = document.querySelectorAll('textarea')
     textareas.forEach(textarea => {
@@ -218,6 +220,17 @@ function setEditCollectionItem() {
         });
     })
     setForm()
+}
+
+function allowCmdS(){
+    document.addEventListener("keydown", function(e) {
+        if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)  && e.keyCode == 83) {
+            e.preventDefault()
+            if (submitContainer.classList.contains('clickable')){
+                submitContainer.querySelector("input").click()
+            }
+        }
+    }, false);
 }
 
 if (document.URL.indexOf("editPage") != -1){
