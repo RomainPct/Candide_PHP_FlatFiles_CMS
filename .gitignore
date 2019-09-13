@@ -5,3 +5,4 @@
 !.gitignore
 /Source/admin/node_modules
 /Candide.xd
+/.idea
