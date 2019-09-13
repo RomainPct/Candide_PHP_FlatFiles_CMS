@@ -2,7 +2,7 @@
     "sidebar" : {
         "pages" : "Pages",
         "collections" : "Collections",
-        "open_website" : "Open the website",
+        "open_website" : "Open my website",
         "logout" : "Log out"
     },
     "login" : {

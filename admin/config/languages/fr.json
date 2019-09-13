@@ -1,0 +1,33 @@
+{  
+    "sidebar" : {
+        "pages" : "Pages",
+        "collections" : "Collections",
+        "open_website" : "Accéder à mon site",
+        "logout" : "Déconnexion"
+    },
+    "login" : {
+        "title":"Connexion",
+        "identifier":"Identifiant",
+        "password":"Mot de passe",
+        "action":"Se connecter",
+        "error_identifier":"Cet identifiant n'existe pas",
+        "error_password":"Mot de passe incorrect"
+    },
+    "home" : {
+        "updateAdminPlatform":"Mettre à jour la plateforme administrateur"
+    },
+    "/editPage" : {
+        "page":"Page",
+        "save":"Enregistrer"
+    },
+    "/editCollection" : {
+        "collection":"Collection",
+        "new_item":"Ajouter un nouvel élément"
+    },
+    "/editCollectionItem" : {
+        "new_item_in_collection":"Ajouter un nouvel élément à la collection",
+        "edit_item_of_the_collection":"Modifier un élément de la collection",
+        "add":"Ajouter",
+        "save":"Enregistrer"
+    }
+ }
