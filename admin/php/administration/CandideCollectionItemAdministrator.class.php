@@ -45,8 +45,9 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
     }
 
     public function deleteThisItem(){
-        // Supprimer le dossier de l'item
+        // Supprimer les données sur l'item
         $this->deleteFiles(self::DATA_DIRECTORY.$this->_page."/items/".$this->_id);
+        $this->deleteFiles(self::FILES_DIRECTORY.$this->_page."/".$this->_id);
         // Supprimer l'item de $this->_collectionAdministrator->_data
         $this->_collectionAdministrator->removeItem($this->_id);
     }
