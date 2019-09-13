@@ -56,24 +56,43 @@ nav {
 .inputContainer {
   position: relative;
   margin-bottom: 29px; }
-  .inputContainer label {
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 18px 29px;
-    border-radius: 5px;
-    background: #FEFEFE;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
-    position: absolute;
-    left: 0;
-    bottom: 29px; }
   .inputContainer .image_input_preview {
-    max-width: calc(100% - $m-marge);
-    margin-left: 29px;
+    max-width: 100%;
     border-radius: 5px;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    position: relative; }
+    position: relative;
+    background-color: lightgrey; }
+    .inputContainer .image_input_preview::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: linear-gradient(to right bottom, #96FBC4 0%, #F9F586 100%);
+      opacity: 0;
+      transition: opacity .2s; }
+    .inputContainer .image_input_preview:hover::after {
+      opacity: 0.8; }
+    .inputContainer .image_input_preview label {
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 18px 29px;
+      border-radius: 5px;
+      background: #FEFEFE;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      opacity: 0;
+      transition: opacity .2s; }
+    .inputContainer .image_input_preview:hover label {
+      opacity: 1; }
     .inputContainer .image_input_preview img {
       position: absolute;
       top: 50%;

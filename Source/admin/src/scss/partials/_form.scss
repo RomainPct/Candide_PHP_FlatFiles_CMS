@@ -1,25 +1,47 @@
 .inputContainer {
   position: relative;
   margin-bottom: $m-marge;
-  label {
-    font-size: $font-size-body;
-    font-weight: bold;
-    cursor: pointer;
-    padding: $s-marge $m-marge;
-    border-radius: $radius;
-    background: $background-color;
-    box-shadow: $shadow-medium;
-    position: absolute;
-    left: 0;
-    bottom: $m-marge;
-  }
   .image_input_preview {
-    max-width: calc(100% - $m-marge);
-    margin-left: $m-marge;
+    max-width: 100%;
     border-radius: $radius;
     box-shadow: $shadow-medium;
     overflow: hidden;
     position: relative;
+    background-color: lightgrey;
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: $gradient;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    &:hover::after {
+      opacity: 0.8;
+    }
+    label {
+      font-size: $font-size-body;
+      font-weight: bold;
+      cursor: pointer;
+      padding: $s-marge $m-marge;
+      border-radius: $radius;
+      background: $background-color;
+      box-shadow: $shadow-medium;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    &:hover label {
+      opacity: 1;
+    }
     img {
       position: absolute;
       top: 50%;
