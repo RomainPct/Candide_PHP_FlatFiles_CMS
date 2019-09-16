@@ -8,7 +8,13 @@ class AdminTextsManager {
     public function __construct($page){
         $code = substr(LOCALE,0,2);
         if (!file_exists($this->_languagesPath.$code.".json")) {
-            $code = "en";
+            $fileURL = "https://raw.githubusercontent.com/RomainPct/Candide_PHP_FlatFiles_CMS/master/AdminTraductions/".$code.".json";
+            $tradsData = @fopen($fileURL,"r");
+            if ($tradsData == false) {
+                $code = "en";
+            } else {
+                file_put_contents($this->_languagesPath.$code.".json",$tradsData);
+            }
         }
         $tmp_texts = json_decode(file_get_contents($this->_languagesPath.$code.".json"),true);
         $this->_texts = (key_exists($page,$tmp_texts)) ? $tmp_texts[$page] : [] ;
