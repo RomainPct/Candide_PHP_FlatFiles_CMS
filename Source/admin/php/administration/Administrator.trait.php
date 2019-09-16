@@ -15,7 +15,7 @@ trait Administrator {
                 break;
             case "image":
                 $style = "style='width: ".$fieldInfos["width"]."px; height: ".$fieldInfos["height"]."px'";
-                $html = $html."<div ".$style." class='image_input_preview'><label for='".$name."'>Modifier</label><img id='image_".$name."' class='fullHeight' src='".$data."'/></div><input id='".$name."' type='file' accept='image/*' name='".$name."' class='classic-image-input'/>";
+                $html = $html."<div ".$style." class='image_input_preview'><label for='".$name."'>Modifier</label><img id='image_".$name."' class='fullHeight' src='".$data."'/><input id='".$name."' type='file' accept='image/*' name='".$name."' class='classic-image-input'/></div>";
                 break;
             case "number":
                 $html = $html."<input placeholder='ex: 12.67' name='".$name."' type='text' value='".$data."'>";

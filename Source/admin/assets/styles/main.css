@@ -63,6 +63,17 @@ nav {
     overflow: hidden;
     position: relative;
     background-color: lightgrey; }
+    .inputContainer .image_input_preview input[type="file"] {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      z-index: 4;
+      opacity: 0; }
+    .inputContainer .image_input_preview:hover input[type="file"] {
+      z-index: 2; }
     .inputContainer .image_input_preview::after {
       content: "";
       display: block;
@@ -88,7 +99,7 @@ nav {
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      z-index: 2;
+      z-index: 3;
       opacity: 0;
       transition: opacity .2s; }
     .inputContainer .image_input_preview:hover label {

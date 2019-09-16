@@ -8,6 +8,19 @@
     overflow: hidden;
     position: relative;
     background-color: lightgrey;
+    input[type="file"] {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      z-index: 4;
+      opacity: 0;
+    }
+    &:hover input[type="file"] {
+      z-index: 2;
+    }
     &::after {
       content: "";
       display: block;
@@ -35,7 +48,7 @@
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      z-index: 2;
+      z-index: 3;
       opacity: 0;
       transition: opacity .2s;
     }
