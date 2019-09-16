@@ -29,5 +29,8 @@
         "edit_item_of_the_collection":"Modifier un élément de la collection",
         "add":"Ajouter",
         "save":"Enregistrer"
+    },
+    "administrator" : {
+        "edit":"Edit"
     }
  }

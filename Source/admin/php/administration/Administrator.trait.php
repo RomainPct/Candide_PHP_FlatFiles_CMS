@@ -3,6 +3,7 @@
 trait Administrator {
 
     protected function getField($name,$type,$data,$fieldInfos) {
+        $texts = new AdminTextsManager("administrator");
         $html = "<div class='inputContainer'><h2>".$this->formatTitle($name,true)."</h2>";
         switch ($type) {
             case "text":
@@ -15,7 +16,7 @@ trait Administrator {
                 break;
             case "image":
                 $style = "style='width: ".$fieldInfos["width"]."px; height: ".$fieldInfos["height"]."px'";
-                $html = $html."<div ".$style." class='image_input_preview'><label for='".$name."'>Modifier</label><img id='image_".$name."' class='fullHeight' src='".$data."'/><input id='".$name."' type='file' accept='image/*' name='".$name."' class='classic-image-input'/></div>";
+                $html = $html."<div ".$style." class='image_input_preview'><label for='".$name."'>".$texts->get("edit")."</label><img id='image_".$name."' class='fullHeight' src='".$data."'/><input id='".$name."' type='file' accept='image/*' name='".$name."' class='classic-image-input'/></div>";
                 break;
             case "number":
                 $html = $html."<input placeholder='ex: 12.67' name='".$name."' type='text' value='".$data."'>";
