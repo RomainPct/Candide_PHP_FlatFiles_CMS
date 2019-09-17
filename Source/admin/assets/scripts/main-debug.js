@@ -233,6 +233,13 @@ function allowCmdS(){
     }, false);
 }
 
+function setMenu(){
+    document.querySelector('#js_hamburgerButton').addEventListener('click',function(e){
+        e.preventDefault()
+        document.querySelector('body').classList.toggle("menuOpen")
+    })
+}
+
 if (document.URL.indexOf("editPage") != -1){
     setEditPage()
 } else if (document.URL.indexOf("editCollectionItem") != -1){
@@ -242,3 +249,4 @@ if (document.URL.indexOf("editPage") != -1){
 } else {
     setHome()
 }
+setMenu()

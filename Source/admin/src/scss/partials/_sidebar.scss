@@ -1,9 +1,12 @@
 nav {
   position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   width: 25vw;
-  height: 100vh;
   background-color: $background-color;
   box-shadow: $shadow-large;
   #header {
@@ -17,6 +20,9 @@ nav {
       font-weight: bold;
       font-size: $font-size-logo;
       color: #fff;
+    }
+    a.hamburgerButton {
+      display: none;
     }
   }
   ul {

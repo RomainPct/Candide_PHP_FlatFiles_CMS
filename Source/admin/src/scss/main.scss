@@ -21,3 +21,27 @@ body {
   padding: $m-marge $l-marge;
   box-sizing: border-box;
 }
+
+// Medium width
+@media screen and (max-width: 950px) and (min-width: 801px) {
+  #content {
+    margin-left: 30vw;
+    width: 70vw;
+  }
+  nav {
+    width: 30vw;
+  }
+}
+
+// Small width
+@media screen and (max-width: 800px) {
+  #content {
+    margin-left: 0;
+    width: auto;
+    height: auto;
+    padding: $m-marge $s-marge $xl-marge;
+  }
+  @import "partials/fluid/menu";
+  @import "partials/fluid/form";
+  @import "partials/fluid/collection";
+}

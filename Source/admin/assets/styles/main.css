@@ -1,9 +1,12 @@
 nav {
   position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   width: 25vw;
-  height: 100vh;
   background-color: #FEFEFE;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.16); }
   nav #header {
@@ -17,6 +20,8 @@ nav {
       font-weight: bold;
       font-size: 47px;
       color: #fff; }
+    nav #header a.hamburgerButton {
+      display: none; }
   nav ul {
     list-style: none;
     padding: 0;
@@ -210,7 +215,8 @@ p.error {
   border-radius: 5px;
   transition: box-shadow .2s, background-color .2s; }
   .collectionItemBox h2 {
-    flex: 3; }
+    flex: 3;
+    margin: 0; }
   .collectionItemBox a.button {
     position: relative;
     display: block;
@@ -280,3 +286,54 @@ body {
   overflow: auto;
   padding: 29px 47px;
   box-sizing: border-box; }
+
+@media screen and (max-width: 950px) and (min-width: 801px) {
+  #content {
+    margin-left: 30vw;
+    width: 70vw; }
+  nav {
+    width: 30vw; } }
+
+@media screen and (max-width: 800px) {
+  #content {
+    margin-left: 0;
+    width: auto;
+    height: auto;
+    padding: 29px 18px 76px; }
+  nav {
+    width: 100vw;
+    position: relative; }
+    nav #header {
+      padding: 29px;
+      display: flex;
+      justify-content: space-between; }
+      nav #header a.hamburgerButton {
+        display: block;
+        height: 50px;
+        width: 50px;
+        background: url("../images/icons/menu.svg") no-repeat center;
+        background-size: 100%; }
+    nav .navSection {
+      display: none; }
+  body.menuOpen #header a.hamburgerButton {
+    background-image: url(../images/icons/close.svg); }
+  body.menuOpen .navSection {
+    display: block; }
+  body.menuOpen #content {
+    display: none; }
+  .submitContainer {
+    bottom: 26px;
+    top: unset;
+    right: 18px;
+    left: 18px;
+    text-align: center; }
+    .submitContainer a, .submitContainer input[type=submit] {
+      width: 100%;
+      box-sizing: border-box; }
+  #backButton {
+    display: block;
+    margin-bottom: 18px; }
+  .collectionItemBox {
+    padding: 18px 0 18px 11px; }
+    .collectionItemBox a.button {
+      margin: 0 18px; } }
