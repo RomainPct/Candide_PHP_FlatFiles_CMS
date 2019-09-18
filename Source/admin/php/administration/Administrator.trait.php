@@ -30,14 +30,18 @@ trait Administrator {
     }
 
     protected function deleteFiles($target) {
-        if(is_dir($target)){
-            $files = glob( $target . '*', GLOB_MARK ); //GLOB_MARK adds a slash to directories returned
-            foreach( $files as $file ){
-                $this->deleteFiles( $file );
+        echo "Delete this target : ".$target;
+        // Only allow to delete files into CandideData
+        if (strpos($target,"CandideData/") !== false) {
+            if(is_dir($target)){
+                $files = glob( $target . '*', GLOB_MARK ); //GLOB_MARK adds a slash to directories returned
+                foreach( $files as $file ){
+                    $this->deleteFiles( $file );
+                }
+                rmdir($target);
+            } elseif(is_file($target)) {
+                unlink( $target );
             }
-            rmdir($target);
-        } elseif(is_file($target)) {
-            unlink( $target );
         }
     }
 

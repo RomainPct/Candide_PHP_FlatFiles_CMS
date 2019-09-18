@@ -21,6 +21,7 @@ function getFormData(form){
     return formData
 }
 
+let pellContent
 function setPellEditorFor(input){
     let pellEditor = input.querySelector('.pell'),
         output = input.querySelector('.wysiwyg-output')
@@ -49,7 +50,17 @@ function setPellEditorFor(input){
                 },
         ]
     })
-    pellEditor.querySelector('.pell-content').innerHTML = output.value
+    pellContent = pellEditor.querySelector('.pell-content')
+    pellContent.innerHTML = output.value
+    pellContent.addEventListener('drop', handleDropFileInWysiwyg, false);
+}
+
+function handleDropFileInWysiwyg(evt) {
+    if (evt.dataTransfer.files.length > 0) {
+        evt.stopPropagation();
+        evt.preventDefault();
+        manageWysiwygImageInputEdition(evt.dataTransfer.files)   
+    }
 }
 
 function manageClassicImageInputEdition(input){
@@ -71,13 +82,12 @@ function manageClassicImageInputEdition(input){
     submitContainer.classList.add('clickable')
 }
 
-function manageWysiwygImageInputEdition(input){
-    if (input.files[0] != null) {
-        input.parentElement.querySelector('.pell-content').focus()
-        uploadFile(input.files[0], (url) => {
-            input.parentElement.querySelector('.pell-content').focus()
+function manageWysiwygImageInputEdition(files){
+    if (files[0] != null) {
+        pellContent.focus()
+        uploadFile(files[0], (url) => {
+            pellContent.focus()
             document.execCommand('insertImage', false, url)
-            submitContainer.classList.add('clickable')
         })
     }
 }
@@ -146,7 +156,7 @@ function setForm() {
     filesInput = document.querySelectorAll('input[type="file"]')
     filesInput.forEach(input => {
         input.addEventListener('change',function () {
-            input.classList.contains('classic-image-input') ? manageClassicImageInputEdition(this) : manageWysiwygImageInputEdition(this)
+            input.classList.contains('classic-image-input') ? manageClassicImageInputEdition(this) : manageWysiwygImageInputEdition(this.files)
         })  
     })
 }
