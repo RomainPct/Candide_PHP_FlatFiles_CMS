@@ -1,4 +1,3 @@
-let pellContent
 function setPellEditorFor(input){
     let pellEditor = input.querySelector('.pell'),
         output = input.querySelector('.wysiwyg-output')
@@ -26,16 +25,19 @@ function setPellEditorFor(input){
                 },
         ]
     })
-    pellContent = pellEditor.querySelector('.pell-content')
+    let pellContent = pellEditor.querySelector('.pell-content')
     pellContent.innerHTML = output.value
     pellContent.addEventListener('drop', handleDropFileInWysiwyg, false);
 }
 
 function handleDropFileInWysiwyg(evt) {
     if (evt.dataTransfer.files.length > 0) {
+        console.log("drop files "+evt.dataTransfer.files)
+        console.log(evt.target)
+        console.log(evt.currentTarget)
         evt.stopPropagation();
         evt.preventDefault();
-        manageWysiwygImageInputEdition(evt.dataTransfer.files)   
+        manageWysiwygImageInputEdition(evt.dataTransfer.files,evt.currentTarget)
     }
 }
 
@@ -58,7 +60,7 @@ function manageClassicImageInputEdition(input){
     submitContainer.classList.add('clickable')
 }
 
-function manageWysiwygImageInputEdition(files){
+function manageWysiwygImageInputEdition(files,pellContent){
     if (files[0] != null) {
         pellContent.focus()
         uploadFile(files[0], (url) => {
@@ -132,7 +134,7 @@ function setForm() {
     filesInput = document.querySelectorAll('input[type="file"]')
     filesInput.forEach(input => {
         input.addEventListener('change',function () {
-            input.classList.contains('classic-image-input') ? manageClassicImageInputEdition(this) : manageWysiwygImageInputEdition(this.files)
+            input.classList.contains('classic-image-input') ? manageClassicImageInputEdition(this) : manageWysiwygImageInputEdition(this.files,this.querySelector('pell-content'))
         })  
     })
 }

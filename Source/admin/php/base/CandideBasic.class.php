@@ -24,13 +24,13 @@ class CandideBasic extends Basic {
     }
 
     // Gestion ajout de méthode via les plugins
-    function addMethod($name, $method) {
-        $this->_methods[$name] = $method;
-    }
+    // function addMethod($name, $method) {
+    //     $this->_methods[$name] = $method;
+    // }
 
-    public function __call($name, $arguments) {
-        return call_user_func_array( $this->_methods[$name], $arguments);
-    }
+    // public function __call($name, $arguments) {
+    //     return call_user_func_array( $this->_methods[$name], $arguments);
+    // }
 
     public function getPageName() {
         echo $this->formatTitle($this->_page);

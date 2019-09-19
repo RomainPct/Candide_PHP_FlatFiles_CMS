@@ -57,6 +57,7 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
         $this->_data = array_merge($this->_structure,$this->_data);
         $this->setTexts($texts);
         $newFiles = $this->setImages($files);
+        // Renommer le dossier newItem avec le nouvel id
         $this->saveData();
         // Information de la collection
         $collectionData = $this->_collectionAdministrator->setData($texts,$newFiles,$this->_id);
@@ -70,6 +71,9 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
         foreach ($this->_structure as $key => $value) {
             if (key_exists($key,$texts)) {
                 $this->_data[$key]['data'] = $texts[$key];
+                if ($this->_newItem) {
+                    // Remplacer /newItem/ par /$id/ dans tout les urls dans les texts wysiwyg
+                }
             }
         }
     }
@@ -79,7 +83,13 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
         foreach ($files as $key => $file) {
             if ($file["size"] != 0) {                
                 $dir = $this->getPage()."/".$this->_id;
-                $url = $this->savePicture($key,$file,$dir,$this->_data[$key],$this->_fullStructure[$key]);
+                $url = $this->savePicture(
+                    $key,
+                    $file,
+                    $dir,
+                    key_exists($key,$this->_data) ? $this->_data[$key] : [],
+                    $this->_fullStructure[$key]
+                );
                 $newFiles[$key] = $url;
                 $this->_data[$key]['data'] = $url;
             }
