@@ -73,22 +73,37 @@ trait Administrator {
         return "/CandideData/files/".$directory."/".$fileName;
     }
 
-    protected function removeWysiwygFiles($jsonWysiwygFilesToDelete,$collectionData = []) {
-        $wysiwygFilesToDelete = json_decode($jsonWysiwygFilesToDelete);
-        if (is_array($wysiwygFilesToDelete)) {
-            // Filter files to delete which finally are still used
-            $data = array_merge($this->_data,$collectionData);
-            $wysiwygFilesToDelete = array_filter($wysiwygFilesToDelete,function($file) use ($data){
-                $keep = true;
-                foreach ($data as $fieldData) {
-                    if (is_array($fieldData) && key_exists("wysiwyg",$fieldData) && $fieldData["wysiwyg"] && strstr($fieldData["data"],$file) != false) {
-                        $keep = false;
-                    }
+    protected function removeWysiwygFiles($url,$collectionData = []) {
+        // Get all wysiwyg fields in one string
+        $wysiwygData = implode(
+                    array_column(
+                        array_filter(
+                            array_merge($this->_data,$collectionData),
+                            function($d){
+                                return $d["type"] == "text" && $d["wysiwyg"] === true;
+                            }
+                        )
+                    ,"data")
+                );
+        // Get each image url from the wysiwyg fields
+        preg_match_all("/<img src=\"([\s\S]+?)\">/", $wysiwygData, $matches,PREG_SET_ORDER);
+        $usefullFiles = array_map(function($entry){
+            return $entry[1];
+        },$matches);
+        // Get all images in the current wysiwyg folder
+        $filesInFolder = glob( $url.'/wysiwyg/*', GLOB_MARK );
+        // Remove useless files
+        foreach ($filesInFolder as $fileInFolder) {
+            $isUseless = true;
+            foreach ($usefullFiles as $usefullFile) {
+                if (strpos($fileInFolder,$usefullFile) !== false) {
+                    $isUseless = false;
+                    break;
                 }
-                return $keep;
-            });
-            foreach ($wysiwygFilesToDelete as $file){
-                $this->deleteFiles(ROOT_DIR.$file);
+            }
+            // If file is useless -> delete it
+            if ($isUseless) {
+                $this->deleteFiles($fileInFolder);
             }
         }
     }

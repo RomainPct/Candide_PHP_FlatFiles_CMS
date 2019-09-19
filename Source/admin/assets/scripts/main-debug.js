@@ -1,26 +1,3 @@
-let wysiwygFilesToDelete = []
-
-function manageImageDeletionInWysiwyg(oldHtml, newHtml){
-    let oldParts = oldHtml.split('<img src="'),
-        newParts = newHtml.split('<img src="')
-    if (oldParts.length > newParts.length) {
-        for (let i = 0; i < oldParts.length; i++) {
-            if ( i == oldParts.length - 1 || oldParts[i].indexOf('">') != newParts[i].indexOf('">')) {
-                let endIndex = oldParts[i].indexOf('">')
-                wysiwygFilesToDelete.push(oldParts[i].substring(0,endIndex))
-                break
-            }
-        }
-    }
-}
-
-function getFormData(form){
-    let formData  = new FormData(form)
-    formData.append("wysiwygFilesToDelete",JSON.stringify(wysiwygFilesToDelete))
-    wysiwygFilesToDelete = []
-    return formData
-}
-
 let pellContent
 function setPellEditorFor(input){
     let pellEditor = input.querySelector('.pell'),
@@ -28,7 +5,6 @@ function setPellEditorFor(input){
     pell.init({
         element: pellEditor,
         onChange: html => {
-            manageImageDeletionInWysiwyg(output.value,html)
             output.value = html
             submitContainer.classList.add('clickable')
         },
@@ -169,7 +145,7 @@ function setEditPage() {
         submitContainer.classList.add('loading')
         fetch(this.getAttribute('action'), {
             method: 'POST',
-            body: getFormData(this)
+            body: new FormData(this)
         })
         .then(function (response) {
             submitContainer.classList.remove('loading')
@@ -215,7 +191,7 @@ function setEditCollectionItem() {
         submitContainer.classList.add('loading')
         fetch(this.getAttribute('action'), {
             method: 'POST',
-            body: getFormData(this)
+            body: new FormData(this)
         }).then(function (response) {
             submitContainer.classList.remove('loading')
             if (response.status == 200){
@@ -223,6 +199,7 @@ function setEditCollectionItem() {
             }
             return response.text()
         }).then(function (id) {
+            console.log(id)
             if (editCollectionItemForm.getAttribute("data-id") == "newItem"){
                 let pageName = editCollectionItemForm.getAttribute("data-page")
                 window.location.href= "editCollectionItem?page="+pageName+"&id="+id

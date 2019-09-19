@@ -15,7 +15,7 @@ class CandidePageAdministrator extends CandideBasic {
         $this->setTexts($texts);
         $this->setImages($files);
         $this->saveData();
-        $this->removeWysiwygFiles($texts["wysiwygFilesToDelete"]);
+        $this->removeWysiwygFiles(self::FILES_DIRECTORY.$this->getPage());
     }
 
     private function setTexts(Array $texts) {
