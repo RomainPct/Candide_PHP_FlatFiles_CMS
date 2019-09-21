@@ -73,6 +73,15 @@ trait Administrator {
         return "/CandideData/files/".$directory."/".$fileName;
     }
 
+    // protected function cleanWysiwygImageUrls(&$texts,$infos){
+    //     foreach ($texts as $key => $text){
+    //         if (key_exists($key,$infos) && key_exists("wysiwyg",$infos[$key]) && $infos[$key]["wysiwyg"]) {
+    //             echo "\nclean wysiwyg :".$key;
+    //             // SUPPRIMER LES TRUCS TYPES LOCALHOST:8080
+    //         }
+    //     }
+    // }
+
     protected function removeWysiwygFiles($url,$collectionData = []) {
         // Get all wysiwyg fields in one string
         $wysiwygData = implode(

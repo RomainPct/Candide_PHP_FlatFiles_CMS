@@ -37,7 +37,7 @@ class CandideCollectionAdministrator extends CandideCollection {
                 $title++;
             }
         }
-        $title = (is_int($title)) ? "Sans nom" : $title;
+        $title = (is_int($title)) ? "Sans nom ".$id : $title;
         echo substr($title,0,100);
     }
 

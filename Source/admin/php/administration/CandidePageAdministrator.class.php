@@ -19,6 +19,7 @@ class CandidePageAdministrator extends CandideBasic {
     }
 
     private function setTexts(Array $texts) {
+        // $this->cleanWysiwygImageUrls($texts,$this->_data);
         foreach ($texts as $key => $text){
             if (key_exists($key,$this->_data)) {
                 if ($this->_data[$key]['type'] == "text" || $this->_data[$key]['type'] == "number") {

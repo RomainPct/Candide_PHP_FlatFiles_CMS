@@ -53,17 +53,14 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
     }
 
     public function setData(Array $texts, Array $files){
-        // Gestion information de l'item
         $this->_data = array_merge($this->_structure,$this->_data);
+        // $this->cleanWysiwygImageUrls($texts,$this->_structure);
         $this->setTexts($texts);
         $newFiles = $this->setImages($files);
-        // Renommer le dossier newItem avec le nouvel id
+        // RENOMMER LE DOSSIER NEW ITEM AVEC LE NOUVEL ID
         $this->saveData();
-        // Information de la collection
         $collectionData = $this->_collectionAdministrator->setData($texts,$newFiles,$this->_id);
-        // Gestion des fichiers genants
         $this->removeWysiwygFiles(self::FILES_DIRECTORY.$this->_page."/".$this->_id,$collectionData);
-        // Afficher le nouvel id
         echo $this->_id;
     }
 
@@ -71,9 +68,6 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
         foreach ($this->_structure as $key => $value) {
             if (key_exists($key,$texts)) {
                 $this->_data[$key]['data'] = $texts[$key];
-                if ($this->_newItem) {
-                    // Remplacer /newItem/ par /$id/ dans tout les urls dans les texts wysiwyg
-                }
             }
         }
     }
