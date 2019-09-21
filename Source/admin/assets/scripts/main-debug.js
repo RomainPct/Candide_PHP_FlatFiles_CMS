@@ -32,9 +32,6 @@ function setPellEditorFor(input){
 
 function handleDropFileInWysiwyg(evt) {
     if (evt.dataTransfer.files.length > 0) {
-        console.log("drop files "+evt.dataTransfer.files)
-        console.log(evt.target)
-        console.log(evt.currentTarget)
         evt.stopPropagation();
         evt.preventDefault();
         manageWysiwygImageInputEdition(evt.dataTransfer.files,evt.currentTarget)
@@ -42,48 +39,41 @@ function handleDropFileInWysiwyg(evt) {
 }
 
 function manageClassicImageInputEdition(input){
-    let img = document.querySelector('#image_'+input.getAttribute('name'))
-    let width = img.parentElement.offsetWidth
-    let height = img.parentElement.offsetHeight
-    img.onload = function(){
-        if ( height/width > this.naturalHeight/this.naturalWidth ) {
-            img.classList.add('fullHeight')
-            img.classList.remove('fullWidth')
-        } else {
-            img.classList.remove('fullHeight')
-            img.classList.add('fullWidth')
+    if (input.files[0] != null) {
+        let img = document.querySelector('#image_'+input.getAttribute('name'))
+        let width = img.parentElement.offsetWidth
+        let height = img.parentElement.offsetHeight
+        img.onload = function(){
+            if ( height/width > this.naturalHeight/this.naturalWidth ) {
+                img.classList.add('fullHeight')
+                img.classList.remove('fullWidth')
+            } else {
+                img.classList.remove('fullHeight')
+                img.classList.add('fullWidth')
+            }
         }
+        let fr = new FileReader
+        fr.onload = (e) => img.src = e.target.result
+        fr.readAsDataURL(input.files[0])
+        submitContainer.classList.add('clickable')
     }
-    let fr = new FileReader
-    fr.onload = (e) => img.src = e.target.result
-    fr.readAsDataURL(input.files[0])
-    submitContainer.classList.add('clickable')
 }
 
+let newWysiwygFiles = []
 function manageWysiwygImageInputEdition(files,pellContent){
     if (files[0] != null) {
-        pellContent.focus()
-        uploadFile(files[0], (url) => {
+        let fr = new FileReader
+        fr.onload = (e) => {
             pellContent.focus()
-            document.execCommand('insertImage', false, url)
-        })
+            newWysiwygFiles.push({
+                'pellOutput':pellContent.parentElement.parentElement.querySelector('.wysiwyg-output'),
+                'imageSrc':e.target.result,
+                'file':files[0]
+            })
+            document.execCommand('insertImage', false, e.target.result)
+        }
+        fr.readAsDataURL(files[0])
     }
-}
-
-function uploadFile(file, successCallback) {
-    let pageName = document.querySelector('#pageName').getAttribute('data-url')
-    let formData = new FormData()
-    formData.append("file", file)
-    formData.append("destination","files/"+pageName)
-    fetch("php/actions/savePictureForWysiwyg.php", {
-        method: 'POST',
-        body: formData
-    }).then(function (response) {
-        return response.text()
-    }).then(function (text) {
-        successCallback(text)
-    })
-
 }
 
 let updateAdminPlatform
@@ -139,27 +129,8 @@ function setForm() {
     })
 }
 
-let editPageForm
 function setEditPage() {
-    editPageForm = document.querySelector("#editPageForm");
-    editPageForm.addEventListener('submit',function (e) {
-        e.preventDefault()
-        submitContainer.classList.add('loading')
-        fetch(this.getAttribute('action'), {
-            method: 'POST',
-            body: new FormData(this)
-        })
-        .then(function (response) {
-            submitContainer.classList.remove('loading')
-            if (response.status == 200){
-                submitContainer.classList.remove('clickable')
-            }
-            return response.text()
-        })
-        .then(function (text) {
-            console.log(text)
-        });
-    })
+    setSubmitEvent(document.querySelector("#editPageForm"))
     setForm()
 }
 
@@ -188,25 +159,11 @@ function setEditCollection() {
 let editCollectionItemForm
 function setEditCollectionItem() {
     editCollectionItemForm = document.querySelector("#editCollectionItemForm");
-    editCollectionItemForm.addEventListener('submit',function (e) {
-        e.preventDefault()
-        submitContainer.classList.add('loading')
-        fetch(this.getAttribute('action'), {
-            method: 'POST',
-            body: new FormData(this)
-        }).then(function (response) {
-            submitContainer.classList.remove('loading')
-            if (response.status == 200){
-                submitContainer.classList.remove('clickable')
-            }
-            return response.text()
-        }).then(function (id) {
-            console.log(id)
-            if (editCollectionItemForm.getAttribute("data-id") == "newItem"){
-                let pageName = editCollectionItemForm.getAttribute("data-page")
-                window.location.href= "editCollectionItem?page="+pageName+"&id="+id
-            }
-        });
+    setSubmitEvent(editCollectionItemForm,function(id){
+        if (editCollectionItemForm.getAttribute("data-id") == "newItem"){
+            let pageName = editCollectionItemForm.getAttribute("data-page")
+            window.location.href= "editCollectionItem?page="+pageName+"&id="+id
+        }
     })
     setForm()
 }
@@ -227,6 +184,48 @@ function setMenu(){
         e.preventDefault()
         document.querySelector('body').classList.toggle("menuOpen")
     })
+}
+
+function setSubmitEvent(form,successCallback = function(r){} ){
+    form.addEventListener('submit',function (e) {
+        e.preventDefault()
+        submitContainer.classList.add('loading')
+        fetch(this.getAttribute('action'), {
+            method: 'POST',
+            body: getFormData(this)
+        })
+            .then(function (response) {
+                submitContainer.classList.remove('loading')
+                if (newWysiwygFiles.length > 0) {
+                    window.location.reload();
+                } else if (response.status == 200) {
+                    submitContainer.classList.remove('clickable')
+                }
+                return response.text()
+            })
+            .then(function (response) {
+                console.log(response)
+                successCallback(response)
+            })
+    })
+}
+
+function getFormData(form){
+    newWysiwygFiles.forEach(item => {
+        item.id = generateGUID()
+        item.pellOutput.value = item.pellOutput.value.replace(item.imageSrc,item.id)
+    })
+    let formData = new FormData(form)
+    newWysiwygFiles.forEach(item => {
+        formData.append(item.id,item.file)
+    })
+    return formData
+}
+
+function generateGUID(){
+    let u = Date.now().toString(16) + Math.random().toString(16) + '0'.repeat(16);
+    let guid = [u.substr(0,8), u.substr(8,4), '4000-8' + u.substr(13,3), u.substr(16,12)].join('-');
+    return guid
 }
 
 if (document.URL.indexOf("editPage") != -1){

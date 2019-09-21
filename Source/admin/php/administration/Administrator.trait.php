@@ -45,42 +45,55 @@ trait Administrator {
         }
     }
 
-    protected function cleanFileName($key,$name):String {
+    protected function getFileName($key,$name):String {
         $fileName = preg_replace("/[^a-zA-Z0-^._]/", "_", $name);
         return strtolower($key."_".time().$fileName);
     }
 
-    protected function savePicture($key,$file,$directory,$entry,$struct = []):String {
+    protected function savePicture($key,$file,$directory,$entry = [],$struct = []):String {
         if (!file_exists(self::FILES_DIRECTORY.$directory)) {
             mkdir(self::FILES_DIRECTORY.$directory,0777,true);
         }
-        $fileName = $this->cleanFileName($key,$file["name"]);
-        // Resize de l'image
-        if (key_exists("width",$entry)){
+        $fileName = $this->getFileName($key,$file["name"]);
+        $finalPath = self::FILES_DIRECTORY.$directory."/".$fileName;
+        // Resize the picture or save it if resizing is unecessary
+        if (key_exists("width",$entry) && key_exists("height",$entry)){
             $img = $this->resize($file["tmp_name"],$entry["width"],$entry["height"]);
-        } else {
+        } else if (key_exists("width",$struct) && key_exists("height",$struct)) {
             $img = $this->resize($file["tmp_name"],$struct["width"],$struct["height"]);
-        }
-        // Enregistrer l'image dans un dossier
-        if ($img[1] == "png") {
-            imagepng($img[0], self::FILES_DIRECTORY.$directory."/".$fileName);
         } else {
-            imagejpeg($img[0], self::FILES_DIRECTORY.$directory."/".$fileName, 100);
+            move_uploaded_file($file["tmp_name"],$finalPath);
         }
+        // Save img if she was resized
+        if (isset($img)) {
+            if ($img[1] == "png") {
+                imagepng($img[0], $finalPath);
+            } else {
+                imagejpeg($img[0], $finalPath, 100);
+            }   
+        }
+        // Remove the old file if it exists
         if (key_exists("data",$entry)) {
             $this->deleteFiles(ROOT_DIR.$entry["data"]);
         }
         return "/CandideData/files/".$directory."/".$fileName;
     }
 
-    // protected function cleanWysiwygImageUrls(&$texts,$infos){
-    //     foreach ($texts as $key => $text){
-    //         if (key_exists($key,$infos) && key_exists("wysiwyg",$infos[$key]) && $infos[$key]["wysiwyg"]) {
-    //             echo "\nclean wysiwyg :".$key;
-    //             // SUPPRIMER LES TRUCS TYPES LOCALHOST:8080
-    //         }
-    //     }
-    // }
+    protected function saveWysiwygFile($key,$file,$dest,&$texts,$infos){
+        $url = $this->savePicture($key,$file,$dest);
+        // Browse data to replace the id by the url
+        foreach ($infos as $infosKey => $text){
+            if (
+                key_exists("wysiwyg",$infos[$infosKey])
+                && $infos[$infosKey]["wysiwyg"]
+                && key_exists($infosKey,$texts)
+                && strpos($texts[$infosKey],$key) !== false
+                ) {
+                $texts[$infosKey] = str_replace($key,$url,$texts[$infosKey]);
+                break;
+            }
+        }   
+    }
 
     protected function removeWysiwygFiles($url,$collectionData = []) {
         // Get all wysiwyg fields in one string

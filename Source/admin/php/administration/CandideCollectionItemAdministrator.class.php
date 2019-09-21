@@ -54,10 +54,8 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
 
     public function setData(Array $texts, Array $files){
         $this->_data = array_merge($this->_structure,$this->_data);
-        // $this->cleanWysiwygImageUrls($texts,$this->_structure);
+        $newFiles = $this->setImages($files, $texts, $this->_data);
         $this->setTexts($texts);
-        $newFiles = $this->setImages($files);
-        // RENOMMER LE DOSSIER NEW ITEM AVEC LE NOUVEL ID
         $this->saveData();
         $collectionData = $this->_collectionAdministrator->setData($texts,$newFiles,$this->_id);
         $this->removeWysiwygFiles(self::FILES_DIRECTORY.$this->_page."/".$this->_id,$collectionData);
@@ -72,20 +70,17 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
         }
     }
 
-    private function setImages(Array $files) : Array {
+    private function setImages(Array $files, Array &$texts, Array $infos) : Array {
         $newFiles = [];
         foreach ($files as $key => $file) {
-            if ($file["size"] != 0) {                
-                $dir = $this->getPage()."/".$this->_id;
-                $url = $this->savePicture(
-                    $key,
-                    $file,
-                    $dir,
-                    key_exists($key,$this->_data) ? $this->_data[$key] : [],
-                    $this->_fullStructure[$key]
-                );
+            $dest = $this->getPage()."/".$this->_id;
+            if ($file["size"] != 0 && strpos($key,"image_") === 0) {
+                $data = key_exists($key,$this->_data) ? $this->_data[$key] : [];
+                $url = $this->savePicture($key, $file, $dest, $data, $this->_fullStructure[$key]);
                 $newFiles[$key] = $url;
                 $this->_data[$key]['data'] = $url;
+            } else {
+                $this->saveWysiwygFile($key,$file,$dest."/wysiwyg",$texts,$infos);
             }
         }
         return $newFiles;
