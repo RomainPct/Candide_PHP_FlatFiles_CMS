@@ -34,6 +34,20 @@ function handleDropFileInWysiwyg(evt) {
     if (evt.dataTransfer.files.length > 0) {
         evt.stopPropagation();
         evt.preventDefault();
+        var sel = document.getSelection();
+        if(document.caretRangeFromPoint) { // Chrome
+            var range = document.caretRangeFromPoint(evt.clientX,evt.clientY);
+            sel.removeAllRanges();
+            sel.addRange(range);
+        } else if(e.rangeParent) { // Firefox
+            var range = document.createRange();
+            range.setStart(evt.rangeParent, evt.rangeOffset);
+            sel.removeAllRanges();
+            sel.addRange(range);
+        } else if(sel.rangeCount == 0) { // Default to at least not completely failing
+            var range = document.createRange();
+            sel.addRange(range);
+        }
         manageWysiwygImageInputEdition(evt.dataTransfer.files,evt.currentTarget)
     }
 }
