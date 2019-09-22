@@ -189,24 +189,34 @@ function setMenu(){
 function setSubmitEvent(form,successCallback = function(r){} ){
     form.addEventListener('submit',function (e) {
         e.preventDefault()
-        submitContainer.classList.add('loading')
-        fetch(this.getAttribute('action'), {
-            method: 'POST',
-            body: getFormData(this)
-        })
-            .then(function (response) {
-                submitContainer.classList.remove('loading')
-                if (newWysiwygFiles.length > 0) {
-                    window.location.reload();
-                } else if (response.status == 200) {
-                    submitContainer.classList.remove('clickable')
-                }
-                return response.text()
+        if (submitContainer.classList.contains('clickable') && !submitContainer.classList.contains('loading')) {
+            submitContainer.classList.add('loading')
+            fetch(this.getAttribute('action'), {
+                method: 'POST',
+                body: getFormData(this)
             })
-            .then(function (response) {
-                console.log(response)
-                successCallback(response)
-            })
+                .then(function (response) {
+                    if (newWysiwygFiles.length > 0) {
+                        window.location.reload();
+                    } else if (response.status == 200) {
+                        submitContainer.classList.add('success')
+                        setTimeout(function(){
+                            submitContainer.classList.remove('clickable','success')
+                            setTimeout(function(){
+                                submitContainer.classList.remove('loading')
+                            },300)
+                        },1500);
+                    } else {
+                        // Reallow to try to save
+                        submitContainer.classList.remove('loading')
+                    }
+                    return response.text()
+                })
+                .then(function (response) {
+                    console.log(response)
+                    successCallback(response)
+                })
+        }
     })
 }
 

@@ -8,5 +8,6 @@ $c = new CandideCollectionItemAdministrator($_GET["page"],$_GET["id"]);
     <?php $c->getFields() ?>
     <div class="submitContainer">
         <input type="submit" value="<?php $c->getCallToActionText($texts) ?>">
+        <span class="success"><?php $texts->echo("saved") ?></span>
     </div>
 </form>

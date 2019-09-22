@@ -18,7 +18,8 @@
     },
     "editPage" : {
         "page":"Page",
-        "save":"Enregistrer"
+        "save":"Enregistrer",
+        "saved":"Enregistré"
     },
     "editCollection" : {
         "collection":"Collection",
@@ -28,7 +29,8 @@
         "new_item_in_collection":"Ajouter un nouvel élément à la collection",
         "edit_item_of_the_collection":"Modifier un élément de la collection",
         "add":"Ajouter",
-        "save":"Enregistrer"
+        "save":"Enregistrer",
+        "saved":"Enregistré"
     },
     "administrator" : {
         "edit":"Modifier"

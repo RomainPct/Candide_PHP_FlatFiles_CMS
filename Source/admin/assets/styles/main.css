@@ -142,17 +142,17 @@ nav {
   position: fixed;
   z-index: 10;
   top: 29px;
-  right: 76px;
+  right: 47px;
   padding: 5px;
   background: linear-gradient(to right bottom, #96FBC4 0%, #F9F586 100%);
   border-radius: 10px;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
   opacity: 0; }
   .submitContainer input[type="submit"], .submitContainer a {
+    cursor: pointer;
     outline: none;
     display: block;
     text-decoration: none;
-    cursor: pointer;
     -webkit-appearance: none;
     padding: 18px 29px;
     border-radius: 5px;
@@ -161,6 +161,15 @@ nav {
     color: #101010;
     font-weight: bold;
     background: #FEFEFE; }
+  .submitContainer span.success {
+    display: none;
+    padding: 18px 29px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #FEFEFE; }
+
+.submitContainer, .submitContainer input[type="submit"] {
+  transition: opacity .3s, box-shadow .2s, transform .2s; }
 
 .submitContainer:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.16); }
@@ -171,8 +180,13 @@ nav {
 .submitContainer.loading input[type="submit"] {
   opacity: 0; }
 
-.submitContainer, .submitContainer input[type="submit"] {
-  transition: opacity 0.3s, box-shadow .2s; }
+.submitContainer.success {
+  transform: scale(1.2);
+  box-shadow: 0 0 200px #96FBC4; }
+  .submitContainer.success input[type="submit"] {
+    display: none; }
+  .submitContainer.success span.success {
+    display: block; }
 
 #backButton {
   display: inline-block;

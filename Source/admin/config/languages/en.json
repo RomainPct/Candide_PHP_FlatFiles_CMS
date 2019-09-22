@@ -18,7 +18,8 @@
     },
     "editPage" : {
         "page":"Page",
-        "save":"Save"
+        "save":"Save",
+        "saved":"Saved"
     },
     "editCollection" : {
         "collection":"Collection",

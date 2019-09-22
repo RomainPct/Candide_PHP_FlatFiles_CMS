@@ -7,5 +7,6 @@ $c = new CandidePageAdministrator($_GET["page"]);
     <?php $c->getFields() ?>
     <div class="submitContainer">
         <input type="submit" value="<?php $texts->echo("save") ?>">
+        <span class="success"><?php $texts->echo("saved") ?></span>
     </div>
 </form>

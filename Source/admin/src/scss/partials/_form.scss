@@ -95,17 +95,17 @@
   position: fixed;
   z-index: 10;
   top: $m-marge;
-  right: $xl-marge;
+  right: $l-marge;
   padding: 5px;
   background: $gradient;
   border-radius: 10px;
   box-shadow: $shadow-medium;
   opacity: 0;
   input[type="submit"], a {
+    cursor: pointer;
     outline: none;
     display: block;
     text-decoration: none;
-    cursor: pointer;
     -webkit-appearance: none;
     padding: $s-marge $m-marge;
     border-radius: $radius;
@@ -115,6 +115,16 @@
     font-weight: bold;
     background: $background-color;
   }
+  span.success {
+    display: none;
+    padding: $s-marge $m-marge;
+    font-size: $font-size-body;
+    font-weight: 700;
+    color: $background-color;
+  }
+}
+.submitContainer, .submitContainer input[type="submit"] {
+  transition: opacity .3s, box-shadow .2s, transform .2s;
 }
 .submitContainer:hover {
   box-shadow: $shadow-large;
@@ -125,8 +135,15 @@
 .submitContainer.loading input[type="submit"] {
   opacity: 0;
 }
-.submitContainer, .submitContainer input[type="submit"] {
-  transition: opacity 0.3s, box-shadow .2s;
+.submitContainer.success {
+  transform: scale(1.2);
+  box-shadow: 0 0 200px #96FBC4;
+  input[type="submit"] {
+    display: none;
+  }
+  span.success {
+    display: block;
+  }
 }
 
 #backButton {
