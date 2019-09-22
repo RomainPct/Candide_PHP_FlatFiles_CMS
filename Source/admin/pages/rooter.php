@@ -1,6 +1,9 @@
 <?php
 $url = (key_exists('REDIRECT_URL',$_SERVER)) ? str_replace("admin/","",$_SERVER['REDIRECT_URL']) : "";
-if ($url == "" || $url == "/") {
+if (key_exists("plugin",$_GET)) {
+    $page = (key_exists("p",$_GET)) ? $_GET["p"] : "index";
+    include_once 'plugins/'.$_GET["plugin"].'/'.$page.'.php';
+} else if ($url == "" || $url == "/") {
     $texts = new AdminTextsManager("home");
     include_once 'pages/home.php';
 } else {

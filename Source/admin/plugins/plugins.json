@@ -1,0 +1,9 @@
+[
+    {
+        "name":"sample_visual_interface_plugin",
+        "version":"1.0.0",
+        "is_visual_interface":true,
+        "is_candide_class_extension":false,
+        "is_backend_extension":false
+    }
+]

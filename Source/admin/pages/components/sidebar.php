@@ -20,6 +20,16 @@ $texts = new AdminTextsManager("sidebar");
                 echo '<li><a href="editCollection?page='.$c->getCollectionName($i).'">'.$c->getCollection($i).'</a></li>';
             }
             ?>
+            <?php
+                if ($c->countPlugins() > 0) {
+                    echo '<li class="sectionTitle">'.$texts->get("plugins").'</li>';
+                }
+            ?>
+            <?php
+            for ($i = 0; $i < $c->countPlugins(); $i++){
+                echo '<li><a href="../admin/?plugin='.$c->getPluginName($i).'">'.$c->getPluginNameFormatted($i).'</a></li>';
+            }
+            ?>
         </ul>
     <div class="navSection">
         <a id="siteAccessButton" href="../" ><?php $texts->echo("open_website") ?></a>

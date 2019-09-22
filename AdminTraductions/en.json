@@ -2,6 +2,7 @@
     "sidebar" : {
         "pages" : "Pages",
         "collections" : "Collections",
+        "plugins" : "Plugins",
         "open_website" : "Open my website",
         "logout" : "Log out"
     },
