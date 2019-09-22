@@ -2,16 +2,18 @@
 
 class CandideIndex extends CandideIndexBasic {
 
-    const PLUGINS_URL = ROOT_DIR."/admin/plugins/plugins.json";
+    const PLUGINS_URL = ROOT_DIR."/admin/plugins/";
 
-    protected $_visual_plugins;
+    protected $_visual_plugins = [];
 
     public function __construct(){
         parent::__construct();
-        $this->_visual_plugins = (file_exists(self::PLUGINS_URL)) ? json_decode(file_get_contents(self::PLUGINS_URL),true) : [];
-        $this->_visual_plugins = array_filter($this->_visual_plugins,function($plugin) {
-            return $plugin["is_visual_interface"];
-        });
+        foreach (glob(self::PLUGINS_URL."*", GLOB_ONLYDIR) as $pluginFolder) {
+            $plugin = json_decode(file_get_contents($pluginFolder."/config.json"),true);
+            if ($plugin["is_visual_interface"]) {
+                $this->_visual_plugins[] = $plugin;   
+            }
+        }
     }
 
     public function getPageName($index):String {
