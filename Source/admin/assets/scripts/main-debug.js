@@ -212,15 +212,8 @@ function setSubmitEvent(form,successCallback = function(r){} ){
                     if (newWysiwygFiles.length > 0) {
                         window.location.reload();
                     } else if (response.status == 200) {
-                        submitContainer.classList.add('success')
-                        setTimeout(function(){
-                            submitContainer.classList.remove('clickable','success')
-                            setTimeout(function(){
-                                submitContainer.classList.remove('loading')
-                            },300)
-                        },1500);
+                        successfulUpdate()
                     } else {
-                        // Reallow to try to save
                         submitContainer.classList.remove('loading')
                     }
                     return response.text()
@@ -231,6 +224,19 @@ function setSubmitEvent(form,successCallback = function(r){} ){
                 })
         }
     })
+}
+
+function successfulUpdate(){
+    filesInput.forEach(input => {
+        input.value = null
+    })
+    submitContainer.classList.add('success')
+    setTimeout(function(){
+        submitContainer.classList.remove('clickable','success')
+        setTimeout(function(){
+            submitContainer.classList.remove('loading')
+        },300)
+    },1500);
 }
 
 function getFormData(form){

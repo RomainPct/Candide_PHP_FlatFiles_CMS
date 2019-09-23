@@ -79,8 +79,8 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
                 $url = $this->savePicture($key, $file, $dest, $data, $this->_fullStructure[$key]);
                 $newFiles[$key] = $url;
                 $this->_data[$key]['data'] = $url;
-            } else {
-                $this->saveWysiwygFile($key,$file,$dest."/wysiwyg",$texts,$infos);
+            } else if ($file["size"] != 0) {
+                $url = $this->saveWysiwygFile($key,$file,$dest."/wysiwyg",$texts,$infos);
             }
         }
         return $newFiles;

@@ -32,8 +32,8 @@ class CandidePageAdministrator extends CandideBasic {
         foreach ($files as $key => $file) {
             if ($file["size"] != 0 && strpos($key,"image_") === 0) {
                 $this->_data[$key]['data'] = $this->savePicture($key,$file,$this->getPage(),$this->_data[$key]);
-            } else {
-                $this->saveWysiwygFile($key,$file,$this->_page."/wysiwyg",$texts,$infos);
+            } else if ($file["size"] != 0) {
+                $url = $this->saveWysiwygFile($key,$file,$this->_page."/wysiwyg",$texts,$infos);
             }
         }
     }

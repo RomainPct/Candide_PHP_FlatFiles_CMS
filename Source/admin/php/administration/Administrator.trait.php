@@ -2,6 +2,8 @@
 
 trait Administrator {
 
+    use BackendPluginNotifier;
+
     protected $_texts = null;
 
     protected function getField($name,$type,$data,$fieldInfos) {
@@ -30,7 +32,7 @@ trait Administrator {
     }
 
     protected function deleteFiles($target) {
-        echo "Delete this target : ".$target;
+        echo "Delete this target : ".$target."\n";
         // Only allow to delete files into CandideData
         if (strpos($target,"CandideData/") !== false) {
             if(is_dir($target)){
@@ -76,10 +78,14 @@ trait Administrator {
         if (key_exists("data",$entry)) {
             $this->deleteFiles(ROOT_DIR.$entry["data"]);
         }
-        return "/CandideData/files/".$directory."/".$fileName;
+        $url = "/CandideData/files/".$directory."/".$fileName;
+        $this->sendNotification(Notification::NEW_PICTURE_SAVED, [
+            "url" => ROOT_DIR.$url
+        ]);
+        return $url;
     }
 
-    protected function saveWysiwygFile($key,$file,$dest,&$texts,$infos){
+    protected function saveWysiwygFile($key,$file,$dest,&$texts,$infos): String {
         $url = $this->savePicture($key,$file,$dest);
         // Browse data to replace the id by the url
         foreach ($infos as $infosKey => $text){
@@ -92,7 +98,8 @@ trait Administrator {
                 $texts[$infosKey] = str_replace($key,$url,$texts[$infosKey]);
                 break;
             }
-        }   
+        }
+        return $url;  
     }
 
     protected function removeWysiwygFiles($url,$collectionData = []) {

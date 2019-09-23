@@ -5,6 +5,7 @@ class Basic {
 
     const DATA_DIRECTORY = ROOT_DIR."/CandideData/content/";
     const FILES_DIRECTORY = ROOT_DIR."/CandideData/files/";
+    const PLUGINS_DIRECTORY = ROOT_DIR."/admin/plugins/";
 
     protected function formatTitle(String $title, Bool $removingFirstPart = false):String {
         if ($removingFirstPart) {

@@ -2,6 +2,8 @@
 
 class CandideBasic extends Basic {
 
+    use BackendPluginNotifier;
+
     protected $_page;
     protected $_data;
     protected $_updateCall = false;
@@ -12,26 +14,19 @@ class CandideBasic extends Basic {
             $this->_updateCall = $_GET["updateAdminPlatform"];
         }
         $this->_page = $page;
-        if (!file_exists($this->getPageUrl())){
-            $this->_data = [];
-        } else {
-            $this->_data = json_decode(file_get_contents($this->getPageUrl()),true);
-        }
-        // POUR AJOUTER UNE MÉTHODE
-        // $this->addMethod("method2", function (String $arg1, String $arg2 = "vide") {
-        //     echo "<h1>".$arg1.$arg2."</h1>";
-        // });
+        $this->_data = (file_exists($this->getPageUrl())) ? json_decode(file_get_contents($this->getPageUrl()),true) : [];
     }
 
     // Gestion ajout de méthode via les plugins
-    // function addMethod($name, $method) {
-    //     $this->_methods[$name] = $method;
-    // }
+    function addMethod($name, $method) {
+        $this->_methods[$name] = $method;
+    }
 
-    // public function __call($name, $arguments) {
-    //     return call_user_func_array( $this->_methods[$name], $arguments);
-    // }
+    public function __call($name, $arguments) {
+        return call_user_func_array( $this->_methods[$name], $arguments);
+    }
 
+    // Page name
     public function getPageName() {
         echo $this->formatTitle($this->_page);
     }
@@ -46,6 +41,9 @@ class CandideBasic extends Basic {
     protected function saveData(){
         if ($this->_updateCall) {
             file_put_contents($this->getPageUrl(),json_encode($this->_data));
+            $this->sendNotification(Notification::CONTENT_SAVED,[
+                "folder" => $this->getPageUrl()
+            ]);
         }
     }
 

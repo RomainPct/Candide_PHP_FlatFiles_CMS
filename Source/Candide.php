@@ -5,6 +5,7 @@ error_reporting(E_ALL);
 define('ROOT_DIR', dirname(__FILE__));
 
 include_once 'admin/config/CandideConfig.php';
+include_once 'php/administration/BackendPluginNotifier.trait.php';
 
 include_once 'admin/php/base/Basic.class.php';
 

@@ -5,7 +5,6 @@
 !.gitignore
 /Source/admin/node_modules
 /Source/admin/plugins/*
-!/Source/admin/plugins/plugins.json
 /Candide.xd
 /.idea
 .DS_Store
