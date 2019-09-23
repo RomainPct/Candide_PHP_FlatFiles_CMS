@@ -2,36 +2,12 @@
 session_start();
 include 'CandideAdmin.php';
 $texts = new AdminTextsManager("login");
-$errors = [];
 if (key_exists("logout",$_GET)) {
-    unset($_SESSION[PROJECT_NAME."_logedin"]);
+    Authentication::logout();
 } else if ( key_exists(PROJECT_NAME."_logedin",$_SESSION)) {
-    $authorized = false;
-    foreach (ADMINISTRATORS as $user) {
-        if ($_SESSION[PROJECT_NAME."_logedin"] == hash("sha256",$user[0]).hash("sha256",$user[1])) {
-            $authorized = true;
-        }
-    }
-    if ($authorized) {
-        header("Location: index.php");
-    } else {
-        unset($_SESSION[PROJECT_NAME."_logedin"]);
-    }
-} else if ( !empty($_POST["identifier"])) {
-    foreach (ADMINISTRATORS as $user) {
-        if ($user[0] == $_POST["identifier"]) {
-            if (strtoupper($user[1]) == strtoupper(hash("sha256",$_POST["password"]))) {
-                $_SESSION[PROJECT_NAME."_logedin"] = hash("sha256",$user[0]).hash("sha256",$user[1]);
-                header("Location: index.php");
-            } else {
-                $errors["password"] = $texts->get("error_password");
-                $errors["identifier"] = "ok";
-            }
-        } else {
-            $errors["identifier"] = (array_key_exists("identifier",$errors) && $errors["identifier"] == "ok") ? "ok" : $texts->get("error_identifier");
-        }
-    }
+    header("Location: ../admin/");
 }
+$errors = Authentication::login($_POST,$texts);
 ?>
 
 <!DOCTYPE html>
