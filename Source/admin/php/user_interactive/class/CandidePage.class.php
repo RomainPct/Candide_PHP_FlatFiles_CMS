@@ -2,31 +2,9 @@
 
 class CandidePage extends CandideBasic {
 
+    use ElementsGetter;
+
     private $_existingElements = [];
-
-    public function text($title,$wysiwyg = false){
-        $this->getElement($title,"text",["wysiwyg" => $wysiwyg]);
-    }
-
-    public function image($title, $size){
-        $this->getElement($title,"image",["size" => $size]);
-    }
-
-    public function number($title,$format = NumberFormatter::DECIMAL) {
-        $this->getElement($title,"number",["format" => $format]);
-    }
-
-    protected function getElement($title, $type, $options) {
-        $name = $type."_".$title;
-        // Gérer l'update
-        $this->manageUpdate($name,$type,$options);
-        // Gérer l'affichage
-        if (array_key_exists($name,$this->_data) && array_key_exists("data",$this->_data[$name])) {
-            echo $this->formatElement($this->_data[$name]);
-        } else {
-            echo "Update candide on the admin platform";
-        }
-    }
 
     protected function manageUpdate($name,$type,$options){
         if ($this->_updateCall) {

@@ -3,11 +3,8 @@
 trait FilesManager {
 
     protected function savePicture($key,$file,$directory,$entry = [],$struct = []):String {
-        if (!file_exists(self::FILES_DIRECTORY.$directory)) {
-            mkdir(self::FILES_DIRECTORY.$directory,0777,true);
-        }
         $fileName = $this->cleanFileName($key,$file["name"]);
-        $finalPath = self::FILES_DIRECTORY.$directory."/".$fileName;
+        $finalPath = $this->getFileUrl(self::FILES_DIRECTORY.$directory."/".$fileName);
         // Resize the picture or save it if resizing is unecessary
         if (key_exists("width",$entry) && key_exists("height",$entry)){
             $img = $this->resize($file["tmp_name"],$entry["width"],$entry["height"]);

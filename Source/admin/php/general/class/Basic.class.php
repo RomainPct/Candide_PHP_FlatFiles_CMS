@@ -1,6 +1,5 @@
 <?php
 
-
 class Basic {
 
     const DATA_DIRECTORY = ROOT_DIR."/CandideData/content/";
@@ -26,6 +25,14 @@ class Basic {
             default:
                 return $element["data"];
         }
+    }
+
+    protected function getFileUrl(String $url) : String {
+        $directoryUrl = dirname($url);
+        if (!file_exists($directoryUrl)){
+            mkdir($directoryUrl);
+        }
+        return $url;
     }
 
 }

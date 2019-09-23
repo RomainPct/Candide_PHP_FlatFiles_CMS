@@ -1,4 +1,5 @@
 <?php
+const CANDIDE_IS_CONFIGURED = true;
 const DEV_MODE = true;
 const WELCOME_TITLE = "Bienvenue sur votre espace administrateur Candide";
 const WELCOME_PARAGRAPH = "Vous pouvez modifier le contenu de vos pages via le menu de gauche.";

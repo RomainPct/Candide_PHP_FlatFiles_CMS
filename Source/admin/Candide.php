@@ -5,14 +5,16 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Define root directory
-define('ROOT_DIR', dirname(dirname(__FILE__)));
+define('ROOT_DIR', dirname(__FILE__,2));
 
 // Load config
-include 'config/CandideConfig.php';
+if (!defined("CANDIDE_IS_CONFIGURED")) {
+    include 'config/CandideConfig.php';
+}
 
+// Autoload
 const AUTOLOAD_DIRECTORIES = [ 'php/general/', 'php/user_interactive/'];
 const FILE_EXTENSIONS = ['class', 'trait'];
-
 
 spl_autoload_register(function($name) {
     $directories = defined("ADMIN_AUTOLOAD_DIRECTORIES") ? array_merge(AUTOLOAD_DIRECTORIES,ADMIN_AUTOLOAD_DIRECTORIES) : AUTOLOAD_DIRECTORIES;
