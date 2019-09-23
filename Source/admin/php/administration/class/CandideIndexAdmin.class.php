@@ -5,8 +5,8 @@ class CandideIndexAdmin extends CandideIndexBasic {
 
     use Administrator;
 
-    protected $_newPages;
-    protected $_newCollections;
+    protected $_newPages = [];
+    protected $_newCollections = [];
 
     public function newPage($title) {
         if (!in_array($title,$this->_newPages)) {

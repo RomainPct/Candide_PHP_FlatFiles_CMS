@@ -95,7 +95,7 @@ function setHome(){
     if (updateAdminPlatform != null) {
         updateAdminPlatform.addEventListener('click',function (e) {
             e.preventDefault()
-            fetch("updateAdminPlatform.php")
+            fetch(updateAdminPlatform.getAttribute('href'))
                 .then(function (response) {
                     return response.text()
                 })

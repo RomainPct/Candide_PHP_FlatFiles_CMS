@@ -1,14 +1,10 @@
 <?php
-include 'CandideAdmin.php';
+include '../../CandideAdmin.php';
 
-// Get all files in each CANDIDE_FILES_FOLDERS
-$allFiles = array_map(function($f){
-    return glob("..".$f."*.php");
-},CANDIDE_FILES_FOLDERS);
-// Merge all of them into the $files array except file exceptions
 $files = [];
-foreach($allFiles as $filesInDir){
-    $files = array_merge($files,$filesInDir);
+// Get all files in each CANDIDE_FILES_FOLDERS
+foreach (CANDIDE_FILES_FOLDERS as $folder) {
+    $files = array_merge($files, glob(ROOT_DIR.$folder."*.php"));
 }
 
 // Create Candide Indexation Manager
