@@ -7,7 +7,7 @@ class CandideIndex extends CandideIndexBasic {
     public function __construct(){
         parent::__construct();
         foreach (glob(self::PLUGINS_DIRECTORY."*", GLOB_ONLYDIR) as $pluginFolder) {
-            $plugin = json_decode(file_get_contents($pluginFolder."/config.json"),true);
+            $plugin = $this->readJsonFile($pluginFolder."/config.json");
             if ($plugin["is_visual_interface"]) {
                 $this->_visual_plugins[] = $plugin;   
             }

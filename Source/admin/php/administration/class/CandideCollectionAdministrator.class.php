@@ -3,19 +3,17 @@
 
 class CandideCollectionAdministrator extends CandideCollection {
 
+    public function __construct(String $page){
+        parent::__construct($page);
+        $this->_structure = $this->readJsonFile($this->getStructureUrl());
+    }
+
     public function getNewId():Int {
         if (count($this->_data) == 0) {
             return 0;
         } else {
             return intval(end($this->_data)["id"]) + 1;
         }
-    }
-
-    public function getStructure():Array {
-        if (file_exists($this->getStructureUrl())) {
-            $this->_structure = json_decode(file_get_contents($this->getStructureUrl()),true);
-        }
-        return $this->_structure;
     }
 
     public function removeItem(Int $id){

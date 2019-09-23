@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+const ADMIN_AUTOLOAD_DIRECTORIES = ["php/administration/"];
+
+require 'Candide.php';
+
 if ( key_exists(PROJECT_NAME."_logedin",$_SESSION)) {
     $authorized = false;
     foreach (ADMINISTRATORS as $user) {
@@ -14,15 +18,3 @@ if ( key_exists(PROJECT_NAME."_logedin",$_SESSION)) {
 } else {
     header("Location: login.php");
 }
-
-include_once 'php/administration/Administrator.trait.php';
-
-include_once 'php/administration/CandidePageAdministrator.class.php';
-include_once 'php/administration/CandideCollectionAdministrator.class.php';
-include_once 'php/administration/CandideCollectionItemAdministrator.class.php';
-
-include_once 'php/administration/AdminTextsManager.class.php';
-
-include_once 'php/indexation/CandideIndexBasic.class.php';
-include_once 'php/indexation/CandideIndex.class.php';
-include_once 'php/indexation/CandideIndexAdmin.class.php';

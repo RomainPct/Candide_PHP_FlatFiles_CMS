@@ -1,7 +1,6 @@
 <?php
 session_start();
-include_once '../Candide.php';
-include_once 'php/administration/AdminTextsManager.class.php';
+include 'CandideAdmin.php';
 $texts = new AdminTextsManager("login");
 $errors = [];
 if (key_exists("logout",$_GET)) {

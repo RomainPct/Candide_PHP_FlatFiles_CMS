@@ -3,7 +3,7 @@
 
 class CandideCollectionItemAdministrator extends CandideCollectionItem {
 
-    use Administrator;
+    use Administrator, WysiwygFiles, JsonReader;
 
     private $_collectionAdministrator;
     private $_fullStructure;
@@ -17,10 +17,8 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
             $this->_newItem = true;
         }
         parent::__construct($page,$id);
-        if (file_exists($this->getStructureUrl())){
-            $this->_structure = json_decode(file_get_contents($this->getStructureUrl()),true);
-        }
-        $this->_fullStructure = array_merge($this->_collectionAdministrator->getStructure(),$this->_structure);
+        $this->_structure = $this->readJsonFile($this->getStructureUrl());
+        $this->_fullStructure = array_merge($this->_collectionAdministrator->_structure,$this->_structure);
         if (!$this->_newItem) {
             $this->_fullData = array_merge($this->_data,$this->_collectionAdministrator->getDataForElementWithId($this->_id));
         }

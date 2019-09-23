@@ -2,7 +2,7 @@
 
 class CandidePageAdministrator extends CandideBasic {
 
-    use Administrator;
+    use Administrator, WysiwygFiles;
 
     public function getFields() {
         foreach ($this->_data as $key => $value){

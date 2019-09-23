@@ -1,8 +1,5 @@
 <?php
-include_once '../Candide.php';
-include_once 'CandideAdmin.php';
-
-$exceptions = ["../Candide.php"];
+include 'CandideAdmin.php';
 
 // Get all files in each CANDIDE_FILES_FOLDERS
 $allFiles = array_map(function($f){
@@ -11,7 +8,7 @@ $allFiles = array_map(function($f){
 // Merge all of them into the $files array except file exceptions
 $files = [];
 foreach($allFiles as $filesInDir){
-    $files = array_merge($files,array_diff($filesInDir,$exceptions));
+    $files = array_merge($files,$filesInDir);
 }
 
 // Create Candide Indexation Manager

@@ -1,6 +1,5 @@
 <?php
-include_once '../Candide.php';
-include_once 'CandideAdmin.php';
+include 'CandideAdmin.php';
 ?>
 <!DOCTYPE html>
 <html>

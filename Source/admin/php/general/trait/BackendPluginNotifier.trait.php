@@ -2,12 +2,13 @@
 
 trait BackendPluginNotifier {
 
+    use JsonReader;
     protected $_backendPlugins = null;
 
     protected function setBackendPlugins(){
         $this->_backendPlugins = [];
         foreach (glob(self::PLUGINS_DIRECTORY."*", GLOB_ONLYDIR) as $pluginFolder) {
-            $plugin = json_decode(file_get_contents($pluginFolder."/config.json"),true);
+            $plugin = $this->readJsonFile($pluginFolder."/config.json");
             if ($plugin["is_backend_extension"]) {
                 $this->_backendPlugins[] = $pluginFolder."/eventHandler.php";
             }
@@ -24,12 +25,5 @@ trait BackendPluginNotifier {
             require($eventHandler);
         }
     }
-
-}
-
-class Notification {
-
-    const NEW_PICTURE_SAVED = "newPictureSaved";
-    const CONTENT_SAVED = "content_saved";
 
 }

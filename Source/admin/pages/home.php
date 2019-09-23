@@ -1,5 +1,4 @@
 <?php
-include_once 'config/CandideConfig.php';
 if (DEV_MODE) {
 ?>
     <div class="submitContainer clickable">

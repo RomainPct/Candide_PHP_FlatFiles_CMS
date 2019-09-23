@@ -2,6 +2,8 @@
 
 class AdminTextsManager {
 
+    use JsonReader;
+
     private $_languagesPath = ROOT_DIR."/admin/config/languages/",
             $_texts = [];
 
@@ -16,7 +18,7 @@ class AdminTextsManager {
                 file_put_contents($this->_languagesPath.$code.".json",$tradsData);
             }
         }
-        $tmp_texts = json_decode(file_get_contents($this->_languagesPath.$code.".json"),true);
+        $tmp_texts = $this->readJsonFile($this->_languagesPath.$code.".json");
         $this->_texts = (key_exists($page,$tmp_texts)) ? $tmp_texts[$page] : [] ;
     }
 
