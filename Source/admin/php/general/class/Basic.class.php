@@ -29,8 +29,8 @@ class Basic {
 
     protected function getFileUrl(String $url) : String {
         $directoryUrl = dirname($url);
-        if (!file_exists($directoryUrl)){
-            mkdir($directoryUrl);
+        if (!is_dir($directoryUrl)){
+            mkdir($directoryUrl,0777,true);
         }
         return $url;
     }

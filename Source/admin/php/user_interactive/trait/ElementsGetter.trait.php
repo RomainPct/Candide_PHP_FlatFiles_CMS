@@ -7,7 +7,7 @@ trait ElementsGetter {
     }
 
     public function image($title,$size){
-        $this->getElement($title,"image",["size"=>$size]);
+        $this->getElement($title,"image",["width"=>$size[0],"height"=>$size[1]]);
     }
 
     public function number($title,$format = NumberFormatter::DECIMAL){

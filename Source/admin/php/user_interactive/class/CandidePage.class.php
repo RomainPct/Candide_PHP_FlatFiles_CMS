@@ -13,18 +13,9 @@ class CandidePage extends CandideBasic {
             }
             $this->_data[$name]["type"] = $type;
             $this->setDefaultValueIfNeeded($name,$type);
-            switch ($type) {
-                case "image":
-                    $this->_data[$name]["width"] = $options["size"][0];
-                    $this->_data[$name]["height"] = $options["size"][1];
-                    break;
-                case "text":
-                    $this->_data[$name]["wysiwyg"] = $options["wysiwyg"];
-                    break;
-                case "number":
-                    $this->_data[$name]["format"] = $options["format"];
-                    break;
-            } 
+            foreach ($options as $key => $value) {
+                $this->_data[$name][$key] = $value;
+            }
         }
     }
 
@@ -39,6 +30,9 @@ class CandidePage extends CandideBasic {
                     break;
                 case "number":
                     $this->_data[$name]["data"] = "0";
+                    break;
+                default:
+                    $this->_data[$name]["data"] = "";
                     break;
             }
         }

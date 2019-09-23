@@ -7,7 +7,7 @@ trait IndexedElementsGetter {
     }
 
     public function image($title,$index,$size){
-        $this->getElement($title,$index,"image",["size"=>$size]);
+        $this->getElement($title,$index,"image",["width"=>$size[0],"height"=>$size[1]]);
     }
 
     public function number($title,$index,$format = NumberFormatter::DECIMAL){
