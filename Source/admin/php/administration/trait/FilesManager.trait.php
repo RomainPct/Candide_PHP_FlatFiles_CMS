@@ -80,7 +80,6 @@ trait FilesManager {
     }
 
     protected function deleteFiles($target) {
-        echo "Delete this target : ".$target."\n";
         // Only allow to delete files into CandideData
         if (strpos($target,"CandideData/") !== false) {
             if(is_dir($target)){

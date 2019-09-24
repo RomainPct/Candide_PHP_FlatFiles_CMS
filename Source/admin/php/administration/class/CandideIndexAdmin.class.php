@@ -3,7 +3,7 @@
 
 class CandideIndexAdmin extends CandideIndexBasic {
 
-    use Administrator;
+    use Administrator, BackendPluginNotifier;
 
     protected $_newPages = [];
     protected $_newCollections = [];
@@ -37,6 +37,8 @@ class CandideIndexAdmin extends CandideIndexBasic {
         $this->savePages();
         $this->saveCollections();
         $this->removeOldData();
+        $this->sendNotification(Notification::CANDIDE_UPDATED);
+
     }
 
     private function savePages(){
