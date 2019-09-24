@@ -2,19 +2,23 @@
 
 trait ElementsGetter {
 
-    public function text($title,$wysiwyg = false){
+    public function text(String $title, Bool $wysiwyg = false){
         $this->getElement($title,"text",["wysiwyg"=>$wysiwyg]);
     }
 
-    public function image($title,$size){
-        $this->getElement($title,"image",["width"=>$size[0],"height"=>$size[1]]);
+    public function image(String $title, Array $size, Bool $crop = true){
+        $this->getElement($title,"image",[
+            "width"=>$size[0],
+            "height"=>$size[1],
+            "crop" => $crop
+            ]);
     }
 
-    public function number($title,$format = NumberFormatter::DECIMAL){
+    public function number(String $title, Int $format = NumberFormatter::DECIMAL){
         $this->getElement($title,"number",["format"=>$format]);
     }
 
-    private function getElement($title, $type, $options) {
+    private function getElement(String $title,String $type,Array $options) {
         $name = $type."_".$title;
         // Gérer l'update
         $this->manageUpdate($name,$type,$options);
@@ -26,7 +30,7 @@ trait ElementsGetter {
         }
     }
 
-    protected function manageUpdate($name,$type,$options){
+    protected function manageUpdate(String $name, String $type, Array $options){
         throw new Exception('manageUpdate is not redefined in class which use ElementsGetter');
     }
 

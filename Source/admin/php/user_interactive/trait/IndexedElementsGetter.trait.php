@@ -2,19 +2,23 @@
 
 trait IndexedElementsGetter {
 
-    public function text($title,$index,$wysiwyg = false){
+    public function text(String $title, Int $index, Bool $wysiwyg = false){
         $this->getElement($title,$index,"text",["wysiwyg"=>$wysiwyg]);
     }
 
-    public function image($title,$index,$size){
-        $this->getElement($title,$index,"image",["width"=>$size[0],"height"=>$size[1]]);
+    public function image(String $title, Int $index, Array $size, Bool $crop = true){
+        $this->getElement($title,$index,"image",[
+            "width"=>$size[0],
+            "height"=>$size[1],
+            "crop" => $crop
+            ]);
     }
 
-    public function number($title,$index,$format = NumberFormatter::DECIMAL){
+    public function number(String $title, Int $index, Int $format = NumberFormatter::DECIMAL){
         $this->getElement($title,$index,"number",["format"=>$format]);
     }
 
-    private function getElement($title,$index,$type,$options) {
+    private function getElement(String $title,Int $index,String $type, Array $options) {
         $name = $type."_".$title;
         // Gérer l'update
         $this->manageUpdate($name,$type,$options);
@@ -26,7 +30,7 @@ trait IndexedElementsGetter {
         }
     }
 
-    protected function manageUpdate($name,$type,$options){
+    protected function manageUpdate(String $name, String $type, Array $options){
         throw new Exception('manageUpdate is not redefined in class which use IndexedElementsGetter');
     }
 

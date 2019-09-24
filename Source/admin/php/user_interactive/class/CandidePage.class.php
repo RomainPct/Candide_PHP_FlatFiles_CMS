@@ -6,7 +6,7 @@ class CandidePage extends CandideBasic {
 
     private $_existingElements = [];
 
-    protected function manageUpdate($name,$type,$options){
+    protected function manageUpdate(String $name, String $type, Array $options){
         if ($this->_updateCall) {
             if (!in_array($name,$this->_existingElements)) {
                 $this->_existingElements[] = $name;
@@ -19,7 +19,7 @@ class CandidePage extends CandideBasic {
         }
     }
 
-    protected function setDefaultValueIfNeeded($name,$type){
+    protected function setDefaultValueIfNeeded(String $name, String $type){
         if (!array_key_exists("data",$this->_data[$name])) {
             switch ($type) {
                 case "text":

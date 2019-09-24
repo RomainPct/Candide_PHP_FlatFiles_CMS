@@ -62,7 +62,7 @@ nav {
   position: relative;
   margin-bottom: 29px; }
   .inputContainer .image_input_preview {
-    max-width: 100%;
+    max-width: calc(75vw - ( 2 * 47px));
     border-radius: 5px;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -306,7 +306,9 @@ body {
     margin-left: 30vw;
     width: 70vw; }
   nav {
-    width: 30vw; } }
+    width: 30vw; }
+  .inputContainer .image_input_preview {
+    max-width: calc(70vw - ( 2 * 47px)); } }
 
 @media screen and (max-width: 800px) {
   #content {
@@ -314,6 +316,8 @@ body {
     width: auto;
     height: auto;
     padding: 29px 18px 76px; }
+  .inputContainer .image_input_preview {
+    max-width: calc(100vw - ( 2 * 18px)); }
   nav {
     width: 100vw;
     position: relative; }

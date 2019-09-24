@@ -136,10 +136,18 @@ function setForm() {
     })
     filesInput = document.querySelectorAll('input[type="file"]')
     filesInput.forEach(input => {
+        setImagePreviewRatio(input)
         input.addEventListener('change',function () {
             input.classList.contains('classic-image-input') ? manageClassicImageInputEdition(this) : manageWysiwygImageInputEdition(this.files,this.querySelector('pell-content'))
         })  
     })
+}
+
+function setImagePreviewRatio(input) {
+    let preview = input.parentElement
+    if (preview.classList.contains('image_input_preview')) {
+        preview.style.maxHeight = preview.offsetWidth * (parseInt(preview.style.height)/parseInt(preview.style.width)) + "px"   
+    }
 }
 
 function setEditPage() {
@@ -256,6 +264,12 @@ function generateGUID(){
     let guid = [u.substr(0,8), u.substr(8,4), '4000-8' + u.substr(13,3), u.substr(16,12)].join('-');
     return guid
 }
+
+window.addEventListener("resize", function(){
+    filesInput.forEach(input => {
+        setImagePreviewRatio(input)
+    })
+});
 
 if (document.URL.indexOf("editPage") != -1){
     setEditPage()

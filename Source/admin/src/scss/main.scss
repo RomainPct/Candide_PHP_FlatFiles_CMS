@@ -31,6 +31,9 @@ body {
   nav {
     width: 30vw;
   }
+  .inputContainer .image_input_preview {
+    max-width: calc(70vw - ( 2 * 47px));
+  }
 }
 
 // Small width
@@ -40,6 +43,9 @@ body {
     width: auto;
     height: auto;
     padding: $m-marge $s-marge $xl-marge;
+  }
+  .inputContainer .image_input_preview {
+    max-width: calc(100vw - ( 2 * 18px));
   }
   @import "partials/fluid/menu";
   @import "partials/fluid/form";

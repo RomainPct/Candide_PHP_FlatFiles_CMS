@@ -2,7 +2,7 @@
   position: relative;
   margin-bottom: $m-marge;
   .image_input_preview {
-    max-width: 100%;
+    max-width: calc(75vw - ( 2 * 47px));
     border-radius: $radius;
     box-shadow: $shadow-medium;
     overflow: hidden;

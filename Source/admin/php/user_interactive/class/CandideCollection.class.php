@@ -20,12 +20,12 @@ class CandideCollection extends CandideCollectionBasic {
         }
     }
 
-    protected function manageUpdate($name,$type,$options){
+    protected function manageUpdate(String $name, String $type, Array $options){
         $this->manageStructureUpdate($name,$type,$options);
         $this->manageDataUpdate($name,$type,$options);
     }
 
-    protected function manageDataUpdate($name,$type,$options){
+    protected function manageDataUpdate(String $name, String $type, Array $options){
         if ($this->_updateCall && count($this->_data) > 0) {
             foreach($this->_data as &$item) {
                 $this->manageItemDataUpdate($item,$name,$type,$options);
