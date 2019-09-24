@@ -54,10 +54,11 @@ function handleDropFileInWysiwyg(evt) {
 function manageClassicImageInputEdition(input){
     if (input.files[0] != null) {
         let img = document.querySelector('#image_'+input.getAttribute('name'))
-        let width = img.parentElement.offsetWidth
-        let height = img.parentElement.offsetHeight
+        let newImgRatio = img.parentElement.offsetHeight / img.parentElement.offsetWidth
+        let cropping = img.getAttribute('data-cropping-enable') == 1
         img.onload = function(){
-            if ( height/width > this.naturalHeight/this.naturalWidth ) {
+            let naturalRatio = this.naturalHeight / this.naturalWidth
+            if ( (newImgRatio > naturalRatio && cropping) || (newImgRatio <= naturalRatio && !cropping) ) {
                 img.classList.add('fullHeight')
                 img.classList.remove('fullWidth')
             } else {
