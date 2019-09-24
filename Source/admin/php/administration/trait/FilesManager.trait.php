@@ -15,11 +15,17 @@ trait FilesManager {
         }
         // Save img if she was resized
         if (isset($img)) {
-            if ($img[1] == "png") {
-                imagepng($img[0], $finalPath);
-            } else {
-                imagejpeg($img[0], $finalPath, 100);
-            }   
+            switch($img[1]) {
+                case "png":
+                    imagepng($img[0], $finalPath);
+                    break;
+                case "gif":
+                    imagegif($img[0], $finalPath);
+                    break;
+                default:
+                    imagejpeg($img[0], $finalPath, 100);
+                    break;
+            }  
         }
         // Remove the old file if it exists
         if (key_exists("data",$entry)) {
@@ -32,13 +38,21 @@ trait FilesManager {
         return $url;
     }
 
-    private function resize(String $tmp,$width,$height,Bool $crop) {
-        $type = "jpg";
+    private function resize(String $tmp,$width,$height,Bool $crop):Array {
         $imgSize = getimagesize($tmp);
-        $source = imagecreatefromjpeg($tmp);
-        if ($source == false){
-            $type = "png";
-            $source = imagecreatefrompng($tmp);
+        switch ($imgSize["mime"]) {
+            case 'image/png':
+                $type = "png";
+                $source = imagecreatefrompng($tmp);
+                break;
+            case 'image/gif':
+                $type = "gif";
+                $source = imagecreatefromgif($tmp);
+                break;
+            default:
+                $type = "jpg";
+                $source = imagecreatefromjpeg($tmp);
+                break;
         }
         $destinationRatio = $height/$width;
         $imageRatio = $imgSize[1]/$imgSize[0];
@@ -54,10 +68,9 @@ trait FilesManager {
             $offsetY = ($imgSize[1] - $captureHeight) / 2;
         }
         $newImg = imagecreatetruecolor($width , $height) or die ("Erreur");
-        imagesavealpha($newImg,true);
-        imagefill($newImg, 0, 0, imagecolorallocatealpha($newImg, 0, 0, 0, 127));
+        imagecolortransparent($newImg, null);
+        imagealphablending($newImg, false);
         imagecopyresampled($newImg, $source, 0,0, $offsetX, $offsetY, $width, $height, $captureWidth,$captureHeight);
-        imagefill($newImg, 0, 0, imagecolorallocatealpha($newImg, 0, 0, 0, 127));
         return [$newImg,$type];
     }
 
