@@ -1,5 +1,7 @@
 <?php
 
+// Basic < CandideBasic < CandideCollectionBasic
+
 class CandideCollectionBasic extends CandideBasic {
 
     protected $_structure = [];

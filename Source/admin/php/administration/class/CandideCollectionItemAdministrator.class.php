@@ -1,5 +1,6 @@
 <?php
 
+// Basic < CandideBasic < CandideCollectionBasic < CandideCollectionItem < CandideCollectionItemAdministrator
 
 class CandideCollectionItemAdministrator extends CandideCollectionItem {
 
@@ -38,7 +39,7 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
     public function getFields() {
         foreach ($this->_fullStructure as $key => $value){
             $data = (key_exists($key,$this->_fullData) && key_exists('data',$this->_fullData[$key])) ? $this->_fullData[$key]['data'] : "";
-            echo $this->getField($key,$value["type"],$data,$value);
+            echo $this->getField($key,$data,$value);
         }
     }
 

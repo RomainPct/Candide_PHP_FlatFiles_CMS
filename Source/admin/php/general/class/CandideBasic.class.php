@@ -1,30 +1,23 @@
 <?php
 
+// Basic < CandideBasic
+
 class CandideBasic extends Basic {
 
     use BackendPluginNotifier, JsonReader;
 
-    protected $_page;
-    protected $_data;
-    protected $_updateCall = false;
-    protected $_methods = [];
+    protected $_page,
+              $_data,
+              $_updateCall = false;
 
-    public function __construct(String $page) {
+    public function __construct(String $page, Array $extensions = []) {
         if (array_key_exists("updateAdminPlatform",$_GET)) {
             $this->_updateCall = $_GET["updateAdminPlatform"];
         }
         $this->_page = $page;
         $this->_data = $this->readJsonFile($this->getPageUrl());
+        parent::__construct($extensions);
     }
-
-    // Gestion ajout de méthode via les plugins
-    // function addMethod($name, $method) {
-    //     $this->_methods[$name] = $method;
-    // }
-
-    // public function __call($name, $arguments) {
-    //     return call_user_func_array( $this->_methods[$name], $arguments);
-    // }
 
     // Page name
     public function getPageName() {

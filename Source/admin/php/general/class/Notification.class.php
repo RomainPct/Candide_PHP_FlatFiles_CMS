@@ -1,5 +1,7 @@
 <?php
 
+// Level 0
+
 class Notification {
 
 const NEW_PICTURE_SAVED = "new_picture_saved";

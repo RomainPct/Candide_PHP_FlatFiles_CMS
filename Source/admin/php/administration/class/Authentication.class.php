@@ -1,5 +1,7 @@
 <?php
 
+// Level 0
+
 class Authentication {
 
     const KEY_SESSION_IDENTIFIER = PROJECT_NAME."_logedin";

@@ -1,5 +1,7 @@
 <?php
 
+// Level 0
+
 class AdminTextsManager {
 
     use JsonReader;

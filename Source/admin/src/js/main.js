@@ -5,7 +5,6 @@ function setPellEditorFor(input){
         element: pellEditor,
         onChange: html => {
             output.value = html
-            submitContainer.classList.add('clickable')
         },
         defaultParagraphSeparator: 'p',
         actions: [
@@ -69,7 +68,6 @@ function manageClassicImageInputEdition(input){
         let fr = new FileReader
         fr.onload = (e) => img.src = e.target.result
         fr.readAsDataURL(input.files[0])
-        submitContainer.classList.add('clickable')
     }
 }
 
@@ -108,12 +106,18 @@ function setHome(){
     }
 }
 
-let textareas, filesInput, numberInputs, submitContainer
+let filesInput, numberInputs, submitContainer
 function setForm() {
     allowCmdS()
     submitContainer = document.querySelector('.submitContainer')
-    textareas = document.querySelectorAll('textarea')
-    textareas.forEach(textarea => {
+    // All Inputs
+    document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input',function(){
+            submitContainer.classList.add('clickable')
+        })
+    })
+    // All Textareas
+    document.querySelectorAll('textarea').forEach(textarea => {
         textarea.style.height = (textarea.scrollHeight) + 'px'
         textarea.addEventListener('input',function () {
             this.style.height = 'auto';
@@ -121,20 +125,20 @@ function setForm() {
             submitContainer.classList.add('clickable')
         })
     })
-    wysiwygInputs = document.querySelectorAll('.pell-input-box')
-    wysiwygInputs.forEach(input => {
+    // Wysiwyg inputs
+    document.querySelectorAll('.pell-input-box').forEach(input => {
         setPellEditorFor(input)
     })
-    numberInputs = document.querySelectorAll('input[name^=number_]')
-    numberInputs.forEach(numberInput => {
+    // Number input
+    document.querySelectorAll('input[name^=number_]').forEach(numberInput => {
         numberInput.addEventListener('input',function(){
             if (isNaN(this.value)) {
                 this.value = this.value.replace(",",".")
                 this.value = this.value.replace(/[^\d\.]+/g,"")
             }
-            submitContainer.classList.add('clickable')
         })  
     })
+    // Files input
     filesInput = document.querySelectorAll('input[type="file"]')
     filesInput.forEach(input => {
         setImagePreviewRatio(input)
@@ -267,9 +271,11 @@ function generateGUID(){
 }
 
 window.addEventListener("resize", function(){
-    filesInput.forEach(input => {
-        setImagePreviewRatio(input)
-    })
+    if (Array.isArray(filesInput)) {
+        filesInput.forEach(input => {
+            setImagePreviewRatio(input)
+        })   
+    }
 });
 
 if (document.URL.indexOf("editPage") != -1){

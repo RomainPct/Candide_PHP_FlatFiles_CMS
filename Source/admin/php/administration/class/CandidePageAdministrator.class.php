@@ -1,5 +1,7 @@
 <?php
 
+// Basic < CandideBasic < CandidePageAdministrator
+
 class CandidePageAdministrator extends CandideBasic {
 
     use Administrator, WysiwygFiles;
@@ -7,7 +9,7 @@ class CandidePageAdministrator extends CandideBasic {
     public function getFields() {
         foreach ($this->_data as $key => $value){
             // Afficher input type text ou image
-            echo $this->getField($key,$value['type'],$value['data'],$value);
+            echo $this->getField($key,$value['data'],$value);
         }
     }
 
@@ -21,7 +23,7 @@ class CandidePageAdministrator extends CandideBasic {
     private function setTexts(Array $texts) {
         foreach ($texts as $key => $text){
             if (key_exists($key,$this->_data)) {
-                if ($this->_data[$key]['type'] == "text" || $this->_data[$key]['type'] == "number") {
+                if ($this->_data[$key]['type'] != "image") {
                     $this->_data[$key]['data'] = $text;
                 }
             }

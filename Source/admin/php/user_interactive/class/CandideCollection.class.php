@@ -1,8 +1,12 @@
 <?php
 
+// Basic < CandideBasic < CandideCollectionBasic < CandideCollection
+
 class CandideCollection extends CandideCollectionBasic {
 
     use IndexedElementsGetter;
+
+    protected $_type = self::TYPE_COLLECTION;
 
     protected function getPageUrl():String {
         return $this->getFileUrl(self::DATA_DIRECTORY.$this->_page."/global/base.json");

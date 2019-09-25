@@ -1,10 +1,13 @@
 <?php
 
+// Basic < CandideBasic < CandidePage
+
 class CandidePage extends CandideBasic {
 
     use ElementsGetter;
 
     private $_existingElements = [];
+    protected $_type = self::TYPE_PAGE;
 
     protected function manageUpdate(String $name, String $type, Array $options){
         if ($this->_updateCall) {

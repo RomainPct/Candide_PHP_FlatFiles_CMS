@@ -10,3 +10,4 @@ $c = new CandidePageAdministrator($_GET["page"]);
         <span class="success"><?php $texts->echo("saved") ?></span>
     </div>
 </form>
+<?php $c->getCustomCSSAndJS() ?>

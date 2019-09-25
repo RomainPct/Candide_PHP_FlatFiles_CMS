@@ -2,6 +2,8 @@
 
 trait IndexedElementsGetter {
 
+    use DataFormatter;
+
     public function text(String $title, Int $index, Bool $wysiwyg = false){
         $this->getElement($title,$index,"text",["wysiwyg"=>$wysiwyg]);
     }
@@ -18,7 +20,7 @@ trait IndexedElementsGetter {
         $this->getElement($title,$index,"number",["format"=>$format]);
     }
 
-    private function getElement(String $title,Int $index,String $type, Array $options) {
+    protected function getElement(String $title,Int $index,String $type, Array $options) {
         $name = $type."_".$title;
         // Gérer l'update
         $this->manageUpdate($name,$type,$options);

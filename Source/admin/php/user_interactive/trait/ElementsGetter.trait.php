@@ -2,6 +2,8 @@
 
 trait ElementsGetter {
 
+    use DataFormatter;
+
     public function text(String $title, Bool $wysiwyg = false){
         $this->getElement($title,"text",["wysiwyg"=>$wysiwyg]);
     }
@@ -18,7 +20,7 @@ trait ElementsGetter {
         $this->getElement($title,"number",["format"=>$format]);
     }
 
-    private function getElement(String $title,String $type,Array $options) {
+    protected function getElement(String $title,String $type,Array $options) {
         $name = $type."_".$title;
         // Gérer l'update
         $this->manageUpdate($name,$type,$options);

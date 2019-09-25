@@ -1,5 +1,6 @@
 <?php
 
+// Basic < CandideIndexBasic < CandideIndexAdmin
 
 class CandideIndexAdmin extends CandideIndexBasic {
 

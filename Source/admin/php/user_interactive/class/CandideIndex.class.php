@@ -1,5 +1,7 @@
 <?php
 
+// Basic < CandideIndexBasic < CandideIndex
+
 class CandideIndex extends CandideIndexBasic {
 
     protected $_visual_plugins = [];
