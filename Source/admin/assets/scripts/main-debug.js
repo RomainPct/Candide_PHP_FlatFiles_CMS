@@ -5,6 +5,7 @@ function setPellEditorFor(input){
         element: pellEditor,
         onChange: html => {
             output.value = html
+            allowUserToSubmitUpdates()
         },
         defaultParagraphSeparator: 'p',
         actions: [
@@ -31,9 +32,15 @@ function setPellEditorFor(input){
 
 function handleDropFileInWysiwyg(evt) {
     if (evt.dataTransfer.files.length > 0) {
-        evt.stopPropagation();
-        evt.preventDefault();
-        var sel = document.getSelection();
+        evt.stopPropagation()
+        evt.preventDefault()
+        setCaret(evt)
+        manageWysiwygImageInputEdition(evt.dataTransfer.files,evt.currentTarget)
+    }
+}
+
+function setCaret(evt){
+    var sel = document.getSelection();
         let range;
         if(document.caretRangeFromPoint) { // Chrome
             range = document.caretRangeFromPoint(evt.clientX,evt.clientY);
@@ -46,8 +53,6 @@ function handleDropFileInWysiwyg(evt) {
             range = document.createRange();
         }
         sel.addRange(range);
-        manageWysiwygImageInputEdition(evt.dataTransfer.files,evt.currentTarget)
-    }
 }
 
 function manageClassicImageInputEdition(input){
@@ -106,15 +111,17 @@ function setHome(){
     }
 }
 
+function allowUserToSubmitUpdates(){
+    submitContainer.classList.add('clickable')
+}
+
 let filesInput, numberInputs, submitContainer
 function setForm() {
     allowCmdS()
     submitContainer = document.querySelector('.submitContainer')
     // All Inputs
     document.querySelectorAll('input').forEach(input => {
-        input.addEventListener('input',function(){
-            submitContainer.classList.add('clickable')
-        })
+        input.addEventListener('input',allowUserToSubmitUpdates)
     })
     // All Textareas
     document.querySelectorAll('textarea').forEach(textarea => {
@@ -122,7 +129,7 @@ function setForm() {
         textarea.addEventListener('input',function () {
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight) + 'px';
-            submitContainer.classList.add('clickable')
+            allowUserToSubmitUpdates()
         })
     })
     // Wysiwyg inputs

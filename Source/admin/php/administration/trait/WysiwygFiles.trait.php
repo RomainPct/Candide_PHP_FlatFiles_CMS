@@ -21,16 +21,16 @@ trait WysiwygFiles {
         return $url;  
     }
 
-    protected function removeWysiwygFiles($url,$collectionData = []) {
+    protected function removeWysiwygFiles($elementFolderUrl,$collectionData = []) {
         // Get all wysiwyg fields in one string
         $wysiwygData = $this->resumeWysiwygFields($collectionData);
         // Get each image url from the wysiwyg fields
         preg_match_all("/<img src=\"([\s\S]+?)\">/", $wysiwygData, $matches,PREG_SET_ORDER);
         $usefullFiles = array_map(function($entry){
-            return $entry[1];
+            return strstr($entry[1],"/CandideData/"); // Force the path to begin at /CandideData/
         },$matches);
         // Get all images in the current wysiwyg folder
-        $allFiles = glob( $url.'/wysiwyg/*', GLOB_MARK );
+        $allFiles = glob( $elementFolderUrl.'/wysiwyg/*', GLOB_MARK );
         // Remove useless files
         $this->removeUselessFiles($allFiles, $usefullFiles);
     }

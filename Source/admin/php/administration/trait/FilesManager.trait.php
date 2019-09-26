@@ -81,7 +81,8 @@ trait FilesManager {
 
     protected function deleteFiles($target) {
         // Only allow to delete files into CandideData
-        if (strpos($target,"CandideData/") !== false) {
+        if (strpos($target,"/CandideData/") !== false) {
+            $target = ROOT_DIR.strstr($target,"/CandideData/");
             if(is_dir($target)){
                 $files = glob( $target . '*', GLOB_MARK ); //GLOB_MARK adds a slash to directories returned
                 foreach( $files as $file ){
