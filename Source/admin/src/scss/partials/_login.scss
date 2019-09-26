@@ -6,14 +6,18 @@
   justify-content: center;
   background: $gradient;
   form {
-    width: 60vw;
+    max-width: 80%;
+    width: 650px;
     background-color: $background-color;
     padding: $m-marge;
     border-radius: $radius;
     text-align: center;
     .inputContainer {
-      text-align: left;
       width: 100%;
+      input {
+        text-align: center;
+        margin: 0 auto;
+      }
     }
     .submitContainer {
       position: static;

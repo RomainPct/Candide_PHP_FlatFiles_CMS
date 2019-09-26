@@ -275,14 +275,17 @@ p.error {
   justify-content: center;
   background: linear-gradient(to right bottom, #96FBC4 0%, #F9F586 100%); }
   #login form {
-    width: 60vw;
+    max-width: 80%;
+    width: 650px;
     background-color: #FEFEFE;
     padding: 29px;
     border-radius: 5px;
     text-align: center; }
     #login form .inputContainer {
-      text-align: left;
       width: 100%; }
+      #login form .inputContainer input {
+        text-align: center;
+        margin: 0 auto; }
     #login form .submitContainer {
       position: static;
       display: inline-block; }

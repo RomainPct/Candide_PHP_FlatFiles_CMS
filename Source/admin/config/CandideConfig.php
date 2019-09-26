@@ -12,3 +12,4 @@ const CANDIDE_FILES_FOLDERS = [
     "/",
     "/pages/"
 ]; // Relative url from root directory
+const CUSTOM_CSS = "/admin/config/custom.css";
