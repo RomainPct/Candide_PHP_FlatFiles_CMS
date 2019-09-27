@@ -8,6 +8,11 @@ class CandideCollection extends CandideCollectionBasic {
 
     protected $_type = self::TYPE_COLLECTION;
 
+    /**
+     * Return the path of the base.json file for the current page from ROOT_DIR
+     *
+     * @return String [Path of the base.json]
+     */
     protected function getPageUrl():String {
         return $this->getFileUrl(self::DATA_DIRECTORY.$this->_page."/global/base.json");
     }
@@ -24,6 +29,14 @@ class CandideCollection extends CandideCollectionBasic {
         }
     }
 
+    /**
+     * Manage structure and in data update for each element of the collection
+     *
+     * @param String $name [Field name]
+     * @param String $type [Field type]
+     * @param Array $options [Array of options]
+     * @return void
+     */
     protected function manageUpdate(String $name, String $type, Array $options){
         $this->manageStructureUpdate($name,$type,$options);
         $this->manageDataUpdate($name,$type,$options);

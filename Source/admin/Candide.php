@@ -12,7 +12,7 @@ if (!defined("CANDIDE_IS_CONFIGURED")) {
     include 'config/CandideConfig.php';
     // Autoload
     define('FILE_EXTENSIONS', ['class', 'trait']);
-    define('AUTOLOAD_DIRECTORIES', [ 'php/general/', 'php/user_interactive/']);
+    define('AUTOLOAD_DIRECTORIES', [ 'php/general/', 'php/user_interactive/','php/plugins/']);
 }
 
 spl_autoload_register(function($name) {
