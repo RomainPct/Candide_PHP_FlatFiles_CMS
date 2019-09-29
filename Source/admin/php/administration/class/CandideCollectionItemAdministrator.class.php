@@ -74,10 +74,12 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
         foreach ($files as $key => $file) {
             $dest = $this->getPage()."/".$this->_id;
             if ($file["size"] != 0 && strpos($key,"image_") === 0) {
-                $data = key_exists($key,$this->_data) ? $this->_data[$key] : [];
+                $data = key_exists($key,$this->_fullData) ? $this->_fullData[$key] : [];
                 $url = $this->savePicture($key, $file, $dest, $data, $this->_fullStructure[$key]);
                 $newFiles[$key] = $url;
-                $this->_data[$key]['data'] = $url;
+                if (key_exists($key,$this->_data)) {
+                    $this->_data[$key]['data'] = $url;
+                }
             } else if ($file["size"] != 0) {
                 $url = $this->saveWysiwygFile($key,$file,$dest."/wysiwyg",$texts,$infos);
             }

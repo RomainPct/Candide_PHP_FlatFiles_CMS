@@ -57,7 +57,7 @@ trait WysiwygFiles {
                 array_filter(
                     array_merge($this->_data,$collectionData),
                     function($d){
-                        return $d["type"] == "text" && $d["wysiwyg"] === true;
+                        return is_array($d) && $d["type"] == "text" && $d["wysiwyg"] === true;
                     }
                 )
             ,"data")

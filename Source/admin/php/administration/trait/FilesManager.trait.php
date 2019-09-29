@@ -9,7 +9,7 @@ trait FilesManager {
         if (key_exists("width",$entry) && key_exists("height",$entry)){
             $img = $this->resize($file["tmp_name"],$entry["width"],$entry["height"],$entry["crop"]);
         } else if (key_exists("width",$struct) && key_exists("height",$struct)) {
-            $img = $this->resize($file["tmp_name"],$struct["width"],$struct["height"],$entry["crop"]);
+            $img = $this->resize($file["tmp_name"],$struct["width"],$struct["height"],$struct["crop"]);
         } else {
             move_uploaded_file($file["tmp_name"],$finalPath);
         }

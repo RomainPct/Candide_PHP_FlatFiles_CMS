@@ -25,7 +25,6 @@ class CandideCollectionBasic extends CandideBasic {
 
     public function save() {
         if ($this->_updateCall && count($this->_structure) > 0) {
-            $this->cleanData();
             file_put_contents($this->getStructureUrl(),json_encode($this->_structure));
             file_put_contents($this->getPageUrl(),json_encode($this->_data));
         }

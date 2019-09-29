@@ -115,7 +115,7 @@ function allowUserToSubmitUpdates(){
     submitContainer.classList.add('clickable')
 }
 
-let filesInput, numberInputs, submitContainer
+let filesInput = [], numberInputs, submitContainer
 function setForm() {
     allowCmdS()
     submitContainer = document.querySelector('.submitContainer')
@@ -281,11 +281,9 @@ function generateGUID(){
 }
 
 window.addEventListener("resize", function(){
-    if (Array.isArray(filesInput)) {
-        filesInput.forEach(input => {
-            setImagePreviewRatio(input)
-        })   
-    }
+    filesInput.forEach(input => {
+        setImagePreviewRatio(input)
+    })
 });
 
 if (document.URL.indexOf("editPage") != -1){
