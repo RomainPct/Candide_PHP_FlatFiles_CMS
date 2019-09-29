@@ -23,7 +23,9 @@ trait ElementsGetter {
     protected function getElement(String $title,String $type,Array $options) {
         $name = $type."_".$title;
         // Gérer l'update
-        $this->manageUpdate($name,$type,$options);
+        if ($this->_updateCall) {
+            $this->manageUpdate($name,$type,$options);
+        }
         // Gérer l'affichage
         if (array_key_exists($name,$this->_data) && array_key_exists("data",$this->_data[$name])) {
             echo $this->formatElement($this->_data[$name]);
@@ -33,7 +35,7 @@ trait ElementsGetter {
     }
 
     protected function manageUpdate(String $name, String $type, Array $options){
-        throw new Exception('manageUpdate is not redefined in class which use ElementsGetter');
+        $this->__call("manageUpdate",[$name,$type,$options]);
     }
 
 }

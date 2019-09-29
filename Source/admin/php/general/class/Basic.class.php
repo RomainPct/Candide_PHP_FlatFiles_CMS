@@ -8,15 +8,17 @@ class Basic {
     const FILES_DIRECTORY = ROOT_DIR."/CandideData/files/";
     const PLUGINS_DIRECTORY = ROOT_DIR."/admin/plugins/";
 
-    const TYPE_PAGE = "page";
-    const TYPE_COLLECTION = "collection";
-    const TYPE_COLLECTION_ITEM = "collection_item";
+    const TYPE_ITEM = "item";
     const TYPE_ADMINISTRATOR = "administrator";
 
     protected $_type = null,
-              $_methods = [];
+              $_methods = [],
+              $_updateCall = false;
 
     public function __construct(Array $extensions = []) {
+        if (array_key_exists("updateAdminPlatform",$_GET)) {
+            $this->_updateCall = $_GET["updateAdminPlatform"];
+        }
         $this->loadPlugins($extensions);
     }
 

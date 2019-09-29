@@ -7,18 +7,16 @@ class CandidePage extends CandideBasic {
     use ElementsGetter;
 
     private $_existingElements = [];
-    protected $_type = self::TYPE_PAGE;
+    protected $_type = self::TYPE_ITEM;
 
     protected function manageUpdate(String $name, String $type, Array $options){
-        if ($this->_updateCall) {
-            if (!in_array($name,$this->_existingElements)) {
-                $this->_existingElements[] = $name;
-            }
-            $this->_data[$name]["type"] = $type;
-            $this->setDefaultValueIfNeeded($name,$type);
-            foreach ($options as $key => $value) {
-                $this->_data[$name][$key] = $value;
-            }
+        if (!in_array($name,$this->_existingElements)) {
+            $this->_existingElements[] = $name;
+        }
+        $this->_data[$name]["type"] = $type;
+        $this->setDefaultValueIfNeeded($name,$type);
+        foreach ($options as $key => $value) {
+            $this->_data[$name][$key] = $value;
         }
     }
 

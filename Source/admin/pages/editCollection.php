@@ -6,12 +6,12 @@ $c = new CandideCollectionAdministrator($_GET["page"]);
     <a href="editCollectionItem?page=<?php echo $_GET["page"] ?>&id=newItem"><?php $texts->echo("new_item") ?></a>
 </div>
 <?php
-foreach ($c->avalaibleItemIds() as $itemId){
+foreach ($c->items() as $item) {
     ?>
     <div class="collectionItemBox">
-        <h2><?php $c->getElementTitle($itemId) ?></h2>
-        <a class="button editButton" href="editCollectionItem?id=<?php echo $itemId ?>&page=<?php echo $_GET["page"] ?>"></a>
-        <a class="button deleteButton" href="php/actions/deleteCollectionItem.php?candide_page_name=<?php echo $_GET["page"] ?>&candide_index=<?php echo $itemId ?>"></a>
+        <h2><?php $item->getElementTitle() ?></h2>
+        <a class="button editButton" href="editCollectionItem?id=<?php echo $item->id() ?>&page=<?php echo $_GET["page"] ?>"></a>
+        <a class="button deleteButton" href="php/actions/deleteCollectionItem.php?candide_page_name=<?php echo $_GET["page"] ?>&candide_index=<?php echo $item->id() ?>"></a>
     </div>
     <?php
 }

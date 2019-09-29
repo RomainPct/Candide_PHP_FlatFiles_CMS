@@ -7,7 +7,7 @@ class CandideCollectionItem extends CandideCollectionBasic {
     use ElementsGetter;
 
     protected $_id;
-    protected $_type = self::TYPE_COLLECTION_ITEM;
+    protected $_type = self::TYPE_ITEM;
 
     protected function getPageUrl():String {
         return $this->getFileUrl(self::DATA_DIRECTORY.$this->_page."/items/".$this->_id."/base.json");

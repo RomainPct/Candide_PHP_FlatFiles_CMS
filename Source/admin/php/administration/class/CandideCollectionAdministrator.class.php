@@ -26,18 +26,16 @@ class CandideCollectionAdministrator extends CandideCollection {
         return $this->_data[$id];
     }
 
-    public function getElementTitle($id){
-        $title = 0;
-        while (is_int($title) && $title < count($this->_data[$id])) {
-            $key = array_keys($this->_data[$id])[$title];
-            if ($this->_data[$id][$key]["type"] == "text" && $this->_data[$id][$key]["data"] != ""){
-                $title = $this->_data[$id][$key]["data"];
-            } else {
-                $title++;
-            }
-        }
-        $title = (is_int($title)) ? "Sans nom ".$id : $title;
-        echo substr($title,0,100);
+    /**
+     * Return all CandideCollectionBaseItemAdministrator for the current collection
+     *
+     * @return CandideCollectionBaseItemAdministrator[] [An array of CandideCollectionBaseItemAdministrator]
+     */
+    public function items():Array {
+        $items = array_map(function($item){
+            return new CandideCollectionBaseItemAdministrator($item,$this->_structure);
+        },$this->_data);
+        return $items;
     }
 
     public function setData(Array $texts, Array $files, Int $id){
