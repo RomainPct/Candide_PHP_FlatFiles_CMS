@@ -32,7 +32,7 @@ class CandideCollectionBaseItem extends Basic {
      * @return void
      */
     public function makeReadyForUpdateCall(Callable $updateCall) {
-        $this->addMethod("manageUpdate",$updateCall);
+        $this->addCallable("manageUpdate",$updateCall);
     }
 
 }

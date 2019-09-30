@@ -1,9 +1,9 @@
 <?php
-$c = new CandidePageAdministrator($_GET["page"]);
+$c = new CandidePageAdministrator($_GET["name"]);
 ?>
-<h1><?php $texts->echo("page") ?> "<?php $c->getPageName() ?>"</h1>
+<h1><?php $texts->echo("page") ?> "<?php $c->echoFormattedInstanceName() ?>"</h1>
 <form id="editPageForm" method="post" action="php/actions/savePage.php" enctype="multipart/form-data">
-    <input type="hidden" name="pageName" id="pageName" data-url="<?php echo $_GET['page'] ?>" value="<?php echo $_GET['page'] ?>">
+    <input type="hidden" name="pageName" data-url="<?php echo $_GET['name'] ?>" value="<?php echo $_GET['name'] ?>">
     <?php $c->getFields() ?>
     <div class="submitContainer">
         <input type="submit" value="<?php $texts->echo("save") ?>">

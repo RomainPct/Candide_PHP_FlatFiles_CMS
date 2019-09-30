@@ -11,13 +11,13 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
     private $_fullData = [];
     private $_newItem = false;
 
-    public function __construct(String $page, $id) {
-        $this->_collectionAdministrator = new CandideCollectionAdministrator($page);
+    public function __construct(String $instanceName, $id) {
+        $this->_collectionAdministrator = new CandideCollectionAdministrator($instanceName);
         if ($id == 'newItem') {
             $id = $this->_collectionAdministrator->getNewId();
             $this->_newItem = true;
         }
-        parent::__construct($page,$id);
+        parent::__construct($instanceName,$id);
         $this->_structure = $this->readJsonFile($this->getStructureUrl());
         $this->_fullStructure = array_merge($this->_collectionAdministrator->_structure,$this->_structure);
         if (!$this->_newItem) {
@@ -27,9 +27,9 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
 
     public function getTitle(AdminTextsManager $texts){
         if ($this->_newItem){
-            echo $texts->get("new_item_in_collection").' "'.$this->formatTitle($this->_page).'"';
+            echo $texts->get("new_item_in_collection").' "'.$this->formatTitle($this->_instanceName).'"';
         } else {
-            echo $texts->get("edit_item_of_the_collection").' "'.$this->formatTitle($this->_page).'"';
+            echo $texts->get("edit_item_of_the_collection").' "'.$this->formatTitle($this->_instanceName).'"';
         }
     }
     public function getCallToActionText(AdminTextsManager $texts){
@@ -45,8 +45,8 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
 
     public function deleteThisItem(){
         // Supprimer les données sur l'item
-        $this->deleteFiles(self::DATA_DIRECTORY.$this->_page."/items/".$this->_id);
-        $this->deleteFiles(self::FILES_DIRECTORY.$this->_page."/".$this->_id);
+        $this->deleteFiles(self::DATA_DIRECTORY.$this->_instanceName."/items/".$this->_id);
+        $this->deleteFiles(self::FILES_DIRECTORY.$this->_instanceName."/".$this->_id);
         // Supprimer l'item de $this->_collectionAdministrator->_data
         $this->_collectionAdministrator->removeItem($this->_id);
     }
@@ -57,7 +57,7 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
         $this->setTexts($texts);
         $this->saveData();
         $collectionData = $this->_collectionAdministrator->setData($texts,$newFiles,$this->_id);
-        $this->removeWysiwygFiles(self::FILES_DIRECTORY.$this->_page."/".$this->_id,array_merge($collectionData,$this->_data));
+        $this->removeWysiwygFiles(self::FILES_DIRECTORY.$this->_instanceName."/".$this->_id,array_merge($collectionData,$this->_data));
         echo $this->_id;
     }
 
@@ -72,7 +72,7 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
     private function setImages(Array $files, Array &$texts, Array $infos) : Array {
         $newFiles = [];
         foreach ($files as $key => $file) {
-            $dest = $this->getPage()."/".$this->_id;
+            $dest = $this->getInstanceName()."/".$this->_id;
             if ($file["size"] != 0 && strpos($key,"image_") === 0) {
                 $data = key_exists($key,$this->_fullData) ? $this->_fullData[$key] : [];
                 $url = $this->savePicture($key, $file, $dest, $data, $this->_fullStructure[$key]);

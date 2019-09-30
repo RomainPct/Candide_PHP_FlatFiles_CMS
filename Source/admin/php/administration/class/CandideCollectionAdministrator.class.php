@@ -4,8 +4,8 @@
 
 class CandideCollectionAdministrator extends CandideCollection {
 
-    public function __construct(String $page){
-        parent::__construct($page);
+    public function __construct(String $instanceName){
+        parent::__construct($instanceName);
         $this->_structure = $this->readJsonFile($this->getStructureUrl());
     }
 

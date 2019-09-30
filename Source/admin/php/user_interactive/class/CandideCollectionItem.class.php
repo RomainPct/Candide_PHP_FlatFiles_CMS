@@ -12,13 +12,13 @@ class CandideCollectionItem extends CandideCollectionBasic {
     /**
      * Custom CandideCollectionItem constructor
      *
-     * @param String $page [Parent collection name]
+     * @param String $instanceName [Parent collection name]
      * @param Int|null $id [Item id]
      * @param String[] $extensions [Extensions needed for this instance]
      */
-    public function __construct(String $page,?Int $id, Array $extensions = []) {
+    public function __construct(String $instanceName,?Int $id, Array $extensions = []) {
         $this->_id = intval($id);
-        parent::__construct($page, $extensions);
+        parent::__construct($instanceName, $extensions);
     }
 
     /**
@@ -26,8 +26,8 @@ class CandideCollectionItem extends CandideCollectionBasic {
      *
      * @return String [Path of the base.json]
      */
-    protected function getPageUrl():String {
-        return $this->getFileUrl(self::DATA_DIRECTORY.$this->_page."/items/".$this->_id."/base.json");
+    protected function getInstanceUrl():String {
+        return $this->getFileUrl(self::DATA_DIRECTORY.$this->_instanceName."/items/".$this->_id."/base.json");
     }
 
     /**
@@ -36,7 +36,7 @@ class CandideCollectionItem extends CandideCollectionBasic {
      * @return String [Path of the detailedStructure.json]
      */
     protected function getStructureUrl():String{
-        return $this->getFileUrl(self::DATA_DIRECTORY.$this->_page."/structure/detailedStructure.json");
+        return $this->getFileUrl(self::DATA_DIRECTORY.$this->_instanceName."/structure/detailedStructure.json");
     }
 
     /**

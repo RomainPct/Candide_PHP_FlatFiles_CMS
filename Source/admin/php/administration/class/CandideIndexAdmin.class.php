@@ -28,9 +28,9 @@ class CandideIndexAdmin extends CandideIndexBasic {
         }
         // Manage pages indexation
         if (is_a($candideInstance, "CandidePage")) {
-            $this->newPage($candideInstance->getPage());
+            $this->newPage($candideInstance->getInstanceName());
         } elseif (is_a($candideInstance, "CandideCollection")) {
-            $this->newCollection($candideInstance->getPage());
+            $this->newCollection($candideInstance->getInstanceName());
         }
     }
 

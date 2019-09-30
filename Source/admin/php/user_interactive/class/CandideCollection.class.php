@@ -9,11 +9,11 @@ class CandideCollection extends CandideCollectionBasic {
     /**
      * CandideCollection constructor
      *
-     * @param String $page [Collection name]
+     * @param String $instanceName [Collection name]
      * @param String[] $extensions [Extensions needed for this specific instance]
      */
-    public function __construct(String $page, Array $extensions = []) {
-        parent::__construct($page, []);
+    public function __construct(String $instanceName, Array $extensions = []) {
+        parent::__construct($instanceName, []);
         $this->_extensions = $extensions;
     }
 
@@ -22,8 +22,8 @@ class CandideCollection extends CandideCollectionBasic {
      *
      * @return String [Path of the base.json]
      */
-    protected function getPageUrl():String {
-        return $this->getFileUrl(self::DATA_DIRECTORY.$this->_page."/global/base.json");
+    protected function getInstanceUrl():String {
+        return $this->getFileUrl(self::DATA_DIRECTORY.$this->_instanceName."/global/base.json");
     }
 
     /**
@@ -32,7 +32,7 @@ class CandideCollection extends CandideCollectionBasic {
      * @return String
      */
     protected function getStructureUrl():String{
-        return $this->getFileUrl(self::DATA_DIRECTORY.$this->_page."/structure/globalStructure.json");
+        return $this->getFileUrl(self::DATA_DIRECTORY.$this->_instanceName."/structure/globalStructure.json");
     }
 
     /**

@@ -6,17 +6,17 @@ class CandideBasic extends Basic {
 
     use BackendPluginNotifier, JsonReader;
 
-    protected $_page, $_data;
+    protected $_instanceName, $_data;
 
     /**
-     * CandideBasic constructor which set _page, _data & _extensions
+     * CandideBasic constructor which set _instanceName, _data & _extensions
      *
-     * @param String $page [Candide instance name]
+     * @param String $instanceName [Candide instance name]
      * @param Array $extensions [Extensions needed for this instance]
      */
-    public function __construct(String $page, Array $extensions = []) {
-        $this->_page = $page;
-        $this->_data = $this->readJsonFile($this->getPageUrl());
+    public function __construct(String $instanceName, Array $extensions = []) {
+        $this->_instanceName = $instanceName;
+        $this->_data = $this->readJsonFile($this->getInstanceUrl());
         parent::__construct($extensions);
     }
 
@@ -25,8 +25,8 @@ class CandideBasic extends Basic {
      *
      * @return void
      */
-    public function getPageName() {
-        echo $this->formatTitle($this->_page);
+    public function echoFormattedInstanceName() {
+        echo $this->formatTitle($this->_instanceName);
     }
 
     /**
@@ -34,8 +34,8 @@ class CandideBasic extends Basic {
      *
      * @return String
      */
-    protected function getPageUrl():String{
-        return $this->getFileUrl(self::DATA_DIRECTORY.$this->_page."/base.json");
+    protected function getInstanceUrl():String{
+        return $this->getFileUrl(self::DATA_DIRECTORY.$this->_instanceName."/base.json");
     }
 
     /**
@@ -45,20 +45,20 @@ class CandideBasic extends Basic {
      */
     protected function saveData(){
         if ($this->_updateCall) {
-            file_put_contents($this->getPageUrl(),json_encode($this->_data));
+            file_put_contents($this->getInstanceUrl(),json_encode($this->_data));
             $this->sendNotification(Notification::CONTENT_SAVED,[
-                "folder" => $this->getPageUrl()
+                "folder" => $this->getInstanceUrl()
             ]);
         }
     }
 
     /**
-     * Return page name
+     * Return Candide instance name
      *
-     * @return String [Current Candide Instance name]
+     * @return String [Current Candide instance name]
      */
-    public function getPage(): String {
-        return $this->_page;
+    public function getInstanceName(): String {
+        return $this->_instanceName;
     }
 
     /**

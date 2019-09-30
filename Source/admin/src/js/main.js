@@ -194,8 +194,8 @@ function setEditCollectionItem() {
     editCollectionItemForm = document.querySelector("#editCollectionItemForm");
     setSubmitEvent(editCollectionItemForm,function(id){
         if (editCollectionItemForm.getAttribute("data-id") == "newItem"){
-            let pageName = editCollectionItemForm.getAttribute("data-page")
-            window.location.href= "editCollectionItem?page="+pageName+"&id="+id
+            let collectionName = editCollectionItemForm.getAttribute("data-collection-name")
+            window.location.href= "editCollectionItem?collection_name="+collectionName+"&id="+id
         }
     })
     setForm()
