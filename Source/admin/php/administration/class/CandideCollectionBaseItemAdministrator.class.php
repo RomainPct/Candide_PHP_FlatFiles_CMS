@@ -6,7 +6,7 @@ class CandideCollectionBaseItemAdministrator extends CandideCollectionBaseItem {
 
     public function __construct(Array $data, Array $structure) {
         $this->_structure = $structure;
-        parent::__construct($data);
+        parent::__construct($data,[]);
     }
 
     public function getElementTitle(){

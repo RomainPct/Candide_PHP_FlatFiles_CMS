@@ -5,9 +5,9 @@ class CandideCollectionBaseItem extends Basic {
 
     use ElementsGetter;
 
-    public function __construct(Array $data) {
+    public function __construct(Array $data, Array $extensions) {
         $this->_data = $data;
-        parent::__construct();
+        parent::__construct($extensions);
     }
 
     public function id() {

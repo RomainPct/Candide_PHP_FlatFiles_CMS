@@ -4,6 +4,13 @@
 
 class CandideCollection extends CandideCollectionBasic {
 
+    private $_extensions;
+
+    public function __construct(String $page, Array $extensions = []) {
+        parent::__construct($page, []);
+        $this->_extensions = $extensions;
+    }
+
     /**
      * Return base.json path for the current collection from ROOT_DIR
      *
@@ -29,14 +36,14 @@ class CandideCollection extends CandideCollectionBasic {
      */
     public function items():Array {
         if ($this->_updateCall) {
-            $item = new CandideCollectionBaseItem(["id" => 0]);
+            $item = new CandideCollectionBaseItem(["id" => 0],$this->_extensions);
             $item->makeReadyForUpdateCall(function(String $name, String $type, Array $options){
                 $this->manageUpdate($name,$type,$options);
             });
             return [$item];
         } else {
             $items = array_map(function($item){
-                return new CandideCollectionBaseItem($item);
+                return new CandideCollectionBaseItem($item,$this->_extensions);
             },$this->_data);
             return $items;
         }
