@@ -6,6 +6,12 @@ class CandideCollection extends CandideCollectionBasic {
 
     private $_extensions;
 
+    /**
+     * CandideCollection constructor
+     *
+     * @param String $page [Collection name]
+     * @param String[] $extensions [Extensions needed for this specific instance]
+     */
     public function __construct(String $page, Array $extensions = []) {
         parent::__construct($page, []);
         $this->_extensions = $extensions;
@@ -49,13 +55,21 @@ class CandideCollection extends CandideCollectionBasic {
         }
     }
 
+    /**
+     * Manage collection update when called from updateAdminPlatform.php
+     *
+     * @param String $name [Field name]
+     * @param String $type [Field type]
+     * @param Array $options [Field custom options]
+     * @return void
+     */
     protected function manageUpdate(String $name, String $type, Array $options){
         $this->manageStructureUpdate($name,$type,$options);
         $this->manageDataUpdate($name,$type,$options);
     }
 
     /**
-     * Manage data update for CandideCollectionBaseItem
+     * Manage data update each global item when called from updateAdminPlatform.php
      *
      * @param String $name
      * @param String $type

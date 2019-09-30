@@ -6,43 +6,64 @@ class CandidePage extends CandideBasic {
 
     use ElementsGetter;
 
-    private $_existingElements = [];
     protected $_type = self::TYPE_ITEM;
+    private $_existingElements = [];
 
+    /**
+     * Manage page update when called from updateAdminPlatform.php
+     *
+     * @param String $name [Field name]
+     * @param String $type [Field type]
+     * @param Array $options [Field custom options]
+     * @return void
+     */
     protected function manageUpdate(String $name, String $type, Array $options){
         if (!in_array($name,$this->_existingElements)) {
             $this->_existingElements[] = $name;
         }
         $this->_data[$name]["type"] = $type;
-        $this->setDefaultValueIfNeeded($name,$type);
+        $this->setDefaultValueIfNeeded($this->_data[$name]);
         foreach ($options as $key => $value) {
             $this->_data[$name][$key] = $value;
         }
     }
 
-    protected function setDefaultValueIfNeeded(String $name, String $type){
-        if (!array_key_exists("data",$this->_data[$name])) {
-            switch ($type) {
+    /**
+     * Generate default value for a new item
+     *
+     * @param Array $field [Field data by reference]
+     * @return void
+     */
+    protected function setDefaultValueIfNeeded(Array &$field){
+        if (!array_key_exists("data",$field)) {
+            switch ($field["type"]) {
                 case "text":
-                    $this->_data[$name]["data"] = "undefined";
+                    $field["data"] = "undefined";
                     break;
                 case "image":
-                    $this->_data[$name]["data"] = "undefined.jpg";
+                    $field["data"] = "undefined.jpg";
                     break;
                 case "number":
-                    $this->_data[$name]["data"] = "0";
+                    $field["data"] = "0";
                     break;
                 default:
-                    $this->_data[$name]["data"] = "";
+                    $field["data"] = "";
                     break;
             }
         }
     }
 
+    /**
+     * Save updates when called from updateAdminPlatform
+     *
+     * @return void
+     */
     public function save() {
-        $this->_data = array_filter($this->_data, function($key) {
-            return in_array($key,$this->_existingElements);
-        },ARRAY_FILTER_USE_KEY);
-        $this->saveData();
+        if ($this->_updateCall) {
+            $this->_data = array_filter($this->_data, function($key) {
+                return in_array($key,$this->_existingElements);
+            },ARRAY_FILTER_USE_KEY);
+            $this->saveData();
+        }
     }
 }
