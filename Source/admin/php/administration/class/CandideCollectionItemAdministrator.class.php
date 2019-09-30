@@ -57,7 +57,7 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
         $this->setTexts($texts);
         $this->saveData();
         $collectionData = $this->_collectionAdministrator->setData($texts,$newFiles,$this->_id);
-        $this->removeWysiwygFiles(self::FILES_DIRECTORY.$this->_page."/".$this->_id,$collectionData);
+        $this->removeWysiwygFiles(self::FILES_DIRECTORY.$this->_page."/".$this->_id,array_merge($collectionData,$this->_data));
         echo $this->_id;
     }
 
