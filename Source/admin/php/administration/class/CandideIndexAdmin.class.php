@@ -6,22 +6,39 @@ class CandideIndexAdmin extends CandideIndexBasic {
 
     use Administrator, BackendPluginNotifier;
 
-    protected $_newPages = [];
-    protected $_newCollections = [];
+    protected $_newPages = [], $_newCollections = [];
 
-    public function newPage($title) {
+    /**
+     * Index a page
+     *
+     * @param String $title
+     * @return void
+     */
+    public function newPage(String $title) {
         if (!in_array($title,$this->_newPages)) {
             $this->_newPages[] = $title;
         }
     }
 
-    public function newCollection($title) {
+    /**
+     * Index a collection
+     *
+     * @param String $title
+     * @return void
+     */
+    public function newCollection(String $title) {
         if (!in_array($title,$this->_newCollections)) {
             $this->_newCollections[] = $title;
         }
     }
 
-    function updateCandideInstance($candideInstance){
+    /**
+     * Update a candide instance
+     *
+     * @param CandideBasic $candideInstance
+     * @return void
+     */
+    function updateCandideInstance(CandideBasic $candideInstance){
         // Call the end function to save data changes
         if (is_a($candideInstance, "CandideBasic")) {
             $candideInstance->save();
@@ -34,23 +51,24 @@ class CandideIndexAdmin extends CandideIndexBasic {
         }
     }
 
+    /**
+     * Save index updates
+     *
+     * @return void
+     */
     public function saveIndex(){
-        $this->savePages();
-        $this->saveCollections();
-        $this->removeOldData();
-        $this->sendNotification(Notification::CANDIDE_UPDATED);
-
-    }
-
-    private function savePages(){
         file_put_contents(self::PAGES_INDEX_URL,json_encode($this->_newPages));
-    }
-
-    private function saveCollections(){
         file_put_contents(self::COLLECTION_INDEX_URL,json_encode($this->_newCollections));
+        $this->cleanOldData();
+        $this->sendNotification(Notification::CANDIDE_UPDATED);
     }
 
-    private function removeOldData(){
+    /**
+     * Remove useless folders of old pages and collections
+     *
+     * @return void
+     */
+    private function cleanOldData(){
         $oldFolders = array_merge($this->_pages,$this->_collections);
         $newFolders = array_merge($this->_newPages,$this->_newCollections);
         $folders = array_diff($oldFolders,$newFolders);

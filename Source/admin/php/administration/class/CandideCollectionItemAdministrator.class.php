@@ -11,6 +11,12 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
     private $_fullData = [];
     private $_newItem = false;
 
+    /**
+     * CandideCollectionItemAdministrator constructor
+     *
+     * @param String $instanceName [Collection name]
+     * @param Mixed $id [Item id or "newItem"]
+     */
     public function __construct(String $instanceName, $id) {
         $this->_collectionAdministrator = new CandideCollectionAdministrator($instanceName);
         if ($id == 'newItem') {
@@ -21,10 +27,16 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
         $this->_structure = $this->readJsonFile($this->getStructureUrl());
         $this->_fullStructure = array_merge($this->_collectionAdministrator->_structure,$this->_structure);
         if (!$this->_newItem) {
-            $this->_fullData = array_merge($this->_data,$this->_collectionAdministrator->getDataForElementWithId($this->_id));
+            $this->_fullData = array_merge($this->_data,$this->_collectionAdministrator->getDataForItemWithId($this->_id));
         }
     }
 
+    /**
+     * Echo page title
+     *
+     * @param AdminTextsManager $texts
+     * @return void
+     */
     public function getTitle(AdminTextsManager $texts){
         if ($this->_newItem){
             echo $texts->get("new_item_in_collection").' "'.$this->formatTitle($this->_instanceName).'"';
@@ -32,10 +44,22 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
             echo $texts->get("edit_item_of_the_collection").' "'.$this->formatTitle($this->_instanceName).'"';
         }
     }
+
+    /**
+     * Echo cta title
+     *
+     * @param AdminTextsManager $texts
+     * @return void
+     */
     public function getCallToActionText(AdminTextsManager $texts){
         echo ($this->_newItem) ? $texts->get("add") : $texts->get("save");
     }
 
+    /**
+     * Echo all field of the current Candide Page
+     *
+     * @return void
+     */
     public function getFields() {
         foreach ($this->_fullStructure as $key => $value){
             $data = (key_exists($key,$this->_fullData) && key_exists('data',$this->_fullData[$key])) ? $this->_fullData[$key]['data'] : "";
@@ -43,6 +67,11 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
         }
     }
 
+    /**
+     * Remove everyting about current item
+     *
+     * @return void
+     */
     public function deleteThisItem(){
         // Supprimer les données sur l'item
         $this->deleteFiles(self::DATA_DIRECTORY.$this->_instanceName."/items/".$this->_id);
@@ -51,6 +80,13 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
         $this->_collectionAdministrator->removeItem($this->_id);
     }
 
+    /**
+     * Set data for current item
+     *
+     * @param Array $texts [Input values from HTML form]
+     * @param Array $files [File input values from HTML form]
+     * @return void
+     */
     public function setData(Array $texts, Array $files){
         $this->_data = array_merge($this->_structure,$this->_data);
         $newFiles = $this->setImages($files, $texts, $this->_data);
@@ -61,6 +97,12 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
         echo $this->_id;
     }
 
+    /**
+     * Set texts for current item
+     *
+     * @param Array $texts [Input values from HTML form]
+     * @return void
+     */
     private function setTexts(Array $texts) {
         foreach ($this->_structure as $key => $value) {
             if (key_exists($key,$texts)) {
@@ -69,6 +111,14 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
         }
     }
 
+    /**
+     * Set images for current item
+     *
+     * @param Array $files [File input values from HTML form]
+     * @param Array $texts [Input values from HTML form]
+     * @param Array $infos [Current item data]
+     * @return Array
+     */
     private function setImages(Array $files, Array &$texts, Array $infos) : Array {
         $newFiles = [];
         foreach ($files as $fieldName => $file) {

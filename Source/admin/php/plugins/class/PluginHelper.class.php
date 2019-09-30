@@ -38,7 +38,7 @@ class PluginHelper {
      * @return void
      */
     public function async(String $scriptUrl, Array $data = []) {
-        $url = $_SERVER["HTTP_ORIGIN"]."/admin/plugins/".$this->_pluginName."/".$scriptUrl;
+        $url = $_SERVER["HTTP_HOST"]."/admin/plugins/".$this->_pluginName."/".$scriptUrl;
         $ch = curl_init($url);
         curl_setopt_array($ch, [
             CURLOPT_HEADER => 0,

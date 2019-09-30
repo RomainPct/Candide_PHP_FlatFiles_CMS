@@ -11,13 +11,13 @@ $texts = new AdminTextsManager("sidebar");
             <li class="sectionTitle"><?php $texts->echo("pages") ?></li>
             <?php
             for ($i = 0; $i < $c->countPages(); $i++){
-                echo '<li><a href="editPage?name='.$c->getPageName($i).'">'.$c->getPage($i).'</a></li>';
+                echo '<li><a href="editPage?name='.$c->getPageName($i).'">'.$c->getFormattedPageName($i).'</a></li>';
             }
             ?>
             <li class="sectionTitle"><?php $texts->echo("collections") ?></li>
             <?php
             for ($i = 0; $i < $c->countCollections(); $i++){
-                echo '<li><a href="editCollection?name='.$c->getCollectionName($i).'">'.$c->getCollection($i).'</a></li>';
+                echo '<li><a href="editCollection?name='.$c->getCollectionName($i).'">'.$c->getFormattedCollectionName($i).'</a></li>';
             }
             ?>
             <?php

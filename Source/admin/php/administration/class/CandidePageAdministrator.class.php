@@ -6,13 +6,24 @@ class CandidePageAdministrator extends CandideBasic {
 
     use Administrator, WysiwygFiles;
 
+    /**
+     * Echo all field of the current Candide Page
+     *
+     * @return void
+     */
     public function getFields() {
         foreach ($this->_data as $key => $value){
-            // Afficher input type text ou image
             echo $this->getField($key,$value['data'],$value);
         }
     }
 
+    /**
+     * Update page
+     *
+     * @param Array $texts [Inputs values]
+     * @param Array $files [File inputs values]
+     * @return void
+     */
     public function setData(Array $texts, Array $files) {
         $this->setImages($files, $texts, $this->_data);
         $this->setTexts($texts);
@@ -20,6 +31,12 @@ class CandidePageAdministrator extends CandideBasic {
         $this->cleanWysiwygFiles(self::FILES_DIRECTORY.$this->getInstanceName());
     }
 
+    /**
+     * Update texts of the page
+     *
+     * @param Array $texts [Inputs values]
+     * @return void
+     */
     private function setTexts(Array $texts) {
         foreach ($texts as $key => $text){
             if (key_exists($key,$this->_data)) {
@@ -30,6 +47,14 @@ class CandidePageAdministrator extends CandideBasic {
         }
     }
 
+    /**
+     * Update images of the page
+     *
+     * @param Array $files [File inputs values]
+     * @param Array $texts [Inputs values by reference]
+     * @param Array $infos [Current data of the page]
+     * @return void
+     */
     private function setImages(Array $files, Array &$texts, Array $infos){
         foreach ($files as $fieldName => $file) {
             if ($file["size"] != 0 && strpos($fieldName,"image_") === 0) {

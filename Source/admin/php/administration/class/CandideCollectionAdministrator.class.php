@@ -4,11 +4,21 @@
 
 class CandideCollectionAdministrator extends CandideCollection {
 
+    /**
+     * CandideCollectionAdministrator constructor which set _structure
+     *
+     * @param String $instanceName [Collection name]
+     */
     public function __construct(String $instanceName){
         parent::__construct($instanceName);
         $this->_structure = $this->readJsonFile($this->getStructureUrl());
     }
 
+    /**
+     * Generate a new item id
+     *
+     * @return Int
+     */
     public function getNewId():Int {
         if (count($this->_data) == 0) {
             return 0;
@@ -17,12 +27,24 @@ class CandideCollectionAdministrator extends CandideCollection {
         }
     }
 
+    /**
+     * Remove an item from the collection
+     *
+     * @param Int $id [Item to remove id]
+     * @return void
+     */
     public function removeItem(Int $id){
         unset($this->_data[$id]);
         $this->saveData();
     }
 
-    public function getDataForElementWithId(Int $id):Array{
+    /**
+     * Returne the data of a specific item
+     *
+     * @param Int $id [Item id]
+     * @return Array [Item data]
+     */
+    public function getDataForItemWithId(Int $id):Array{
         return $this->_data[$id];
     }
 
@@ -38,6 +60,14 @@ class CandideCollectionAdministrator extends CandideCollection {
         return $items;
     }
 
+    /**
+     * Set data for a specific collection item
+     *
+     * @param Array $texts [Input values from HTML form]
+     * @param Array $files [File input values from HTML form]
+     * @param Int $id [Item id]
+     * @return void
+     */
     public function setData(Array $texts, Array $files, Int $id){
         if (!key_exists($id,$this->_data)) {
             $this->_data[$id] = [];
@@ -50,6 +80,13 @@ class CandideCollectionAdministrator extends CandideCollection {
         return $this->_data[$id];
     }
 
+    /**
+     * Set texts for a specific collection item
+     *
+     * @param Array $texts [Input values from HTML form]
+     * @param Int $id [Item id]
+     * @return void
+     */
     private function setTexts(Array $texts, Int $id) {
         foreach ($this->_structure as $key => $value) {
             if (key_exists($key,$texts)) {
@@ -58,6 +95,13 @@ class CandideCollectionAdministrator extends CandideCollection {
         }
     }
 
+    /**
+     * Set images for a specific collection item
+     *
+     * @param Array $newFiles [File input values from HTML form]
+     * @param Int $id [Item id]
+     * @return void
+     */
     private function setImages(Array $newFiles, Int $id){
         foreach ($newFiles as $key => $url) {
             $this->_data[$id][$key]['data'] = $url;
