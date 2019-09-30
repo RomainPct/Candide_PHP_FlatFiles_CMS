@@ -57,7 +57,7 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
         $this->setTexts($texts);
         $this->saveData();
         $collectionData = $this->_collectionAdministrator->setData($texts,$newFiles,$this->_id);
-        $this->removeWysiwygFiles(self::FILES_DIRECTORY.$this->_instanceName."/".$this->_id,array_merge($collectionData,$this->_data));
+        $this->cleanWysiwygFiles(self::FILES_DIRECTORY.$this->_instanceName."/".$this->_id,array_merge($collectionData,$this->_data));
         echo $this->_id;
     }
 
@@ -71,17 +71,17 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
 
     private function setImages(Array $files, Array &$texts, Array $infos) : Array {
         $newFiles = [];
-        foreach ($files as $key => $file) {
+        foreach ($files as $fieldName => $file) {
             $dest = $this->getInstanceName()."/".$this->_id;
-            if ($file["size"] != 0 && strpos($key,"image_") === 0) {
-                $data = key_exists($key,$this->_fullData) ? $this->_fullData[$key] : [];
-                $url = $this->savePicture($key, $file, $dest, $data, $this->_fullStructure[$key]);
-                $newFiles[$key] = $url;
-                if (key_exists($key,$this->_data)) {
-                    $this->_data[$key]['data'] = $url;
+            if ($file["size"] != 0 && strpos($fieldName,"image_") === 0) {
+                $data = key_exists($fieldName,$this->_fullData) ? $this->_fullData[$fieldName] : [];
+                $url = $this->savePicture($fieldName, $file, $dest, $data, $this->_fullStructure[$fieldName]);
+                $newFiles[$fieldName] = $url;
+                if (key_exists($fieldName,$this->_data)) {
+                    $this->_data[$fieldName]['data'] = $url;
                 }
             } else if ($file["size"] != 0) {
-                $url = $this->saveWysiwygFile($key,$file,$dest."/wysiwyg",$texts,$infos);
+                $url = $this->saveWysiwygFile($fieldName,$file,$dest."/wysiwyg",$texts,$infos);
             }
         }
         return $newFiles;

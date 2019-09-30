@@ -17,7 +17,7 @@ class CandidePageAdministrator extends CandideBasic {
         $this->setImages($files, $texts, $this->_data);
         $this->setTexts($texts);
         $this->saveData();
-        $this->removeWysiwygFiles(self::FILES_DIRECTORY.$this->getInstanceName());
+        $this->cleanWysiwygFiles(self::FILES_DIRECTORY.$this->getInstanceName());
     }
 
     private function setTexts(Array $texts) {
@@ -31,11 +31,11 @@ class CandidePageAdministrator extends CandideBasic {
     }
 
     private function setImages(Array $files, Array &$texts, Array $infos){
-        foreach ($files as $key => $file) {
-            if ($file["size"] != 0 && strpos($key,"image_") === 0) {
-                $this->_data[$key]['data'] = $this->savePicture($key,$file,$this->getInstanceName(),$this->_data[$key]);
+        foreach ($files as $fieldName => $file) {
+            if ($file["size"] != 0 && strpos($fieldName,"image_") === 0) {
+                $this->_data[$fieldName]['data'] = $this->savePicture($fieldName,$file,$this->getInstanceName(),$this->_data[$fieldName]);
             } else if ($file["size"] != 0) {
-                $url = $this->saveWysiwygFile($key,$file,$this->_instanceName."/wysiwyg",$texts,$infos);
+                $url = $this->saveWysiwygFile($fieldName,$file,$this->getInstanceName()."/wysiwyg",$texts,$infos);
             }
         }
     }

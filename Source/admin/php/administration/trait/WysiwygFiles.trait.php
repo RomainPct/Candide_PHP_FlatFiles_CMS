@@ -4,24 +4,41 @@ trait WysiwygFiles {
 
     use FilesManager;
 
-    protected function saveWysiwygFile($key,$file,$dest,&$texts,$infos): String {
-        $url = $this->savePicture($key,$file,$dest);
+    /**
+     * Manage a new picture in wysiwyg field
+     *
+     * @param String $fieldName [Wysiwyg field name]
+     * @param Array $file [File from html input]
+     * @param String $directory [Destination directory]
+     * @param Array $texts [Field data]
+     * @param Array $infos [Field structure]
+     * @return String [Picture url from project root]
+     */
+    protected function saveWysiwygFile(String $fieldName, Array $file, String $directory, Array &$texts, Array $infos): String {
+        $pictureUrl = $this->savePicture($fieldName,$file,$directory);
         // Browse data to replace the id by the url
         foreach ($infos as $infosKey => $text){
             if (
                 key_exists("wysiwyg",$infos[$infosKey])
                 && $infos[$infosKey]["wysiwyg"]
                 && key_exists($infosKey,$texts)
-                && strpos($texts[$infosKey],$key) !== false
+                && strpos($texts[$infosKey],$fieldName) !== false
                 ) {
-                $texts[$infosKey] = str_replace($key,$url,$texts[$infosKey]);
+                $texts[$infosKey] = str_replace($fieldName,$pictureUrl,$texts[$infosKey]);
                 break;
             }
         }
-        return $url;  
+        return $pictureUrl;  
     }
 
-    protected function removeWysiwygFiles($elementFolderUrl,$collectionData = []) {
+    /**
+     * Clean wysiwyg files by deleting useless pictures
+     *
+     * @param String $elementFolderUrl [Element folder to clean]
+     * @param Array $collectionData [Element data]
+     * @return void
+     */
+    protected function cleanWysiwygFiles(String $elementFolderUrl, Array $collectionData = []) {
         // Get all wysiwyg fields in one string
         $wysiwygData = $this->resumeWysiwygFields($collectionData);
         // Get each image url from the wysiwyg fields
@@ -35,7 +52,14 @@ trait WysiwygFiles {
         $this->removeUselessFiles($allFiles, $usefullFiles);
     }
 
-    private function removeUselessFiles($allFiles, $usefullFiles){
+    /**
+     * Clean all useless files
+     *
+     * @param String[] $allFiles
+     * @param String[] $usefullFiles
+     * @return void
+     */
+    private function removeUselessFiles(Array $allFiles, Array $usefullFiles){
         foreach ($allFiles as $file) {
             $isUseless = true;
             foreach ($usefullFiles as $usefullFile) {
@@ -44,14 +68,19 @@ trait WysiwygFiles {
                     break;
                 }
             }
-            // If file is useless -> delete it
             if ($isUseless) {
                 $this->deleteFiles($file);
             }
         }
     }
 
-    private function resumeWysiwygFields(Array $collectionData){
+    /**
+     * Generate a single string of all wysiwyg inputs
+     *
+     * @param Array $collectionData [Fields data]
+     * @return String [String of all wysiwyg inputs]
+     */
+    private function resumeWysiwygFields(Array $collectionData):String{
         return implode(
             array_column(
                 array_filter(
