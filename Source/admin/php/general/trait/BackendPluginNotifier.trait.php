@@ -3,9 +3,15 @@
 trait BackendPluginNotifier {
 
     use JsonReader;
+
     protected $_backendPlugins = null;
 
-    protected function setBackendPlugins(){
+    /**
+     * Load backend plugins in $this->_backendPlugins
+     *
+     * @return void
+     */
+    private function setBackendPlugins(){
         $this->_backendPlugins = [];
         foreach (glob(self::PLUGINS_DIRECTORY."*", GLOB_ONLYDIR) as $pluginFolder) {
             $plugin = $this->readJsonFile($pluginFolder."/config.json");
@@ -15,6 +21,14 @@ trait BackendPluginNotifier {
         }
     }
 
+    /**
+     * Send a notification to each backend plugins
+     * Automatically set backend plugins if was null
+     *
+     * @param String $notif [Notification name avalaible as const of Notification class]
+     * @param Array $infos [Data to be transfered to backend plugins]
+     * @return void
+     */
     protected function sendNotification(String $notif, Array $infos = []) {
         if ($this->_backendPlugins === null) {
             $this->setBackendPlugins();

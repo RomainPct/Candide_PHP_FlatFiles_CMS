@@ -6,11 +6,22 @@ class PluginHelper {
 
     private $_config, $_pluginName;
 
+    /**
+     * Plugin Helper constructor 
+     *
+     * @param String $pluginName [Plugin name]
+     */
     public function __construct(String $pluginName) {
         $this->_pluginName = $pluginName;
         $this->_config = $this->readJsonFile(ROOT_DIR."/admin/plugins/".$pluginName."/config.json");
     }
 
+    /**
+     * Read plugin config.json properties by key
+     *
+     * @param String $key [JSON key you want the value]
+     * @return Mixed
+     */
     public function getInfoInConfig(String $key) {
         if (key_exists($key,$this->_config)) {
             return $this->_config[$key];
@@ -19,8 +30,15 @@ class PluginHelper {
         }
     }
 
-    public function async(String $urlFromPluginFolder, Array $data = []) {
-        $url = $_SERVER["HTTP_ORIGIN"]."/admin/plugins/".$this->_pluginName."/".$urlFromPluginFolder;
+    /**
+     * Perform an async script
+     *
+     * @param String $scriptUrl [Script url from current plugin folder]
+     * @param Array $data [Data to post to the script. Get it in the script via $_POST]
+     * @return void
+     */
+    public function async(String $scriptUrl, Array $data = []) {
+        $url = $_SERVER["HTTP_ORIGIN"]."/admin/plugins/".$this->_pluginName."/".$scriptUrl;
         $ch = curl_init($url);
         curl_setopt_array($ch, [
             CURLOPT_HEADER => 0,

@@ -56,7 +56,7 @@ class CandideCollection extends CandideCollectionBasic {
     }
 
     /**
-     * Manage collection update when called from updateAdminPlatform.php
+     * Manage collection update
      *
      * @param String $name [Field name]
      * @param String $type [Field type]
@@ -69,7 +69,7 @@ class CandideCollection extends CandideCollectionBasic {
     }
 
     /**
-     * Manage data update each global item when called from updateAdminPlatform.php
+     * Manage data update each global item
      *
      * @param String $name
      * @param String $type

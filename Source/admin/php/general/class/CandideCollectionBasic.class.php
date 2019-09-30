@@ -6,14 +6,31 @@ class CandideCollectionBasic extends CandideBasic {
 
     protected $_structure = [];
 
-    protected function manageStructureUpdate($name,$type,$options) {
+    /**
+     * Manage collection structure update
+     *
+     * @param String $name [Field name]
+     * @param String $type [Field type]
+     * @param Array $options [Options]
+     * @return void
+     */
+    protected function manageStructureUpdate(String $name, String $type, Array $options) {
         $this->_structure[$name] = ["type" => $type];
-            foreach ($options as $key => $value) {
-                $this->_structure[$name][$key] = $value;
-            }
+        foreach ($options as $key => $value) {
+            $this->_structure[$name][$key] = $value;
+        }
     }
 
-    protected function manageItemDataUpdate(&$item,$name,$type,$options){
+    /**
+     * Manage collection data update
+     *
+     * @param Array $item [Item data by reference]
+     * @param String $name [Field name]
+     * @param String $type [Field type]
+     * @param Array $options [Options]
+     * @return void
+     */
+    protected function manageItemDataUpdate(Array &$item,String $name, String $type, Array $options){
         $item[$name]["type"] = $type;
         if (!key_exists("data",$item[$name])) {
             $item[$name]["data"] = "";
@@ -23,6 +40,11 @@ class CandideCollectionBasic extends CandideBasic {
         }
     }
 
+    /**
+     * Save updates when called from updateAdminPlatform.php
+     *
+     * @return void
+     */
     public function save() {
         if ($this->_updateCall && count($this->_structure) > 0) {
             file_put_contents($this->getStructureUrl(),json_encode($this->_structure));

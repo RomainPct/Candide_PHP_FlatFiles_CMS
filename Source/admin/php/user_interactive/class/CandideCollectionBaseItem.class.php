@@ -26,7 +26,7 @@ class CandideCollectionBaseItem extends Basic {
     }
 
     /**
-     * Add callback for updateAdminPlatform.php
+     * Add callback to update collection
      *
      * @param Callable $updateCall [Update callback]
      * @return void

@@ -10,7 +10,7 @@ class CandidePage extends CandideBasic {
     private $_existingElements = [];
 
     /**
-     * Manage page update when called from updateAdminPlatform.php
+     * Manage page update
      *
      * @param String $name [Field name]
      * @param String $type [Field type]
