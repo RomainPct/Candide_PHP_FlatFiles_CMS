@@ -2,11 +2,14 @@ $font-primary: "Arial", sans-serif;
 $background-color: #FEFEFE;
 $text-color: #101010;
 $color-grey: #838383;
-$gradient: linear-gradient(to right bottom, #96FBC4 0%, #F9F586 100%);
+$accent-color: #96FBC4;
+$gradient: linear-gradient(to right bottom, $accent-color 0%, #F9F586 100%);
 
 $radius: 5px;
 
-$shadow-large: 0 0 10px rgba(0,0,0,0.16);
+$shadow-eyecatching: 0 0 200px $accent-color;
+$shadow-extralarge: 0 10px 30px rgba(0,0,0,0.1);
+$shadow-large: 0 0 10px rgba(0,0,0,0.1);
 $shadow-medium: 0 0 3px rgba(0,0,0,0.1);
 
 $font-size-logo: 47px;

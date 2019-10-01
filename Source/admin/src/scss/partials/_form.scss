@@ -137,7 +137,7 @@
 }
 .submitContainer.success {
   transform: scale(1.2);
-  box-shadow: 0 0 200px #96FBC4;
+  box-shadow: $shadow-eyecatching;
   input[type="submit"] {
     display: none;
   }

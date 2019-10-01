@@ -8,7 +8,7 @@ nav {
   flex-direction: column;
   width: 25vw;
   background-color: #FEFEFE;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.16); }
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
   nav #header {
     width: 100%;
     padding: 29px 0;
@@ -172,7 +172,7 @@ nav {
   transition: opacity .3s, box-shadow .2s, transform .2s; }
 
 .submitContainer:hover {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.16); }
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
 
 .submitContainer.clickable {
   opacity: 1; }
@@ -227,7 +227,19 @@ p.error {
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 29px;
   border-radius: 5px;
-  transition: box-shadow .2s, background-color .2s; }
+  transition: box-shadow .2s, background-color .2s, border .2s;
+  position: relative;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }
+  .collectionItemBox:focus {
+    outline: none; }
+  .collectionItemBox:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+  .collectionItemBox.slip-reordering:hover {
+    border: 3px solid #96FBC4;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); }
   .collectionItemBox h2 {
     flex: 3;
     margin: 0; }
@@ -258,9 +270,6 @@ p.error {
   .collectionItemBox a.deleteButton {
     background: url("../images/icons/trashbin.svg") no-repeat center;
     background-size: auto 100%; }
-
-.collectionItemBox:hover {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.16); }
 
 .collectionItemBox.waiting {
   background-color: #ba5914; }

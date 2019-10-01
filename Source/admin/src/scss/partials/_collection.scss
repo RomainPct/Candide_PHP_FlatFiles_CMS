@@ -7,7 +7,19 @@
   box-shadow: $shadow-medium;
   margin-bottom: $m-marge;
   border-radius: $radius;
-  transition: box-shadow .2s, background-color .2s;
+  transition: box-shadow .2s, background-color .2s, border .2s;
+  position: relative;
+  user-select: none;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    box-shadow: $shadow-large;
+  }
+  &.slip-reordering:hover {
+    border: 3px solid $accent-color;
+    box-shadow: $shadow-extralarge;
+  }
   h2 {
     flex: 3;
     margin: 0;
@@ -44,9 +56,6 @@
     background: url('../images/icons/trashbin.svg') no-repeat center;
     background-size: auto 100%;
   }
-}
-.collectionItemBox:hover {
-  box-shadow: $shadow-large;
 }
 .collectionItemBox.waiting {
   background-color: #ba5914;
