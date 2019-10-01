@@ -1,120 +1,3 @@
-function setPellEditorFor(input){
-    let pellEditor = input.querySelector('.pell'),
-        output = input.querySelector('.wysiwyg-output')
-    pell.init({
-        element: pellEditor,
-        onChange: html => {
-            output.value = html
-            allowUserToSubmitUpdates()
-        },
-        defaultParagraphSeparator: 'p',
-        actions: [
-            { name: 'heading1', icon: 'H1' },
-            { name: 'heading2', icon: 'H2' },
-            { name: 'paragraph', icon: 'P' },
-            { name: 'quote', icon: '“ ”' },
-            { name: 'bold', icon:"<strong>B</strong>"},
-            { name: 'olist', icon: '1.' },
-            { name: 'ulist', icon: '•' },
-            { name: 'link', icon: '🔗' },
-            {
-                name: 'Photo',
-                icon: '📷',
-                title: 'Insert a photo',
-                result: () => input.querySelector('.pell-file-input').click()
-                },
-        ]
-    })
-    let pellContent = pellEditor.querySelector('.pell-content')
-    pellContent.innerHTML = output.value
-    pellContent.addEventListener('drop', handleDropFileInWysiwyg, false);
-}
-
-function handleDropFileInWysiwyg(evt) {
-    if (evt.dataTransfer.files.length > 0) {
-        evt.stopPropagation()
-        evt.preventDefault()
-        setCaret(evt)
-        manageWysiwygImageInputEdition(evt.dataTransfer.files,evt.currentTarget)
-    }
-}
-
-function setCaret(evt){
-    var sel = document.getSelection();
-        let range;
-        if(document.caretRangeFromPoint) { // Chrome
-            range = document.caretRangeFromPoint(evt.clientX,evt.clientY);
-            sel.removeAllRanges();
-        } else if(e.rangeParent) { // Firefox
-            range = document.createRange();
-            range.setStart(evt.rangeParent, evt.rangeOffset);
-            sel.removeAllRanges();
-        } else if(sel.rangeCount == 0) { // Default to at least not completely failing
-            range = document.createRange();
-        }
-        sel.addRange(range);
-}
-
-function manageClassicImageInputEdition(input){
-    if (input.files[0] != null) {
-        let img = document.querySelector('#image_'+input.getAttribute('name'))
-        let newImgRatio = img.parentElement.offsetHeight / img.parentElement.offsetWidth
-        let cropping = img.getAttribute('data-cropping-enable') == 1
-        img.onload = function(){
-            let naturalRatio = this.naturalHeight / this.naturalWidth
-            if ( (newImgRatio > naturalRatio && cropping) || (newImgRatio <= naturalRatio && !cropping) ) {
-                img.classList.add('fullHeight')
-                img.classList.remove('fullWidth')
-            } else {
-                img.classList.remove('fullHeight')
-                img.classList.add('fullWidth')
-            }
-        }
-        let fr = new FileReader
-        fr.onload = (e) => img.src = e.target.result
-        fr.readAsDataURL(input.files[0])
-    }
-}
-
-let newWysiwygFiles = []
-function manageWysiwygImageInputEdition(files,pellContent){
-    if (files[0] != null) {
-        let fr = new FileReader
-        fr.onload = (e) => {
-            pellContent.focus()
-            newWysiwygFiles.push({
-                'pellOutput':pellContent.parentElement.parentElement.querySelector('.wysiwyg-output'),
-                'imageSrc':e.target.result,
-                'file':files[0]
-            })
-            document.execCommand('insertImage', false, e.target.result)
-        }
-        fr.readAsDataURL(files[0])
-    }
-}
-
-let updateAdminPlatform
-function setHome(){
-    updateAdminPlatform = document.querySelector('#updateAdminPlatform')
-    if (updateAdminPlatform != null) {
-        updateAdminPlatform.addEventListener('click',function (e) {
-            e.preventDefault()
-            fetch(updateAdminPlatform.getAttribute('href'))
-                .then(function (response) {
-                    return response.text()
-                })
-                .then(function (text) {
-                    console.log(text)
-                    window.location.reload()
-                })
-        })
-    }
-}
-
-function allowUserToSubmitUpdates(){
-    submitContainer.classList.add('clickable')
-}
-
 let filesInput = [], numberInputs, submitContainer
 function setForm() {
     allowCmdS()
@@ -155,50 +38,36 @@ function setForm() {
     })
 }
 
+function manageClassicImageInputEdition(input){
+    if (input.files[0] != null) {
+        let img = document.querySelector('#image_'+input.getAttribute('name'))
+        let newImgRatio = img.parentElement.offsetHeight / img.parentElement.offsetWidth
+        let cropping = img.getAttribute('data-cropping-enable') == 1
+        img.onload = function(){
+            let naturalRatio = this.naturalHeight / this.naturalWidth
+            if ( (newImgRatio > naturalRatio && cropping) || (newImgRatio <= naturalRatio && !cropping) ) {
+                img.classList.add('fullHeight')
+                img.classList.remove('fullWidth')
+            } else {
+                img.classList.remove('fullHeight')
+                img.classList.add('fullWidth')
+            }
+        }
+        let fr = new FileReader
+        fr.onload = (e) => img.src = e.target.result
+        fr.readAsDataURL(input.files[0])
+    }
+}
+
+function allowUserToSubmitUpdates(){
+    submitContainer.classList.add('clickable')
+}
+
 function setImagePreviewRatio(input) {
     let preview = input.parentElement
     if (preview.classList.contains('image_input_preview')) {
         preview.style.maxHeight = preview.offsetWidth * (parseInt(preview.style.height)/parseInt(preview.style.width)) + "px"   
     }
-}
-
-function setEditPage() {
-    setSubmitEvent(document.querySelector("#editPageForm"))
-    setForm()
-}
-
-let deleteCollectionItemButtons
-function setEditCollection() {
-    deleteCollectionItemButtons = document.querySelectorAll('.deleteButton')
-    deleteCollectionItemButtons.forEach(button => {
-        button.addEventListener('click',function (e) {
-            e.preventDefault()
-            if (window.confirm("Voulez vous vraiment supprimer cet élément ?")){
-                let container = button.parentNode
-                container.classList.add("waiting")
-                fetch(this.getAttribute('href'))
-                    .then(function (response) {
-                        if (response.status == 200){
-                            container.parentNode.removeChild(container)
-                        } else {
-                            container.classList.remove("waiting")
-                        }
-                    })
-            }
-        })  
-    })
-}
-
-let editCollectionItemForm
-function setEditCollectionItem() {
-    editCollectionItemForm = document.querySelector("#editCollectionItemForm");
-    setSubmitEvent(editCollectionItemForm,function(id){
-        if (editCollectionItemForm.getAttribute("data-id") == "newItem"){
-            let collectionName = editCollectionItemForm.getAttribute("data-collection-name")
-            window.location.href= "editCollectionItem?collection_name="+collectionName+"&id="+id
-        }
-    })
-    setForm()
 }
 
 function allowCmdS(){
@@ -210,16 +79,6 @@ function allowCmdS(){
             }
         }
     }, false);
-}
-
-function setMenu(){
-    let button = document.querySelector('#js_hamburgerButton')
-    if (button != null) {
-        button.addEventListener('click',function(e){
-            e.preventDefault()
-            document.querySelector('body').classList.toggle("menuOpen")
-        })   
-    }
 }
 
 function setSubmitEvent(form,successCallback = function(r){} ){
@@ -284,19 +143,115 @@ window.addEventListener("resize", function(){
     filesInput.forEach(input => {
         setImagePreviewRatio(input)
     })
-});
+})
+let newWysiwygFiles = []
 
-if (document.URL.indexOf("editPage") != -1){
-    setEditPage()
-} else if (document.URL.indexOf("editCollectionItem") != -1){
-    setEditCollectionItem()
-} else if (document.URL.indexOf("editCollection") != -1){
-    setEditCollection()
-} else {
-    setHome()
+function setPellEditorFor(input){
+    let pellEditor = input.querySelector('.pell'),
+        output = input.querySelector('.wysiwyg-output')
+    pell.init({
+        element: pellEditor,
+        onChange: html => {
+            output.value = html
+            allowUserToSubmitUpdates()
+        },
+        defaultParagraphSeparator: 'p',
+        actions: [
+            { name: 'heading1', icon: 'H1' },
+            { name: 'heading2', icon: 'H2' },
+            { name: 'paragraph', icon: 'P' },
+            { name: 'quote', icon: '“ ”' },
+            { name: 'bold', icon:"<strong>B</strong>"},
+            { name: 'olist', icon: '1.' },
+            { name: 'ulist', icon: '•' },
+            { name: 'link', icon: '🔗' },
+            {
+                name: 'Photo',
+                icon: '📷',
+                title: 'Insert a photo',
+                result: () => input.querySelector('.pell-file-input').click()
+                },
+        ]
+    })
+    let pellContent = pellEditor.querySelector('.pell-content')
+    pellContent.innerHTML = output.value
+    pellContent.addEventListener('drop', handleDropFileInWysiwyg, false);
 }
-setMenu()
-if (document.URL.indexOf("editCollection") != -1) {
+
+function handleDropFileInWysiwyg(evt) {
+    if (evt.dataTransfer.files.length > 0) {
+        evt.stopPropagation()
+        evt.preventDefault()
+        setCaret(evt)
+        manageWysiwygImageInputEdition(evt.dataTransfer.files,evt.currentTarget)
+    }
+}
+
+function setCaret(evt){
+    var sel = document.getSelection();
+        let range;
+        if(document.caretRangeFromPoint) { // Chrome
+            range = document.caretRangeFromPoint(evt.clientX,evt.clientY);
+            sel.removeAllRanges();
+        } else if(e.rangeParent) { // Firefox
+            range = document.createRange();
+            range.setStart(evt.rangeParent, evt.rangeOffset);
+            sel.removeAllRanges();
+        } else if(sel.rangeCount == 0) { // Default to at least not completely failing
+            range = document.createRange();
+        }
+        sel.addRange(range);
+}
+
+function manageWysiwygImageInputEdition(files,pellContent){
+    if (files[0] != null) {
+        let fr = new FileReader
+        fr.onload = (e) => {
+            pellContent.focus()
+            newWysiwygFiles.push({
+                'pellOutput':pellContent.parentElement.parentElement.querySelector('.wysiwyg-output'),
+                'imageSrc':e.target.result,
+                'file':files[0]
+            })
+            document.execCommand('insertImage', false, e.target.result)
+        }
+        fr.readAsDataURL(files[0])
+    }
+}
+function setMenu(){
+    let button = document.querySelector('#js_hamburgerButton')
+    if (button != null) {
+        button.addEventListener('click',function(e){
+            e.preventDefault()
+            document.querySelector('body').classList.toggle("menuOpen")
+        })   
+    }
+}
+let isReorderingInBackend = false
+let deleteCollectionItemButtons
+
+function setEditCollection() {
+    deleteCollectionItemButtons = document.querySelectorAll('.deleteButton')
+    deleteCollectionItemButtons.forEach(button => {
+        button.addEventListener('click',function (e) {
+            e.preventDefault()
+            if (window.confirm("Voulez vous vraiment supprimer cet élément ?")){
+                let container = button.parentNode
+                container.classList.add("waiting")
+                fetch(this.getAttribute('href'))
+                    .then(function (response) {
+                        if (response.status == 200){
+                            container.parentNode.removeChild(container)
+                        } else {
+                            container.classList.remove("waiting")
+                        }
+                    })
+            }
+        })  
+    })
+}
+
+function setSlipCollection(){
     let collection = document.querySelector('#collectionItems');
     new Slip(collection);
 
@@ -305,30 +260,72 @@ if (document.URL.indexOf("editCollection") != -1) {
     collection.addEventListener('slip:swipe', function(e) { e.preventDefault() })
 
     collection.addEventListener('slip:beforereorder', function(e) {
-        if (e.target.tagName == 'A') {
+        if (e.target.tagName == 'A' || isReorderingInBackend) {
             e.preventDefault()
         }
     })
 
     collection.addEventListener('slip:reorder', function(e) {
-        e.target.parentNode.insertBefore(e.target, e.detail.insertBefore)
-        reorderItem(e.target.getAttribute('data-item-id'),e.detail.insertBefore.getAttribute('data-item-id'))
+        reorderItem(e)
     })
 }
 
-function reorderItem(reorderedItemIndex,insertBeforeIndex) {
-    console.log(reorderedItemIndex+" was insert before "+insertBeforeIndex)
+function reorderItem(e) {
+    e.target.parentNode.insertBefore(e.target,e.detail.insertBefore)
+    if (e.detail.originalIndex == e.detail.spliceIndex) { return }
     let formData = new FormData()
-    formData.append("reorderedItemIndex",reorderedItemIndex)
-    formData.append("insertBeforeIndex",insertBeforeIndex)
+    formData.append("reorderedItemIndex",e.detail.originalIndex)
+    formData.append("insertBeforeIndex",e.detail.spliceIndex)
+    formData.append("candide_instance_name",e.target.getAttribute('data-collection-name'))
+    isReorderingInBackend = true
     fetch("php/actions/reorderCollectionItem.php", {
         method: 'POST',
         body: formData
     })
-        .then(function (response) {
-            return response.text()
-        })
-        .then(function (response) {
-            console.log(response)
+        .then(function() {
+            window.location.reload()
         })
 }
+let updateAdminPlatform
+function setHome(){
+    updateAdminPlatform = document.querySelector('#updateAdminPlatform')
+    if (updateAdminPlatform != null) {
+        updateAdminPlatform.addEventListener('click',function (e) {
+            e.preventDefault()
+            fetch(updateAdminPlatform.getAttribute('href'))
+                .then(function (response) {
+                    return response.text()
+                })
+                .then(function (text) {
+                    console.log(text)
+                    window.location.reload()
+                })
+        })
+    }
+}
+let editCollectionItemForm
+function setEditCollectionItem() {
+    editCollectionItemForm = document.querySelector("#editCollectionItemForm");
+    setSubmitEvent(editCollectionItemForm,function(id){
+        if (editCollectionItemForm.getAttribute("data-id") == "newItem"){
+            let collectionName = editCollectionItemForm.getAttribute("data-collection-name")
+            window.location.href= "editCollectionItem?collection_name="+collectionName+"&id="+id
+        }
+    })
+    setForm()
+}
+function setEditPage() {
+    setSubmitEvent(document.querySelector("#editPageForm"))
+    setForm()
+}
+if (document.URL.indexOf("editPage") != -1){
+    setEditPage()
+} else if (document.URL.indexOf("editCollectionItem") != -1){
+    setEditCollectionItem()
+} else if (document.URL.indexOf("editCollection") != -1){
+    setEditCollection()
+    setSlipCollection()
+} else {
+    setHome()
+}
+setMenu()

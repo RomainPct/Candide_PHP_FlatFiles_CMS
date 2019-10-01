@@ -9,7 +9,7 @@ $c = new CandideCollectionAdministrator($_GET["name"]);
 <?php
 foreach ($c->items() as $item) {
     ?>
-    <div class="collectionItemBox" data-item-id="<?php echo $item->id() ?>">
+    <div class="collectionItemBox" data-item-id="<?php echo $item->id() ?>" data-collection-name="<?php echo $_GET["name"] ?>">
         <h2><?php $item->getElementTitle() ?></h2>
         <a class="button editButton" href="editCollectionItem?id=<?php echo $item->id() ?>&collection_name=<?php echo $_GET["name"] ?>"></a>
         <a class="button deleteButton" href="php/actions/deleteCollectionItem.php?candide_instance_name=<?php echo $_GET["name"] ?>&candide_index=<?php echo $item->id() ?>"></a>

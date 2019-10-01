@@ -15,7 +15,6 @@
  * Basic < CandideBasic < CandideCollectionBasic < CandideCollection < CandideCollectionAdministrator
  * 
  */
-
 class CandideCollectionAdministrator extends CandideCollection {
 
     /**

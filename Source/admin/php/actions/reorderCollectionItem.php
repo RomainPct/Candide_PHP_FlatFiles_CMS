@@ -1,10 +1,7 @@
 <?php
+ignore_user_abort(true);
+set_time_limit(0);
 include '../../CandideAdmin.php';
-// $_GET["updateAdminPlatform"] = true;
-// $c = new CandideCollectionItemAdministrator($_GET["candide_instance_name"],$_GET["candide_index"]);
-// $c->deleteThisItem();
-var_dump($_POST);
-// COMMENT REORDONNER
-// Renommer les dossiers de chaque item coté files
-// Renommer les dossiers de chaque item coté content
-// Reordonner base.json
+$manager = new CandideCollectionReorder($_POST["candide_instance_name"]);
+$newIds = $manager->reorder($_POST["reorderedItemIndex"],$_POST["insertBeforeIndex"]);
+echo json_encode($newIds);
