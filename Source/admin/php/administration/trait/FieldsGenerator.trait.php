@@ -1,19 +1,33 @@
 <?php
+/**
+ * FieldsGenerator.trait.php
+ * 
+ * @author  Romain Penchenat <romain.penchenat@icloud.com>
+ * @license Apache 2.0
+ * @since 1.0
+ * 
+*/
 
-trait Administrator {
+/**
+ * Manage everything about fields for admin side
+ * 
+ * @since 1.0
+ * 
+ */
+trait FieldsGenerator {
 
     use BackendPluginNotifier, FilesManager;
 
     protected $_texts = null, $_extensionsUsed = [];
 
     /**
-     * Set class type to Basic::TYPE_ADMINISTRATOR and not load any plugins
+     * Set class type to Basic::TYPE_FIELDS_GENERATOR and not load any plugins
      *
      * @param String[] $extensions
      * @return void
      */
     protected function loadPlugins(Array $extensions = []){
-        $this->_type = Basic::TYPE_ADMINISTRATOR;
+        $this->_type = Basic::TYPE_FIELDS_GENERATOR;
         $_GET["extension_type"] = $this->_type;
     }
 

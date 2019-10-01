@@ -1,7 +1,20 @@
 <?php
+/**
+ * CandideIndex.class.php
+ * 
+ * @author  Romain Penchenat <romain.penchenat@icloud.com>
+ * @license Apache 2.0
+ * @since 1.0
+ * 
+*/
 
-// Basic < CandideIndexBasic < CandideIndex
-
+/**
+ * Reader for Pages/Collections/Plugins indexes
+ * 
+ * @since 1.0
+ * Basic < CandideIndexBasic < CandideIndex
+ * 
+ */
 class CandideIndex extends CandideIndexBasic {
 
     protected $_visual_plugins = [];

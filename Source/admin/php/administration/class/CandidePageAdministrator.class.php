@@ -1,10 +1,23 @@
 <?php
+/**
+ * CandidePageAdministrator.class.php
+ * 
+ * @author  Romain Penchenat <romain.penchenat@icloud.com>
+ * @license Apache 2.0
+ * @since 1.0
+ * 
+*/
 
-// Basic < CandideBasic < CandidePageAdministrator
-
+/**
+ * Manager for Page data update on admin side
+ * 
+ * @since 1.0
+ * Basic < CandideBasic < CandidePageAdministrator
+ * 
+ */
 class CandidePageAdministrator extends CandideBasic {
 
-    use Administrator, WysiwygFiles;
+    use FieldsGenerator, WysiwygFiles;
 
     /**
      * Echo all field of the current Candide Page

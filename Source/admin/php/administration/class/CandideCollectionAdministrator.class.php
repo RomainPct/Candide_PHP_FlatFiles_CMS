@@ -1,6 +1,20 @@
 <?php
+/**
+ * CandideCollectionAdministrator.class.php
+ * 
+ * @author  Romain Penchenat <romain.penchenat@icloud.com>
+ * @license Apache 2.0
+ * @since 1.0
+ * 
+*/
 
-// Basic < CandideBasic < CandideCollectionBasic < CandideCollection < CandideCollectionAdministrator
+/**
+ * Collection managment on admin interface (Create/Remove/Update an item)
+ * 
+ * @since 1.0
+ * Basic < CandideBasic < CandideCollectionBasic < CandideCollection < CandideCollectionAdministrator
+ * 
+ */
 
 class CandideCollectionAdministrator extends CandideCollection {
 

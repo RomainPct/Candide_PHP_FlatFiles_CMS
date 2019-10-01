@@ -1,7 +1,23 @@
 <?php
+/**
+ * CandideCollectionBaseItem.class.php
+ * 
+ * @author  Romain Penchenat <romain.penchenat@icloud.com>
+ * @license Apache 2.0
+ * @since 1.0
+ * 
+*/
+
+/**
+ * Client side class used by CandideCollection to provide user a better interface to display an item
+ * 
+ * @since 1.0
+ * Basic < CandideCollectionBaseItem
+ * 
+ */
 class CandideCollectionBaseItem extends Basic {
 
-    use ElementsGetter;
+    use ElementGetters;
 
     protected $_type = self::TYPE_ITEM;
 

@@ -1,7 +1,20 @@
 <?php
+/**
+ * CandideBasic.class.php
+ * 
+ * @author  Romain Penchenat <romain.penchenat@icloud.com>
+ * @license Apache 2.0
+ * @since 1.0
+ * 
+*/
 
-// Basic < CandideBasic
-
+/**
+ * Base for each candide class which need to access a CandideData file
+ * 
+ * @since 1.0
+ * Basic < CandideBasic
+ * 
+ */
 class CandideBasic extends Basic {
 
     use BackendPluginNotifier, JsonReader;

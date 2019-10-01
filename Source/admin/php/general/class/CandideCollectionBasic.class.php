@@ -1,7 +1,20 @@
 <?php
+/**
+ * CandideCollectionBasic.class.php
+ * 
+ * @author  Romain Penchenat <romain.penchenat@icloud.com>
+ * @license Apache 2.0
+ * @since 1.0
+ * 
+*/
 
-// Basic < CandideBasic < CandideCollectionBasic
-
+/**
+ * Base for each candide collection related class (structure and data managment)
+ * 
+ * @since 1.0
+ * Basic < CandideBasic < CandideCollectionBasic
+ * 
+ */
 class CandideCollectionBasic extends CandideBasic {
 
     protected $_structure = [];

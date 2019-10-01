@@ -1,4 +1,20 @@
 <?php
+/**
+ * CandideCollectionBaseItemAdministrator.class.php
+ * 
+ * @author  Romain Penchenat <romain.penchenat@icloud.com>
+ * @license Apache 2.0
+ * @since 1.0
+ * 
+*/
+
+/**
+ * Specific CandideCollectionBaseItem for admin side without plugin managment but title property managment
+ * 
+ * @since 1.0
+ * Basic < CandideCollectionBaseItem < CandideCollectionBaseItemAdministrator
+ * 
+ */
 
 class CandideCollectionBaseItemAdministrator extends CandideCollectionBaseItem {
 

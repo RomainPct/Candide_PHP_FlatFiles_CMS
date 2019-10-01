@@ -1,6 +1,20 @@
 <?php
+/**
+ * ElementGetters.trait.php
+ * 
+ * @author  Romain Penchenat <romain.penchenat@icloud.com>
+ * @license Apache 2.0
+ * @since 1.0
+ * 
+*/
 
-trait ElementsGetter {
+/**
+ * Provide element getters for default candide field types and handle other
+ * 
+ * @since 1.0
+ * 
+ */
+trait ElementGetters {
 
     use DataFormatter;
 

@@ -1,7 +1,20 @@
 <?php
+/**
+ * Authentication.class.php
+ * 
+ * @author  Romain Penchenat <romain.penchenat@icloud.com>
+ * @license Apache 2.0
+ * @since 1.0
+ * 
+*/
 
-// Level 0
-
+/**
+ * Authentication manager for Candide Admin Interface
+ * 
+ * @since 1.0
+ * No childclasses
+ * 
+ */
 class Authentication {
 
     const KEY_SESSION_IDENTIFIER = PROJECT_NAME."_logedin";

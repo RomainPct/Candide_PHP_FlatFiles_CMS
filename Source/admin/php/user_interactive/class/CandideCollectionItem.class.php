@@ -1,10 +1,23 @@
 <?php
+/**
+ * CandideCollectionItem.class.php
+ * 
+ * @author  Romain Penchenat <romain.penchenat@icloud.com>
+ * @license Apache 2.0
+ * @since 1.0
+ * 
+*/
 
-// Basic < CandideBasic < CandideCollectionBasic < CandideCollectionItem
-
+/**
+ * Client side class to create a collection item page
+ * 
+ * @since 1.0
+ * Basic < CandideBasic < CandideCollectionBasic < CandideCollectionItem
+ * 
+ */
 class CandideCollectionItem extends CandideCollectionBasic {
 
-    use ElementsGetter;
+    use ElementGetters;
 
     protected $_id;
     protected $_type = self::TYPE_ITEM;

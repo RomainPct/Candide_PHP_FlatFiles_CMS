@@ -1,10 +1,23 @@
 <?php
+/**
+ * CandideCollectionItemAdministrator.class.php
+ * 
+ * @author  Romain Penchenat <romain.penchenat@icloud.com>
+ * @license Apache 2.0
+ * @since 1.0
+ * 
+*/
 
-// Basic < CandideBasic < CandideCollectionBasic < CandideCollectionItem < CandideCollectionItemAdministrator
-
+/**
+ * Specific CandideCollectionItemAdministrator for admin side which manage Create/Remove/update an item
+ * 
+ * @since 1.0
+ * Basic < CandideBasic < CandideCollectionBasic < CandideCollectionItem < CandideCollectionItemAdministrator
+ * 
+ */
 class CandideCollectionItemAdministrator extends CandideCollectionItem {
 
-    use Administrator, WysiwygFiles, JsonReader;
+    use FieldsGenerator, WysiwygFiles, JsonReader;
 
     private $_collectionAdministrator;
     private $_fullStructure;

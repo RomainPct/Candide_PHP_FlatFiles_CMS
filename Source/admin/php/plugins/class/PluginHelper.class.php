@@ -1,5 +1,20 @@
 <?php
+/**
+ * PluginHelper.class.php
+ * 
+ * @author  Romain Penchenat <romain.penchenat@icloud.com>
+ * @license Apache 2.0
+ * @since 1.0
+ * 
+*/
 
+/**
+ * Helper class for plugin developers (Read their config and launch async script)
+ * 
+ * @since 1.0
+ * No childclasses
+ * 
+ */
 class PluginHelper {
 
     use JsonReader;

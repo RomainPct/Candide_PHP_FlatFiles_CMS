@@ -1,7 +1,20 @@
 <?php
+/**
+ * Basic.class.php
+ * 
+ * @author  Romain Penchenat <romain.penchenat@icloud.com>
+ * @license Apache 2.0
+ * @since 1.0
+ * 
+*/
 
-// Level 0
-
+/**
+ * Base for each Candide class
+ * 
+ * @since 1.0
+ * No childclasses
+ * 
+ */
 class Basic {
 
     const DATA_DIRECTORY = ROOT_DIR."/CandideData/content/";
@@ -9,7 +22,7 @@ class Basic {
     const PLUGINS_DIRECTORY = ROOT_DIR."/admin/plugins/";
 
     const TYPE_ITEM = "item";
-    const TYPE_ADMINISTRATOR = "administrator";
+    const TYPE_FIELDS_GENERATOR = "fields_generator";
 
     protected $_type = null, $_methods = [], $_updateCall = false;
 

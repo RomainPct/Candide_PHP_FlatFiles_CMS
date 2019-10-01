@@ -1,10 +1,23 @@
 <?php
+/**
+ * CandideIndexAdmin.class.php
+ * 
+ * @author  Romain Penchenat <romain.penchenat@icloud.com>
+ * @license Apache 2.0
+ * @since 1.0
+ * 
+*/
 
-// Basic < CandideIndexBasic < CandideIndexAdmin
-
+/**
+ * Manager for Pages/Collections/Plugins indexes
+ * 
+ * @since 1.0
+ * Basic < CandideIndexBasic < CandideIndexAdmin
+ * 
+ */
 class CandideIndexAdmin extends CandideIndexBasic {
 
-    use Administrator, BackendPluginNotifier;
+    use BackendPluginNotifier;
 
     protected $_newPages = [], $_newCollections = [];
 

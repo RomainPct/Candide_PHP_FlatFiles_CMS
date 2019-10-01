@@ -1,10 +1,23 @@
 <?php
+/**
+ * CandidePage.class.php
+ * 
+ * @author  Romain Penchenat <romain.penchenat@icloud.com>
+ * @license Apache 2.0
+ * @since 1.0
+ * 
+*/
 
-// Basic < CandideBasic < CandidePage
-
+/**
+ * Client side class to create a Candide Page
+ * 
+ * @since 1.0
+ * Basic < CandideBasic < CandidePage
+ * 
+ */
 class CandidePage extends CandideBasic {
 
-    use ElementsGetter;
+    use ElementGetters;
 
     protected $_type = self::TYPE_ITEM;
     private $_existingElements = [];

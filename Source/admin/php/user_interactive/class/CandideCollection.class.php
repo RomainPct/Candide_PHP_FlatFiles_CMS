@@ -1,7 +1,20 @@
 <?php
+/**
+ * CandideCollection.class.php
+ * 
+ * @author  Romain Penchenat <romain.penchenat@icloud.com>
+ * @license Apache 2.0
+ * @since 1.0
+ * 
+*/
 
-// Basic < CandideBasic < CandideCollectionBasic < CandideCollection
-
+/**
+ * Client side class to create a collection page
+ * 
+ * @since 1.0
+ * Basic < CandideBasic < CandideCollectionBasic < CandideCollection
+ * 
+ */
 class CandideCollection extends CandideCollectionBasic {
 
     private $_extensions;

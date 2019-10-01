@@ -1,5 +1,19 @@
 <?php
+/**
+ * BackendPluginNotifier.trait.php
+ * 
+ * @author  Romain Penchenat <romain.penchenat@icloud.com>
+ * @license Apache 2.0
+ * @since 1.0
+ * 
+*/
 
+/**
+ * Backend plugins manager which allow to send them update notifications
+ * 
+ * @since 1.0
+ * 
+ */
 trait BackendPluginNotifier {
 
     use JsonReader;

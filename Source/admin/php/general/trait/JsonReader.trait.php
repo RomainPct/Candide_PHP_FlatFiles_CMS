@@ -1,5 +1,19 @@
 <?php
+/**
+ * JsonReader.trait.php
+ * 
+ * @author  Romain Penchenat <romain.penchenat@icloud.com>
+ * @license Apache 2.0
+ * @since 1.0
+ * 
+*/
 
+/**
+ * Helper for json file reading
+ * 
+ * @since 1.0
+ * 
+ */
 trait JsonReader {
 
     /**

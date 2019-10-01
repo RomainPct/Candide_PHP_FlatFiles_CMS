@@ -1,7 +1,20 @@
 <?php
+/**
+ * CandideIndexBasic.class.php
+ * 
+ * @author  Romain Penchenat <romain.penchenat@icloud.com>
+ * @license Apache 2.0
+ * @since 1.0
+ * 
+*/
 
-// Basic < CandideIndexBasic
-
+/**
+ * Reader for collections and pages indexes
+ * 
+ * @since 1.0
+ * Basic < CandideIndexBasic
+ * 
+ */
 class CandideIndexBasic extends Basic  {
 
     use JsonReader;
