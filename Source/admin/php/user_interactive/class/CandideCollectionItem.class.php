@@ -71,7 +71,7 @@ class CandideCollectionItem extends CandideCollectionBasic {
      */
     protected function manageUpdate(String $name, String $type, Array $options){
         $this->manageStructureUpdate($name,$type,$options);
-        $this->manageItemDataUpdate($this->_data,$name,$type,$options);
+        $this->manageFieldInfosUpdate($this->_data,$name,$type,$options);
     }
 
 }

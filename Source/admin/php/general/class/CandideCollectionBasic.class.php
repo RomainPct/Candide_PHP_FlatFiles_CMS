@@ -43,7 +43,7 @@ class CandideCollectionBasic extends CandideBasic {
      * @param Array $options [Options]
      * @return void
      */
-    protected function manageItemDataUpdate(Array &$item,String $name, String $type, Array $options){
+    protected function manageFieldInfosUpdate(Array &$item,String $name, String $type, Array $options){
         $item[$name]["type"] = $type;
         if (!key_exists("data",$item[$name])) {
             $item[$name]["data"] = "";
@@ -62,6 +62,14 @@ class CandideCollectionBasic extends CandideBasic {
         if ($this->_updateCall && count($this->_structure) > 0) {
             file_put_contents($this->getStructureUrl(),json_encode($this->_structure));
             file_put_contents($this->getInstanceUrl(),json_encode($this->_data));
+            if ($this->_type == self::TYPE_ITEM) {
+                $collection = new CandideCollectionAdministrator($this->_instanceName);
+                foreach ($collection->getIds() as $itemId) {
+                    echo "Item {$itemId} in collection {$this->_instanceName} is updated\n";
+                    $item = new CandideCollectionItemAdministrator($this->_instanceName,$itemId);
+                    $item->updateStructuredData();
+                }   
+            }
         }
     }
 

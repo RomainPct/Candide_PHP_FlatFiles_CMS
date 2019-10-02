@@ -32,7 +32,7 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
      */
     public function __construct(String $instanceName, $id) {
         $this->_collectionAdministrator = new CandideCollectionAdministrator($instanceName);
-        if ($id == 'newItem') {
+        if ($id === 'newItem') {
             $id = $this->_collectionAdministrator->getNewId();
             $this->_newItem = true;
         }
@@ -120,6 +120,8 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
         foreach ($this->_structure as $key => $value) {
             if (key_exists($key,$texts)) {
                 $this->_data[$key]['data'] = $texts[$key];
+            } else if (!key_exists('data',$this->_data[$key])) {
+                $this->_data[$key]['data'] = 'undefined';
             }
         }
     }
@@ -148,6 +150,20 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
             }
         }
         return $newFiles;
+    }
+
+    /**
+     * Update only the structure saved in the item data
+     *
+     * @return void
+     */
+    public function updateStructuredData(){
+        $data = $this->_structure;
+        array_walk($this->_data,function($value,$key) use (&$data) {
+            $data[$key]["data"] = $value["data"];
+        });
+        $this->_data = $data;
+        $this->saveData();
     }
 
 }

@@ -52,13 +52,22 @@ class CandideCollectionAdministrator extends CandideCollection {
     }
 
     /**
-     * Returne the data of a specific item
+     * Return the data of a specific item
      *
      * @param Int $id [Item id]
      * @return Array [Item data]
      */
     public function getDataForItemWithId(Int $id):Array{
         return $this->_data[$id];
+    }
+
+    /**
+     * Return all item ids
+     *
+     * @return Array [Item ids]
+     */
+    public function getIds():Array {
+        return array_keys($this->_data);
     }
 
     /**
@@ -79,9 +88,9 @@ class CandideCollectionAdministrator extends CandideCollection {
      * @param Array $texts [Input values from HTML form]
      * @param Array $files [File input values from HTML form]
      * @param Int $id [Item id]
-     * @return void
+     * @return Array [Return item data]
      */
-    public function setData(Array $texts, Array $files, Int $id){
+    public function setData(Array $texts, Array $files, Int $id):Array{
         if (!key_exists($id,$this->_data)) {
             $this->_data[$id] = [];
             $this->_data[$id]["id"] = $id;

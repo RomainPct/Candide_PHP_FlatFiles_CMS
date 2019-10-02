@@ -92,7 +92,7 @@ class CandideCollection extends CandideCollectionBasic {
     protected function manageDataUpdate(String $name, String $type, Array $options){
         if (count($this->_data) > 0) {
             foreach($this->_data as &$item) {
-                $this->manageItemDataUpdate($item,$name,$type,$options);
+                $this->manageFieldInfosUpdate($item,$name,$type,$options);
             }
         }
     }
