@@ -1,0 +1,38 @@
+{  
+    "sidebar" : {
+        "pages" : "Pages",
+        "collections" : "Collections",
+        "plugins" : "Plugins",
+        "open_website" : "Open my website",
+        "logout" : "Log out"
+    },
+    "login" : {
+        "title":"Login",
+        "identifier":"Identifier",
+        "password":"Password",
+        "action":"Login",
+        "error_identifier":"This identifier does not exist",
+        "error_password":"Incorrect password"
+    },
+    "home" : {
+        "updateAdminPlatform":"Update the admin platform"
+    },
+    "editPage" : {
+        "page":"Page",
+        "save":"Save",
+        "saved":"Saved"
+    },
+    "editCollection" : {
+        "collection":"Collection",
+        "new_item":"Add a new item"
+    },
+    "editCollectionItem" : {
+        "new_item_in_collection":"Add a new item to the collection",
+        "edit_item_of_the_collection":"Edit an item of the collection",
+        "add":"Add",
+        "save":"Save"
+    },
+    "administrator" : {
+        "edit":"Edit"
+    }
+ }

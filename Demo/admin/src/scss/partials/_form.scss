@@ -1,0 +1,160 @@
+.inputContainer {
+  position: relative;
+  margin-bottom: $m-marge;
+  .image_input_preview {
+    max-width: calc(75vw - ( 2 * 47px));
+    border-radius: $radius;
+    box-shadow: $shadow-medium;
+    overflow: hidden;
+    position: relative;
+    background-color: lightgrey;
+    input[type="file"] {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      z-index: 4;
+      opacity: 0;
+    }
+    &:hover input[type="file"] {
+      z-index: 2;
+    }
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: $gradient;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    &:hover::after {
+      opacity: 0.8;
+    }
+    label {
+      font-size: $font-size-body;
+      font-weight: bold;
+      cursor: pointer;
+      padding: $s-marge $m-marge;
+      border-radius: $radius;
+      background: $background-color;
+      box-shadow: $shadow-medium;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    &:hover label {
+      opacity: 1;
+    }
+    img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      &.fullHeight {
+        height: 100%;
+      }
+      &.fullWidth {
+        width: 100%;
+      }
+    }
+  }
+  input[type="file"] {
+    display: none;
+  }
+  textarea, input[type='text'], input[type='password'] {
+    padding: $s-marge;
+    background-color: $background-color;
+    font-size: $font-size-body;
+    line-height: 1.5;
+    display: block;
+    resize: none;
+    border: none;
+    border-radius: $radius;
+    box-shadow: $shadow-medium;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    box-sizing: border-box;
+    outline: none;
+  }
+  input[name^='number_'] {
+    max-width: 250px;
+  }
+}
+.submitContainer {
+  position: fixed;
+  z-index: 10;
+  top: $m-marge;
+  right: $l-marge;
+  padding: 5px;
+  background: $gradient;
+  border-radius: 10px;
+  box-shadow: $shadow-medium;
+  opacity: 0;
+  input[type="submit"], a {
+    cursor: pointer;
+    outline: none;
+    display: block;
+    text-decoration: none;
+    -webkit-appearance: none;
+    padding: $s-marge $m-marge;
+    border-radius: $radius;
+    border: none;
+    font-size: $font-size-body;
+    color: $text-color;
+    font-weight: bold;
+    background: $background-color;
+  }
+  span.success {
+    display: none;
+    padding: $s-marge $m-marge;
+    font-size: $font-size-body;
+    font-weight: 700;
+    color: $background-color;
+  }
+}
+.submitContainer, .submitContainer input[type="submit"] {
+  transition: opacity .3s, box-shadow .2s, transform .2s;
+}
+.submitContainer:hover {
+  box-shadow: $shadow-large;
+}
+.submitContainer.clickable {
+  opacity: 1;
+}
+.submitContainer.loading input[type="submit"] {
+  opacity: 0;
+}
+.submitContainer.success {
+  transform: scale(1.2);
+  box-shadow: $shadow-eyecatching;
+  input[type="submit"] {
+    display: none;
+  }
+  span.success {
+    display: block;
+  }
+}
+
+#backButton {
+  display: inline-block;
+  vertical-align: middle;
+  width: 52px;
+  height: 52px;
+  background: $background-color;
+  background: url("../images/icons/arrow_left.svg") no-repeat;
+  background-size: 100%;
+  box-shadow: $shadow-medium;
+  border-radius: $radius;
+  margin-right: $m-marge;
+}

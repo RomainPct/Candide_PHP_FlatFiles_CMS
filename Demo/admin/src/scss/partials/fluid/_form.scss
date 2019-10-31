@@ -1,0 +1,15 @@
+.submitContainer {
+    bottom: 26px;
+    top: unset;
+    right: $s-marge;
+    left: $s-marge;
+    text-align: center;
+    a, input[type=submit] {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+#backButton {
+    display: block;
+    margin-bottom: $s-marge;
+}

@@ -1,0 +1,4 @@
+/* Custom wysiwyg content by editing tags into .pell-content */
+.pell-content h1 {
+    margin: 10px 0;
+}

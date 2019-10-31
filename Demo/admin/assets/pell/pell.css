@@ -1,0 +1,41 @@
+.pell {
+  background-color: #fefefe;
+  border-radius: 5px;
+  box-shadow: 0 0 3px rgba(0,0,0,.16);
+}
+
+.pell,
+.pell-content {
+  box-sizing: border-box
+}
+
+.pell-content {
+  height: auto;
+  min-height: 300px;
+  max-height: calc(100vh - 200px);
+  outline: 0;
+  overflow-y: auto;
+  padding: 0 15px;
+}
+.pell-content img {
+  max-width: 100%;
+}
+
+.pell-actionbar {
+  padding: 15px;
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid hsla(0, 0%, 4%, .1)
+}
+
+.pell-button {
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  background: transparent;
+  outline: 0;
+}
+
+.pell-button-selected {
+  background-color: #f0f0f0
+}

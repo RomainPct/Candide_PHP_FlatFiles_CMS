@@ -1,0 +1,7 @@
+{
+    "name":"sample_backend_plugin",
+    "version":"1.0.0",
+    "is_visual_interface":false,
+    "is_candide_class_extension":true,
+    "is_backend_extension":false
+}
