@@ -16,10 +16,3 @@ const CANDIDE_FILES_FOLDERS = [
 ];
 
 const CANDIDE_IS_CONFIGURED = true;
-
-// remove the choice to move custom css
-const CUSTOM_CSS = "/admin/config/custom.css";
-
-// To replace with HTMl config
-const WELCOME_TITLE = "Welcome on the Candide administration platform";
-const WELCOME_PARAGRAPH = "You can edit your website content thank's to the left panel.";

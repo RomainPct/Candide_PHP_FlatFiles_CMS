@@ -259,11 +259,11 @@ You can find all Candide Configuration files in /admin/config/.
 
 Edit `LOCALE` will automatically load administration side traduction if it exists on the [Candide project github folder dedicated to it](https://github.com/RomainPct/Candide_PHP_FlatFiles_CMS/tree/master/AdminTraductions). Else, just create the traduction for your language following traduction files which already exist and put it in admin/config/languages/. It will be really welcome if you share this traduction file with the whole Candide community.
 
+## Customize Candide homepage
+You can edit the administration side homepage into the customHome.php file avalaible in admin/config/ folder.
+
 ## Custom CSS on administration side
 You can customize the administration side CSS thank's to the custom.css file avalaible in admin/config/ folder. 
-
-## Customize Candide homepage
-TO WRITE
 
 <a name="autogeneration"/>
 
@@ -312,6 +312,7 @@ If you need specific assistance with a Candide specialist, you can reach the fou
 ### License
 
 Pell wysiwyg editor https://github.com/jaredreich/pell
+
 Slip.js https://github.com/kornelski/slip
 
 This project is licensed under the terms of the Apache 2.0 license.

@@ -6,6 +6,5 @@ if (DEV_MODE) {
     </div>
 <?php
 }
+include 'config/customHome.php';
 ?>
-<h1><?php echo WELCOME_TITLE ?></h1>
-<p><?php echo WELCOME_PARAGRAPH ?></p>
