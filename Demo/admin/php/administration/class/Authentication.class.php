@@ -67,7 +67,8 @@ class Authentication {
             }
         }
         Authentication::logout();
-        header("Location: login.php");
+        header("Location: /admin/login.php");
+        exit();
     }
 
 
