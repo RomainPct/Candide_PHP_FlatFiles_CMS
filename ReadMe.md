@@ -281,21 +281,38 @@ You can debug the update if needed by opening the console and check "Keep histor
 <a name="plugins_installation"/>
 
 ## Installation
-Installer un plugin (les 3 types)
-    Lien Liste des plugins référencés
-    Installation
+It exists 3 main types of Candide plugins :
+- Administration plateform visual extension plugin
+- Backend actions plugin
+- Candide class extension plugin
+
+Each of them have specificities but to install them, you just have to put them in the admin/plugins/ folder and it's done.
+Feel free to browse this [list of usefull Candide plugins](https://github.com/RomainPct/Candide_PHP_FlatFiles_CMS/blob/master/PluginsList.md).
 
 <a name="plugins_visual_interface"/>
 
-## Type 1
+## Administration plateform visual extension plugin
+This kind of plugin provide you an extension directly avalaible from the left panel of the administration platform. You can create a visual extension if you need to manage specific actions directly in the candide administration platform (Mailing list, statistics, ...).
 
 <a name="plugins_backend_actions"/>
 
-## Type 3
+## Backend actions plugin
+Backend plugins are extensions that are not avalaible visually but react to specific events as image upload, content saved... This kind of plugin can be interisting to do actions automatically in background (file compression, update verification...).
 
 <a name="plugins_class_extension"/>
 
-## Type 3
+## Candide class extension plugin
+Candide class extension plugin allow you to give new features to Candide classes. For exemple, you can create specific element type (more advanced than text, image or number) to speed-up your workflow and improve the administration interface (Youtube video element, Price element, Video element...).
+
+To use this kind of plugin, you have to ask to the candide instances which need them to load them thank's to a last argument on the constructor.
+
+```php
+<?php
+$c[0] = new CandidePage('page_name',['first_plugin_name','second_plugin_name']);
+$c[1] = new CandideCollection('collection_name',['plugin_name']);
+$c[2] = new CandideCollectionItem('collection_name',$_GET['id'],['plugin_name']);
+?>
+```
 
 <a name="local_to_prod"/>
 
