@@ -13,10 +13,9 @@ Candide generate automaticaly an admin platform according to your php code. It's
     3. [Create a Candide Collection Item](#how_to_use_collection_item)
     4. [Multi Candide instances on a single page](#how_to_use_multi_candide_instances)
     5. [Candide native types](#how_to_use_types)
+5. [Configure Candide](#configuration)
 5. [Admin platform autogeneration](#autogeneration)
-    1. [Configuration](#autogeneration_config)
-    2. [Generation](#autogeneration_generate)
-6. [Work with plugins](#plugins)
+6. [Ho to work with plugins ?](#plugins)
     1. [How to install plugins ?](#plugins_installation)
     2. [Visual Interface plugin](#plugins_visual_interface)
     3. [Backend actions plugin](#plugins_backend_actions)
@@ -177,9 +176,9 @@ $c[2] = new CandidePage('footer');
 ## Candide native supported types
 Candide support the 3 main data types natively but it can be extended to any data types with plugins.
 
-### Text
-This function is callable on a CandidePage or a CandideCollectionItem instance and also on a item iterated via the CandideCollection().items().
+Each of this element getter functions can be called on a CandidePage or a CandideCollectionItem instance and also on a item iterated via the CandideCollection().items().
 
+### Text element
 It creates a textfield (WYSIWYG or not) on the admin side and echo the text on the frontside of your website.
 
 ```php
@@ -193,14 +192,15 @@ It creates a textfield (WYSIWYG or not) on the admin side and echo the text on t
  * @return void
  */
 public function text(String $title, Bool $wysiwyg = false) {...}
-// Call text on a CandidePage, CandideCollectionItem, or one of a CandideCollection().items()
-$c->text('name',false);
 ?>
+
+/**
+ *  Call text on a CandidePage, CandideCollectionItem, or one of a CandideCollection().items()
+ */
+<?php $c->text('name',false) ?>
 ```
 
-### Image
-This function is callable on a CandidePage or a CandideCollectionItem instance and also on a item iterated via the CandideCollection().items().
-
+### Image element
 It creates an image field on the admin side and echo the image url from root directory on the frontside of your website.
 
 ```php
@@ -215,14 +215,15 @@ It creates an image field on the admin side and echo the image url from root dir
  * @return void
  */
 public function image(String $title, Array $size, Bool $crop = true){...}
-// Call text on a CandidePage, CandideCollectionItem, or one of a CandideCollection().items()
-$c->image('banner',[1000,400],true);
 ?>
+
+/**
+ *  Call text on a CandidePage, CandideCollectionItem, or one of a CandideCollection().items()
+ */
+<?php $c->image('banner',[1000,400],true) ?>
 ```
 
-### Number
-This function is callable on a CandidePage or a CandideCollectionItem instance and also on a item iterated via the CandideCollection().items().
-
+### Number element
 It creates a number field on the admin side and echo the number formatted according to a [NumberFormatter configuration](https://www.php.net/manual/en/class.numberformatter.php) on the frontside of your website.
 
 ```php
@@ -236,22 +237,40 @@ It creates a number field on the admin side and echo the number formatted accord
  * @return void
  */
 public function number(String $title, Int $format = NumberFormatter::DECIMAL){...}
-// Call text on a CandidePage, CandideCollectionItem, or one of a CandideCollection().items()
-$c->number('reading_duration', NumberFormatter::DECIMAL);
 ?>
+
+/**
+ *  Call text on a CandidePage, CandideCollectionItem, or one of a CandideCollection().items()
+ */
+<?php $c->number('reading_duration', NumberFormatter::DECIMAL) ?>
 ```
+
+<a name="configuration"/>
+
+# Configure Candide
+You can find all Candide Configuration files in /admin/config/.
+
+## Global configuration : CandidConfig.php
+`DEV_MODE` must be set to true to allow you to update the admin platform. Put it to false when you want to lock the administration interface and hide the update button.
+
+`PROJECT_NAME` is the name of your project in snake_case. 
+
+`LOCALE` must be set to the admin interface language you want. You can set `LOCALE` to any of the LCIS string listed on [this website](https://www.science.co.il/language/Locale-codes.php).
+
+Edit `LOCALE` will automatically load administration side traduction if it exists on the [Candide project github folder dedicated to it](https://github.com/RomainPct/Candide_PHP_FlatFiles_CMS/tree/master/AdminTraductions). Else, just create the traduction for your language following traduction files which already exist and put it in admin/config/languages/. It will be really welcome if you share this traduction file with the whole Candide community.
+
+## Custom CSS on administration side
+You can customize the administration side CSS thank's to the custom.css file avalaible in admin/config/ folder. 
+
+## Customize Candide homepage
+TO WRITE
 
 <a name="autogeneration"/>
 
-# Admin platform autogeneration
+# How to generate the admin platform ?
+Just go to the admin platform home and click on "Update the admin platform", it's done ! DEV_MODE has tu be set to true to has access to this button on the [Candide configuration file](#autogeneration_config).
 
-<a name="autogeneration_config"/>
-
-## Configure Candide
-
-<a name="autogeneration_generate"/>
-
-## How to generate the admin platform ?
+You can debug the update if needed by opening the console and check "Keep history" then update the platform and you will be able to see the logs and detect a potential error in your code.
 
 ![Candide admin platform generation](https://github.com/RomainPct/Candide_PHP_FlatFiles_CMS/blob/master/.github/readme_generate_admin_platform.gif)
 
@@ -281,12 +300,12 @@ Installer un plugin (les 3 types)
 <a name="local_to_prod"/>
 
 # From local to production
-Mise en production
+Thank's to its flatfiles architecture, Candide is really easy to take from a local server to a production server. You just have to copy the admin and the CandideData folder to the production server. Everything will now work as it was on the local server.
 
 <a name="assistance"/>
 
 # Assistance
-Séance privé
+If you need specific assistance with a Candide specialist, you can reach the founder of this project : Romain Penchenat at romain.penchenat@gmail.com
 
 <a name="license"/>
 
