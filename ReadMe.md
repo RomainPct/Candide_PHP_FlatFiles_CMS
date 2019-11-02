@@ -8,14 +8,11 @@ Candide generate automaticaly an admin platform according to your php code. It's
 2. [Requirements](#requirements)
 3. [Installation](#installation)
 4. [How to use Candide ?](#how_to_use)
-    1. [Candide native types](#how_to_use_types)
-        1.[Text](#how_to_use_types_text)
-        2.[Image](#how_to_use_types_image)
-        3.[Number](#how_to_use_types_number)
-    2. [Create a Candide Page](#how_to_use_page)
-    3. [Create a Candide Collection](#how_to_use_collection)
-    4. [Create a Candide Collection Item](#how_to_use_collection_item)
-    5. [Multi Candide instances on a single page](#how_to_use_multi_candide_instances)
+    1. [Create a Candide Page](#how_to_use_page)
+    2. [Create a Candide Collection](#how_to_use_collection)
+    3. [Create a Candide Collection Item](#how_to_use_collection_item)
+    4. [Multi Candide instances on a single page](#how_to_use_multi_candide_instances)
+    5. [Candide native types](#how_to_use_types)
 5. [Admin platform autogeneration](#autogeneration)
     1. [Configuration](#autogeneration_config)
     2. [Generation](#autogeneration_generate)
@@ -62,22 +59,6 @@ To use it, you only need really basic PHP notions (The 3 first modules of this [
 <a name="how_to_use"/>
 
 # How to use Candide ?
-
-<a name="how_to_use_types"/>
-
-## Candide native supported types
-
-<a name="how_to_use_types_text"/>
-
-### Text
-
-<a name="how_to_use_types_image"/>
-
-### Image
-
-<a name="how_to_use_types_number"/>
-
-### Number
 
 <a name="how_to_use_page"/>
 
@@ -191,6 +172,75 @@ $c[2] = new CandidePage('footer');
 </html>
 ```
 
+<a name="how_to_use_types"/>
+
+## Candide native supported types
+Candide support the 3 main data types natively but it can be extended to any data types with plugins.
+
+### Text
+This function is callable on a CandidePage or a CandideCollectionItem instance and also on a item iterated via the CandideCollection().items().
+
+It creates a textfield (WYSIWYG or not) on the admin side and echo the text on the frontside of your website.
+
+```php
+<?php
+/**
+ * Generate a text field on admin platform
+ * Echo text on frontside
+ *
+ * @param String $title [Field title for admin interface]
+ * @param Bool $wysiwyg [Option to enable a wysiwyg editor in admin interface]
+ * @return void
+ */
+public function text(String $title, Bool $wysiwyg = false) {...}
+// Call text on a CandidePage, CandideCollectionItem, or one of a CandideCollection().items()
+$c->text('name',false);
+?>
+```
+
+### Image
+This function is callable on a CandidePage or a CandideCollectionItem instance and also on a item iterated via the CandideCollection().items().
+
+It creates an image field on the admin side and echo the image url from root directory on the frontside of your website.
+
+```php
+<?php
+/**
+ * Generate an image field on admin platform
+ * Echo image url from root directory on front side
+ *
+ * @param String $title [Field title for admin interface]
+ * @param Array $size [ [Width,Height] of your image, Candide automatically resize the input image]
+ * @param Bool $crop [If you pass crop to false, the image will always fit the size you defined without cropping]
+ * @return void
+ */
+public function image(String $title, Array $size, Bool $crop = true){...}
+// Call text on a CandidePage, CandideCollectionItem, or one of a CandideCollection().items()
+$c->image('banner',[1000,400],true);
+?>
+```
+
+### Number
+This function is callable on a CandidePage or a CandideCollectionItem instance and also on a item iterated via the CandideCollection().items().
+
+It creates a number field on the admin side and echo the number formatted according to a [NumberFormatter configuration](https://www.php.net/manual/en/class.numberformatter.php) on the frontside of your website.
+
+```php
+<?php
+/**
+ * Generate a number field on admin platform
+ * Echo formatted number on the front side
+ *
+ * @param String $title [Field title for admin interface]
+ * @param Int $format [Echo formatting method]
+ * @return void
+ */
+public function number(String $title, Int $format = NumberFormatter::DECIMAL){...}
+// Call text on a CandidePage, CandideCollectionItem, or one of a CandideCollection().items()
+$c->number('reading_duration', NumberFormatter::DECIMAL);
+?>
+```
+
 <a name="autogeneration"/>
 
 # Admin platform autogeneration
@@ -202,7 +252,7 @@ $c[2] = new CandidePage('footer');
 <a name="autogeneration_generate"/>
 
 ## How to generate the admin platform ?
-[GIF Generation plateforme]
+
 ![Candide admin platform generation](https://github.com/RomainPct/Candide_PHP_FlatFiles_CMS/blob/master/.github/readme_generate_admin_platform.gif)
 
 <a name="plugins"/>
