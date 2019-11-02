@@ -1,2 +1,4 @@
-Order deny,allow
-Deny from all
+<Files ~ "((CandideConfig|customHome).php|CandideInfos.json)">
+    Order deny,allow
+    Deny from all
+</Files>
