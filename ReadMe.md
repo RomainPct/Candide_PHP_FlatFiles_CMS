@@ -328,9 +328,9 @@ If you need specific assistance with a Candide specialist, you can reach the fou
 
 ### License
 
-Pell wysiwyg editor https://github.com/jaredreich/pell
-
-Slip.js https://github.com/kornelski/slip
-
 This project is licensed under the terms of the Apache 2.0 license.
 This project was designed and developed by [Romain Penchenat](https://romainpenchenat.com)
+
+Candide use two libraries :
+- [Pell wysiwyg editor](https://github.com/jaredreich/pell) Copyright (c) Jared Reich
+- [Slip.js](https://github.com/kornelski/slip) Copyright 2019 @kornelski
