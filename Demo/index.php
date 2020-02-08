@@ -1,6 +1,6 @@
 <?php
 require 'admin/Candide.php';
-$c = new CandidePage("index");
+$c = new CandidePage("home");
 ?>
 <html>
 <head>

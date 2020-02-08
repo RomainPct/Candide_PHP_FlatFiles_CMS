@@ -19,9 +19,9 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
 
     use FieldsGenerator, WysiwygFiles, JsonReader;
 
-    private $_collectionAdministrator;
-    private $_fullStructure;
-    private $_fullData = [];
+    protected $_collectionAdministrator;
+    protected $_fullStructure;
+    protected $_fullData = [];
     private $_newItem = false;
 
     /**
@@ -98,15 +98,18 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
      *
      * @param Array $texts [Input values from HTML form]
      * @param Array $files [File input values from HTML form]
+     * @param Bool $cleanWysiwyg [Bool to choose if you clean useless wysiwyg files or not]
      * @return void
      */
-    public function setData(Array $texts, Array $files){
+    public function setData(Array $texts, Array $files, Bool $cleanWysiwyg = true){
         $this->_data = array_merge($this->_structure,$this->_data);
         $newFiles = $this->setImages($files, $texts, $this->_data);
         $this->setTexts($texts);
         $this->saveData();
         $collectionData = $this->_collectionAdministrator->setData($texts,$newFiles,$this->_id);
-        $this->cleanWysiwygFiles(self::FILES_DIRECTORY.$this->_instanceName."/".$this->_id,array_merge($collectionData,$this->_data));
+        if ($cleanWysiwyg) {
+            $this->cleanWysiwygFiles($this->_instanceName, $this->_id, $collectionData);
+        }
         echo $this->_id;
     }
 
@@ -116,7 +119,7 @@ class CandideCollectionItemAdministrator extends CandideCollectionItem {
      * @param Array $texts [Input values from HTML form]
      * @return void
      */
-    private function setTexts(Array $texts) {
+    protected function setTexts(Array $texts) {
         foreach ($this->_structure as $key => $value) {
             if (key_exists($key,$texts)) {
                 $this->_data[$key]['data'] = $texts[$key];

@@ -17,6 +17,8 @@
  */
 class CandideCollectionReorder extends CandideCollection {
 
+    use BackendPluginNotifier;
+
     /**
      * Reorder a collection item (Folders and data)
      *
@@ -28,6 +30,13 @@ class CandideCollectionReorder extends CandideCollection {
         $reorganizedIds = $this->reorderIds($reorderedItemIndex,$newIndex);
         $this->reorderFolders($reorganizedIds);
         $this->reorderData($reorganizedIds);
+        $this->sendNotification(
+            Notification::COLLECTION_HAS_BEEN_REORGANIZED,
+            [
+                'collection_name' => $this->_instanceName,
+                'reorganized_ids' => $reorganizedIds
+            ]
+        );
     }
 
     /**

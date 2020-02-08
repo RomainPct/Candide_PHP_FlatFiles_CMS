@@ -33,7 +33,7 @@ function setForm() {
     filesInput.forEach(input => {
         setImagePreviewRatio(input)
         input.addEventListener('change',function () {
-            input.classList.contains('classic-image-input') ? manageClassicImageInputEdition(this) : manageWysiwygImageInputEdition(this.files,this.querySelector('pell-content'))
+            input.classList.contains('classic-image-input') ? manageClassicImageInputEdition(this) : manageWysiwygImageInputEdition(this.files,this.parentElement.querySelector('.pell-content'))
         })  
     })
 }

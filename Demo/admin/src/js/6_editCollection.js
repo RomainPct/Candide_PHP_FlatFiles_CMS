@@ -24,21 +24,23 @@ function setEditCollection() {
 
 function setSlipCollection(){
     let collection = document.querySelector('#collectionItems');
-    new Slip(collection);
+    if (collection) {
+        new Slip(collection);
 
-    collection.addEventListener('slip:beforeswipe', function(e) { e.preventDefault() })
-
-    collection.addEventListener('slip:swipe', function(e) { e.preventDefault() })
-
-    collection.addEventListener('slip:beforereorder', function(e) {
-        if (e.target.tagName == 'A' || isReorderingInBackend) {
-            e.preventDefault()
-        }
-    })
-
-    collection.addEventListener('slip:reorder', function(e) {
-        reorderItem(e)
-    })
+        collection.addEventListener('slip:beforeswipe', function(e) { e.preventDefault() })
+    
+        collection.addEventListener('slip:swipe', function(e) { e.preventDefault() })
+    
+        collection.addEventListener('slip:beforereorder', function(e) {
+            if (e.target.tagName == 'A' || isReorderingInBackend) {
+                e.preventDefault()
+            }
+        })
+    
+        collection.addEventListener('slip:reorder', function(e) {
+            reorderItem(e)
+        })
+    }
 }
 
 function reorderItem(e) {
@@ -53,7 +55,11 @@ function reorderItem(e) {
         method: 'POST',
         body: formData
     })
-        .then(function() {
-            window.location.reload()
-        })
+    .then(function(result) {
+        return result.text()
+    })
+    .then(function(text) {
+        console.log(text)
+        window.location.reload()
+    })
 }

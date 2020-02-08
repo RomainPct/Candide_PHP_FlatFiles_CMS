@@ -47,7 +47,7 @@ function setCaret(evt){
         if(document.caretRangeFromPoint) { // Chrome
             range = document.caretRangeFromPoint(evt.clientX,evt.clientY);
             sel.removeAllRanges();
-        } else if(e.rangeParent) { // Firefox
+        } else if(evt.rangeParent) { // Firefox
             range = document.createRange();
             range.setStart(evt.rangeParent, evt.rangeOffset);
             sel.removeAllRanges();
