@@ -33,10 +33,6 @@ function setForm() {
     filesInput.forEach(input => {
         setImagePreviewRatio(input)
         input.addEventListener('change',function () {
-            if (!input.classList.contains('classic-image-input')) {
-                console.log(this)
-                console.log(this.parentElement.querySelector('.pell-content'))
-            }
             input.classList.contains('classic-image-input') ? manageClassicImageInputEdition(this) : manageWysiwygImageInputEdition(this.files,this.parentElement.querySelector('.pell-content'))
         })  
     })
@@ -197,7 +193,7 @@ function setCaret(evt){
         if(document.caretRangeFromPoint) { // Chrome
             range = document.caretRangeFromPoint(evt.clientX,evt.clientY);
             sel.removeAllRanges();
-        } else if(e.rangeParent) { // Firefox
+        } else if(evt.rangeParent) { // Firefox
             range = document.createRange();
             range.setStart(evt.rangeParent, evt.rangeOffset);
             sel.removeAllRanges();
@@ -257,21 +253,23 @@ function setEditCollection() {
 
 function setSlipCollection(){
     let collection = document.querySelector('#collectionItems');
-    new Slip(collection);
+    if (collection) {
+        new Slip(collection);
 
-    collection.addEventListener('slip:beforeswipe', function(e) { e.preventDefault() })
-
-    collection.addEventListener('slip:swipe', function(e) { e.preventDefault() })
-
-    collection.addEventListener('slip:beforereorder', function(e) {
-        if (e.target.tagName == 'A' || isReorderingInBackend) {
-            e.preventDefault()
-        }
-    })
-
-    collection.addEventListener('slip:reorder', function(e) {
-        reorderItem(e)
-    })
+        collection.addEventListener('slip:beforeswipe', function(e) { e.preventDefault() })
+    
+        collection.addEventListener('slip:swipe', function(e) { e.preventDefault() })
+    
+        collection.addEventListener('slip:beforereorder', function(e) {
+            if (e.target.tagName == 'A' || isReorderingInBackend) {
+                e.preventDefault()
+            }
+        })
+    
+        collection.addEventListener('slip:reorder', function(e) {
+            reorderItem(e)
+        })
+    }
 }
 
 function reorderItem(e) {
@@ -286,9 +284,13 @@ function reorderItem(e) {
         method: 'POST',
         body: formData
     })
-        .then(function() {
-            window.location.reload()
-        })
+    .then(function(result) {
+        return result.text()
+    })
+    .then(function(text) {
+        console.log(text)
+        window.location.reload()
+    })
 }
 let updateAdminPlatform
 function setHome(){

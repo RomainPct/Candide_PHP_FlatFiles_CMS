@@ -73,9 +73,11 @@ class CandidePage extends CandideBasic {
      */
     public function save() {
         if ($this->_updateCall) {
-            $this->_data = array_filter($this->_data, function($key) {
-                return in_array($key,$this->_existingElements);
-            },ARRAY_FILTER_USE_KEY);
+            $organizedData = [];
+            foreach ($this->_existingElements as $key) {
+                $organizedData[$key] = $this->_data[$key];
+            }
+            $this->_data = $organizedData;
             $this->saveData();
         }
     }

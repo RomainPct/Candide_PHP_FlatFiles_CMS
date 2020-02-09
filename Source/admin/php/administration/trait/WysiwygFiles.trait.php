@@ -45,25 +45,67 @@ trait WysiwygFiles {
         return $pictureUrl;  
     }
 
-    /**
-     * Clean wysiwyg files by deleting useless pictures
-     *
-     * @param String $elementFolderUrl [Element folder to clean]
-     * @param Array $collectionData [Element data]
-     * @return void
-     */
-    protected function cleanWysiwygFiles(String $elementFolderUrl, Array $collectionData = []) {
+     /**
+      * Clean wysiwyg files by deleting useless pictures
+      *
+      * @param String $instanceName [Instance name]
+      * @param Int|null $itemId [Item id if we are in a collection]
+      * @param Array $collectionData [Collection data for this item to get wysiwyg element keys]
+      * @return void
+      */
+    protected function cleanWysiwygFiles(String $instanceName, ?Int $itemId = null, Array $collectionData = []) {
         // Get all wysiwyg fields in one string
-        $wysiwygData = $this->resumeWysiwygFields($collectionData);
+        $wysiwygData = $this->resumeWysiwygFields($instanceName, $itemId, $collectionData);
         // Get each image url from the wysiwyg fields
         preg_match_all("/<img src=\"([\s\S]+?)\">/", $wysiwygData, $matches,PREG_SET_ORDER);
         $usefullFiles = array_map(function($entry){
             return strstr($entry[1],"/CandideData/"); // Force the path to begin at /CandideData/
         },$matches);
         // Get all images in the current wysiwyg folder
-        $allFiles = glob( $elementFolderUrl.'/wysiwyg/*', GLOB_MARK );
+        $wisywigFilesPath = ($itemId !== null) ? $instanceName."/".$itemId : $instanceName;
+        $allFiles = glob( Basic::FILES_DIRECTORY.$wisywigFilesPath.'/wysiwyg/*', GLOB_MARK );
         // Remove useless files
         $this->removeUselessFiles($allFiles, $usefullFiles);
+    }
+
+    /**
+     * Generate a single string of all wysiwyg inputs
+     *
+     * @param String $instanceName [Instance name]
+     * @param Int|null $itemId [Item id if we are in a collection]
+     * @param Array $collectionData [Collection data for this item to get wysiwyg element keys]
+     * @return String [A single string of all wysiwyg data]
+     */
+    private function resumeWysiwygFields(String $instanceName, ?Int $itemId = null, Array $collectionData = []):String{
+        $wysiwygFieldKeys = array_keys(
+            array_filter(
+                array_merge($this->_data,$collectionData),
+                function($d) {
+                    return is_array($d) && $d['type'] == 'text' && $d["wysiwyg"] == true;
+                }
+            )
+        );
+        $wysiwygDatas = [];
+        $mainPath = ($itemId !== null) ? $instanceName."/items/".$itemId : $instanceName;
+        foreach (glob(Basic::DATA_DIRECTORY.$mainPath."/*.json") as $jsonFile) {
+            $data = $this->readJsonFile($jsonFile);
+            foreach ($wysiwygFieldKeys as $key) {
+                if (key_exists($key,$data) && key_exists('data',$data[$key])) {
+                    $wysiwygDatas[] = $data[$key]['data'];
+                }
+            }
+        }
+        if ($itemId != null) {
+            foreach (glob(Basic::DATA_DIRECTORY.$instanceName."/global/*.json") as $jsonFile) {
+                $data = $this->readJsonFile($jsonFile)[$itemId];
+                foreach ($wysiwygFieldKeys as $key) {
+                    if (key_exists($key,$data) && key_exists('data',$data[$key])) {
+                        $wysiwygDatas[] = $data[$key]['data'];
+                    }
+                }
+            }   
+        }
+        return implode($wysiwygDatas);
     }
 
     /**
@@ -86,25 +128,6 @@ trait WysiwygFiles {
                 $this->deleteFiles($file);
             }
         }
-    }
-
-    /**
-     * Generate a single string of all wysiwyg inputs
-     *
-     * @param Array $collectionData [Fields data]
-     * @return String [String of all wysiwyg inputs]
-     */
-    private function resumeWysiwygFields(Array $collectionData):String{
-        return implode(
-            array_column(
-                array_filter(
-                    array_merge($this->_data,$collectionData),
-                    function($d){
-                        return is_array($d) && $d["type"] == "text" && $d["wysiwyg"] === true;
-                    }
-                )
-            ,"data")
-        );
     }
 
 }

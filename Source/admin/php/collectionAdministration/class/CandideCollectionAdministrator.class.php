@@ -109,7 +109,7 @@ class CandideCollectionAdministrator extends CandideCollection {
      * @param Int $id [Item id]
      * @return void
      */
-    private function setTexts(Array $texts, Int $id) {
+    protected function setTexts(Array $texts, Int $id) {
         foreach ($this->_structure as $key => $value) {
             if (key_exists($key,$texts)) {
                 $this->_data[$id][$key]['data'] = $texts[$key];

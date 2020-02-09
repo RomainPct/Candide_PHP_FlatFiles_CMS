@@ -4,11 +4,8 @@ nav {
   left: 0;
   top: 0;
   bottom: 0;
-  display: -webkit-box;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-          flex-direction: column;
+  flex-direction: column;
   width: 25vw;
   background-color: #FEFEFE;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
@@ -16,7 +13,6 @@ nav {
     width: 100%;
     padding: 29px 0;
     box-sizing: border-box;
-    background: -webkit-gradient(linear, left top, right bottom, from(#96FBC4), to(#F9F586));
     background: linear-gradient(to right bottom, #96FBC4 0%, #F9F586 100%);
     text-align: center; }
     nav #header a.logo {
@@ -31,8 +27,7 @@ nav {
     padding: 0;
     margin: 0 29px;
     overflow: auto;
-    -webkit-box-flex: 3;
-            flex: 3; }
+    flex: 3; }
     nav ul li {
       font-size: 18px; }
     nav ul li.sectionTitle {
@@ -92,10 +87,8 @@ nav {
       left: 0;
       bottom: 0;
       right: 0;
-      background: -webkit-gradient(linear, left top, right bottom, from(#96FBC4), to(#F9F586));
       background: linear-gradient(to right bottom, #96FBC4 0%, #F9F586 100%);
       opacity: 0;
-      -webkit-transition: opacity .2s;
       transition: opacity .2s; }
     .inputContainer .image_input_preview:hover::after {
       opacity: 0.8; }
@@ -110,11 +103,9 @@ nav {
       position: absolute;
       left: 50%;
       top: 50%;
-      -webkit-transform: translate(-50%, -50%);
-              transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
       z-index: 3;
       opacity: 0;
-      -webkit-transition: opacity .2s;
       transition: opacity .2s; }
     .inputContainer .image_input_preview:hover label {
       opacity: 1; }
@@ -122,8 +113,7 @@ nav {
       position: absolute;
       top: 50%;
       left: 50%;
-      -webkit-transform: translate(-50%, -50%);
-              transform: translate(-50%, -50%); }
+      transform: translate(-50%, -50%); }
       .inputContainer .image_input_preview img.fullHeight {
         height: 100%; }
       .inputContainer .image_input_preview img.fullWidth {
@@ -154,7 +144,6 @@ nav {
   top: 29px;
   right: 47px;
   padding: 5px;
-  background: -webkit-gradient(linear, left top, right bottom, from(#96FBC4), to(#F9F586));
   background: linear-gradient(to right bottom, #96FBC4 0%, #F9F586 100%);
   border-radius: 10px;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
@@ -180,10 +169,7 @@ nav {
     color: #FEFEFE; }
 
 .submitContainer, .submitContainer input[type="submit"] {
-  -webkit-transition: opacity .3s, box-shadow .2s, -webkit-transform .2s;
-  transition: opacity .3s, box-shadow .2s, -webkit-transform .2s;
-  transition: opacity .3s, box-shadow .2s, transform .2s;
-  transition: opacity .3s, box-shadow .2s, transform .2s, -webkit-transform .2s; }
+  transition: opacity .3s, box-shadow .2s, transform .2s; }
 
 .submitContainer:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
@@ -195,8 +181,7 @@ nav {
   opacity: 0; }
 
 .submitContainer.success {
-  -webkit-transform: scale(1.2);
-          transform: scale(1.2);
+  transform: scale(1.2);
   box-shadow: 0 0 200px #96FBC4; }
   .submitContainer.success input[type="submit"] {
     display: none; }
@@ -234,18 +219,14 @@ p.error {
   color: darkred; }
 
 .collectionItemBox {
-  display: -webkit-box;
   display: flex;
-  -webkit-box-align: center;
-          align-items: center;
-  -webkit-box-pack: stretch;
-          justify-content: stretch;
+  align-items: center;
+  justify-content: stretch;
   padding: 18px;
   background-color: #FEFEFE;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 29px;
   border-radius: 5px;
-  -webkit-transition: box-shadow .2s, background-color .2s, border .2s;
   transition: box-shadow .2s, background-color .2s, border .2s;
   position: relative;
   -webkit-user-select: none;
@@ -260,8 +241,7 @@ p.error {
     border: 3px solid #96FBC4;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); }
   .collectionItemBox h2 {
-    -webkit-box-flex: 3;
-            flex: 3;
+    flex: 3;
     margin: 0; }
   .collectionItemBox a.button {
     position: relative;
@@ -278,10 +258,8 @@ p.error {
     opacity: 0;
     bottom: -5px;
     left: 0;
-    background: -webkit-gradient(linear, left top, right bottom, from(#96FBC4), to(#F9F586));
     background: linear-gradient(to right bottom, #96FBC4 0%, #F9F586 100%);
     border-radius: 2.5px;
-    -webkit-transition: height .2s, opacity .2s;
     transition: height .2s, opacity .2s; }
   .collectionItemBox a.button:hover::after {
     height: 5px;
@@ -300,16 +278,10 @@ p.error {
 
 #login {
   height: 100vh;
-  display: -webkit-box;
   display: flex;
-  -webkit-box-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-          flex-direction: column;
-  -webkit-box-pack: center;
-          justify-content: center;
-  background: -webkit-gradient(linear, left top, right bottom, from(#96FBC4), to(#F9F586));
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   background: linear-gradient(to right bottom, #96FBC4 0%, #F9F586 100%); }
   #login form {
     max-width: 80%;
@@ -363,10 +335,8 @@ body {
     position: relative; }
     nav #header {
       padding: 29px;
-      display: -webkit-box;
       display: flex;
-      -webkit-box-pack: justify;
-              justify-content: space-between; }
+      justify-content: space-between; }
       nav #header a.hamburgerButton {
         display: block;
         height: 50px;

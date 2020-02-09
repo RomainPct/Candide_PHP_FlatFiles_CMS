@@ -20,5 +20,6 @@ class Notification {
     const NEW_PICTURE_SAVED = "new_picture_saved";
     const CONTENT_SAVED = "content_saved";
     const CANDIDE_UPDATED = "candide_updated";
+    const COLLECTION_HAS_BEEN_REORGANIZED = "candide_collection_has_been_reorganized";
 
 }

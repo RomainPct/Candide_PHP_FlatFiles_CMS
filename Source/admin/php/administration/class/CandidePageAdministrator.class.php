@@ -35,13 +35,16 @@ class CandidePageAdministrator extends CandideBasic {
      *
      * @param Array $texts [Inputs values]
      * @param Array $files [File inputs values]
+     * @param Bool $cleanWysiwyg [Bool to choose if you clean useless wysiwyg files or not]
      * @return void
      */
-    public function setData(Array $texts, Array $files) {
+    public function setData(Array $texts, Array $files, Bool $cleanWysiwyg = true) {
         $this->setImages($files, $texts, $this->_data);
         $this->setTexts($texts);
         $this->saveData();
-        $this->cleanWysiwygFiles(self::FILES_DIRECTORY.$this->getInstanceName());
+        if ($cleanWysiwyg) {
+            $this->cleanWysiwygFiles($this->getInstanceName());
+        }
     }
 
     /**
@@ -50,7 +53,7 @@ class CandidePageAdministrator extends CandideBasic {
      * @param Array $texts [Inputs values]
      * @return void
      */
-    private function setTexts(Array $texts) {
+    protected function setTexts(Array $texts) {
         foreach ($texts as $key => $text){
             if (key_exists($key,$this->_data)) {
                 if ($this->_data[$key]['type'] != "image") {
