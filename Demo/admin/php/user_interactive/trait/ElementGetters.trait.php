@@ -27,7 +27,7 @@ trait ElementGetters {
      * @return void
      */
     public function text(String $title, Bool $wysiwyg = false){
-        $this->getElement($title,"text",["wysiwyg"=>$wysiwyg]);
+        $this->getElement($title,'text',['wysiwyg'=>$wysiwyg]);
     }
 
     /**
@@ -40,10 +40,10 @@ trait ElementGetters {
      * @return void
      */
     public function image(String $title, Array $size, Bool $crop = true){
-        $this->getElement($title,"image",[
-            "width"=>$size[0],
-            "height"=>$size[1],
-            "crop" => $crop
+        $this->getElement($title,'image',[
+            'width'=>$size[0],
+            'height'=>$size[1],
+            'crop' => $crop
             ]);
     }
 
@@ -56,7 +56,7 @@ trait ElementGetters {
      * @return void
      */
     public function number(String $title, Int $format = NumberFormatter::DECIMAL){
-        $this->getElement($title,"number",["format"=>$format]);
+        $this->getElement($title,'number',['format'=>$format]);
     }
 
     /**
@@ -69,16 +69,24 @@ trait ElementGetters {
      * @return void
      */
     protected function getElement(String $title,String $type,Array $options) {
-        $name = $type."_".$title;
+        $name = $type.'_'.$title;
         // Gérer l'update
         if ($this->_updateCall) {
             $this->manageUpdate($name,$type,$options);
         }
         // Gérer l'affichage
-        if (array_key_exists($name,$this->_data) && array_key_exists("data",$this->_data[$name])) {
+        if (array_key_exists($name,$this->_data) && array_key_exists('data',$this->_data[$name])) {
             echo $this->formatElement($this->_data[$name]);
         } else {
-            echo "Update candide on the admin platform";
+            echo 'Update candide on the admin platform';
+        }
+    }
+
+    public function setElementFromConfigFile(String $title, Array $data) {
+        $name = $data['type'].'_'.$title;
+        // Gérer l'update
+        if ($this->_updateCall) {
+            $this->manageUpdate($name, $data['type'], $data['options'] ?? []);
         }
     }
 
@@ -91,7 +99,7 @@ trait ElementGetters {
      * @return void
      */
     protected function manageUpdate(String $name, String $type, Array $options){
-        $this->__call("manageUpdate",[$name,$type,$options]);
+        $this->__call('manageUpdate',[$name,$type,$options]);
     }
 
 }

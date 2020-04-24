@@ -1,0 +1,32 @@
+{
+    "generalItem": {
+        "title": {
+            "type": "text",
+            "options": {
+                "wysiwyg": false
+            }
+        },
+        "wikipedia_url": {
+            "type": "text",
+            "options": {
+                "wysiwyg": false
+            }
+        }
+    },
+    "detailedItem": {
+        "logo": {
+            "type": "image",
+            "options": {
+                "width": 200,
+                "height": 200,
+                "crop": true
+            }
+        },
+        "description": {
+            "type": "text",
+            "options": {
+                "wysiwyg": true
+            }
+        }
+    }
+}

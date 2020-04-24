@@ -1,0 +1,30 @@
+{
+    "instances": [
+        "s1",
+        "s2",
+        "s3",
+        "hors_serie"
+    ],
+    "generalItem": {
+        "title": {
+            "type": "text",
+            "options": {
+                "wysiwyg": false
+            }
+        },
+        "audio_url": {
+            "type": "text",
+            "options": {
+                "wysiwyg": false
+            }
+        }
+    },
+    "detailedItem": {
+        "description": {
+            "type": "text",
+            "options": {
+                "wysiwyg": true
+            }
+        }
+    }
+}
