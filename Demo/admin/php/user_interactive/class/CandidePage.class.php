@@ -81,4 +81,20 @@ class CandidePage extends CandideBasic {
             $this->saveData();
         }
     }
+
+    /**
+     * Merge current instance with another one
+     *
+     * @param CandidePage $c [Candide page instance to merge with]
+     * @return void
+     */
+    public function mergeWith(CandidePage $c) {
+        foreach ($c->_data as $key => $data) {
+            $type = $data["type"];
+            unset($data["type"]);
+            unset($data["data"]);
+            $this->manageUpdate($key, $type, $data);
+        }
+    }
+
 }

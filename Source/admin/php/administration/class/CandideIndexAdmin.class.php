@@ -52,10 +52,6 @@ class CandideIndexAdmin extends CandideIndexBasic {
      * @return void
      */
     function updateCandideInstance(CandideBasic $candideInstance){
-        // Call the end function to save data changes
-        if (is_a($candideInstance, "CandideBasic")) {
-            $candideInstance->save();
-        }
         // Manage pages indexation
         if (is_a($candideInstance, "CandidePage")) {
             $this->newPage($candideInstance->getInstanceName());

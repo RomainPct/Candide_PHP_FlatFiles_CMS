@@ -74,4 +74,19 @@ class CandideCollectionItem extends CandideCollectionBasic {
         $this->manageFieldInfosUpdate($this->_data,$name,$type,$options);
     }
 
+    /**
+     * Merge current instance with another one
+     *
+     * @param CandideCollectionItem $c [Candide collection item instance to merge with]
+     * @return void
+     */
+    public function mergeWith(CandideCollectionItem $c) {
+        foreach ($c->_data as $key => $data) if (!key_exists($key, $this->_data) && key_exists('type', $data)) {
+            $type = $data["type"];
+            unset($data["type"]);
+            unset($data["data"]);
+            $this->manageUpdate($key, $type, $data);
+        }
+    }
+
 }

@@ -97,4 +97,19 @@ class CandideCollection extends CandideCollectionBasic {
         }
     }
 
+    /**
+     * Merge current instance with another one
+     *
+     * @param CandideCollection $c [Candide collection instance to merge with]
+     * @return void
+     */
+    public function mergeWith(CandideCollection $c) {
+        foreach ($c->_data[0] as $key => $data) if (!key_exists($key, $this->_data) && key_exists('type', $data)) {
+            $type = $data["type"];
+            unset($data["type"]);
+            unset($data["data"]);
+            $this->manageUpdate($key, $type, $data);
+        }
+    }
+
 }
