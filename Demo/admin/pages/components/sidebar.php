@@ -4,7 +4,7 @@ $texts = new AdminTextsManager("sidebar");
 ?>
 <nav>
     <div id="header">
-        <a class="logo" href="../admin" title="Accueil">Candide</a>
+        <a class="logo" href="../admin/" title="Accueil">Candide</a>
         <a id="js_hamburgerButton" class="hamburgerButton" href="#" ></a>
     </div>
     <ul class="navSection" id="navLinks">
