@@ -94,7 +94,7 @@ trait FieldsGenerator {
      */
     private function getImageInput(String $name, String $data, Array $fieldInfos):String {
         $style = "style='width: ".$fieldInfos["width"]."px; height: ".$fieldInfos["height"]."px'";
-        return "<div ".$style." class='image_input_preview'><label for='".$name."'>".$this->_texts->get("edit")."</label><img id='image_".$name."' data-cropping-enable='".strval($fieldInfos["crop"])."' class='fullHeight' src='".$data."'/><input id='".$name."' type='file' accept='image/*' name='".$name."' class='classic-image-input'/></div>";
+        return "<div ".$style." class='image_input_preview'><label for='".$name."'>".$this->_texts->get("edit")."</label><img id='image_".$name."' data-cropping-enable='".strval($fieldInfos["crop"] ?? 1)."' class='fullHeight' src='".$data."'/><input id='".$name."' type='file' accept='image/*' name='".$name."' class='classic-image-input'/></div>";
     }
 
     /**

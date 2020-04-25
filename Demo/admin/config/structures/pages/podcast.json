@@ -3,17 +3,13 @@
         "type": "text"
     },
     "description": {
-        "type": "text",
-        "options":{
-            "wysiwyg":true
-        }
+        "type": "text"
     },
     "cover": {
         "type": "image",
         "options": {
             "width": 1080,
-            "height": 540,
-            "crop": true
+            "height": 540
         }
     },
     "view_number": {

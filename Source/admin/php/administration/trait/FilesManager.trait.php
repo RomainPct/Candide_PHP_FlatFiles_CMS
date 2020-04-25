@@ -30,10 +30,11 @@ trait FilesManager {
         $fileName = $this->cleanFileName($fieldName,$file["name"]);
         $destinationPath = $this->getFileUrl(self::FILES_DIRECTORY.$directory."/".$fileName);
         // Resize the picture or save it if resizing is unecessary
+        $crop = $entry["crop"] ?? true;
         if (key_exists("width",$entry) && key_exists("height",$entry)){
-            $img = $this->resize($file["tmp_name"],$entry["width"],$entry["height"],$entry["crop"]);
+            $img = $this->resize($file["tmp_name"],$entry["width"],$entry["height"],$crop);
         } else if (key_exists("width",$struct) && key_exists("height",$struct)) {
-            $img = $this->resize($file["tmp_name"],$struct["width"],$struct["height"],$struct["crop"]);
+            $img = $this->resize($file["tmp_name"],$struct["width"],$struct["height"],$crop);
         } else {
             move_uploaded_file($file["tmp_name"],$destinationPath);
         }

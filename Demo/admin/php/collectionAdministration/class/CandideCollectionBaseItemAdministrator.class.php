@@ -39,7 +39,11 @@ class CandideCollectionBaseItemAdministrator extends CandideCollectionBaseItem {
     public function getElementTitle(){
         for ($i=0; $i < count($this->_structure); $i++) { 
             $key = array_keys($this->_structure)[$i];
-            if ($this->_data[$key]["type"] == "text" && !$this->_data[$key]["wysiwyg"] && key_exists("data",$this->_data[$key]) && $this->_data[$key]["data"] != ""){
+            if (
+                $this->_data[$key]["type"] == "text"
+                && !($this->_data[$key]["wysiwyg"] ?? false)
+                && key_exists("data",$this->_data[$key])
+                && $this->_data[$key]["data"] != "" ) {
                 echo htmlentities(substr($this->_data[$key]["data"],0,100));
                 return;
             }

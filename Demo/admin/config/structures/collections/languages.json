@@ -1,10 +1,7 @@
 {
     "generalItem": {
         "title": {
-            "type": "text",
-            "options": {
-                "wysiwyg": false
-            }
+            "type": "text"
         },
         "wikipedia_url": {
             "type": "text",
