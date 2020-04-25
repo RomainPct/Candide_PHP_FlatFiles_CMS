@@ -5,6 +5,12 @@
     "description": {
         "type": "text"
     },
+    "video": {
+        "type": "youtube_video",
+        "options": {
+            "plugin": "sample_candide_class_plugin"
+        }
+    },
     "cover": {
         "type": "image",
         "options": {

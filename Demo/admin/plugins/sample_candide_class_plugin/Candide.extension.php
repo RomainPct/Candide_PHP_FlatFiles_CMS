@@ -15,7 +15,7 @@ switch ($_GET["extension_type"]) {
         $this->addCallable(
             "formatyoutube_videoElement",
             function(Array $element):String {
-                $allowfullscreen = ($element["allowfullscreen"]) ? "allowfullscreen" : "";
+                $allowfullscreen = ($element["allowfullscreen"] ?? true) ? "allowfullscreen" : "";
                 return '<iframe class="candide_youtube_video" src="https://www.youtube.com/embed/'.$element["data"].'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" '.$allowfullscreen.'></iframe>';
             }
         );
