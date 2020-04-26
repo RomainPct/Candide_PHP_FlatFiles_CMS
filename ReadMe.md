@@ -274,6 +274,84 @@ You can debug the update if needed by opening the console and check "Keep histor
 
 ![Candide admin platform generation](https://github.com/RomainPct/Candide_PHP_FlatFiles_CMS/blob/master/.github/readme_generate_admin_platform.gif)
 
+## Generate pages and collections manually with a JSON file
+Candide also allows you to configure pages or collections with a structure JSON file. It's easy to configure : create a json file in the dedicated directory named YOUR_PAGE_NAME.json and directly type the fields you want in the json file. Then, just click the "Update admin platform" on Candide backoffice frontpage and it's done.
+
+### Configure a page with a JSON file
+Create a json file in the directory admin/config/structures/pages/ and call it "YOUR_PAGE_NAME.json". Then create your structure as following :
+```json
+{
+    "FIELD_NAME": {
+        "type": "text"
+    },
+    "description": {
+        "type": "text",
+        "options": [
+            "wysiwyg": true
+        ]
+    },
+    "cover": {
+        "type": "image",
+        "options": {
+            "width": 1080,
+            "height": 540,
+            "crop": true
+        }
+    },
+    "counter": {
+        "type": "number",
+        "options": {
+            "format": 1
+        }
+    }
+}
+```
+Then you just have to "Update the admin platform" to get this page in the admin platform.
+
+### Configure a collection with a JSON file
+Create a json file in the directory admin/config/structures/collections/ and call it "YOUR_COLLECTION_NAME.json".
+- You can create many collections with the same structure by specifying the instances parameter in your json file.
+- You can specify via general item the properties that you want to be able to access from CandideCollection and CandideCollectionItem
+- You can specify via detailed item the properties that you want to be able to access only from CandideCollectionItem
+Then create your structure as following :
+```json
+{
+    "instances": [
+        "coats",
+        "caps"
+    ],
+    "generalItem": {
+        "title": {
+            "type": "text"
+        },
+        "date": {
+            "type": "text"
+        }
+    },
+    "detailedItem": {
+        "description": {
+            "type": "text",
+            "options": {
+                "wysiwyg": true
+            }
+        }
+    }
+}
+```
+
+### Use custom fields from plugins in a JSON configuration file
+You are also able to use custom field imported via plugin in your JSON configuration files. Just specify the custom type and then add the options required by the custom field in the option array of the field + specify the "plugin" in the options.
+```json
+{
+    "video": {
+        "type": "youtube_video",
+        "options": {
+            "plugin": "sample_candide_class_plugin"
+        }
+    }
+}
+```
+
 <a name="plugins"/>
 
 # How to install a plugin ?
