@@ -110,10 +110,8 @@ class CandideCollectionAdministrator extends CandideCollection {
      * @return void
      */
     protected function setTexts(Array $texts, Int $id) {
-        foreach ($this->_structure as $key => $value) {
-            if (key_exists($key,$texts)) {
-                $this->_data[$id][$key]['data'] = $texts[$key];
-            }
+        foreach ($this->_structure as $key => $value) if (key_exists($key,$texts)) {
+            $this->_data[$id][$key]['data'] = $texts[$key];
         }
     }
 
@@ -125,7 +123,7 @@ class CandideCollectionAdministrator extends CandideCollection {
      * @return void
      */
     private function setImages(Array $newFiles, Int $id){
-        foreach ($newFiles as $key => $url) {
+        foreach ($newFiles as $key => $url) if (key_exists($key, $this->_structure)) {
             $this->_data[$id][$key]['data'] = $url;
         }
     }
