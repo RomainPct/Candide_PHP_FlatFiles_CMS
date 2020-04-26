@@ -74,12 +74,12 @@ $c = new CandidePage('your_page_name_in_snake_case');
 ?>
 <html>
     <head>
-        <title><?php $c->text('title') ?></title>
+        <title><?= $c->text('title') ?></title>
     </head>
     <body>
-        <img src="<?php $c->image('banner',[1080,200]) ?>" alt="Website banner">
-        <h1><?php $c->text('title') ?></h1>
-        <p><?php $c->text('content',true) ?></p>
+        <img src="<?= $c->image('banner',[1080,200]) ?>" alt="Website banner">
+        <h1><?= $c->text('title') ?></h1>
+        <p><?= $c->text('content',true) ?></p>
     </body>
 </html>
 ```
@@ -105,10 +105,10 @@ $c = new CandideCollection('your_collection_name_in_snake_case');
         foreach($c->items() as $item) {
             ?>
             <article>
-                <img src="<?php $item->image('miniature',[400,100]) ?>" alt="miniature">
-                <h1><?php $item->text('title') ?></h1>
-                <p><?php $item->number('reading_time') ?></p>
-                <a href="article.php?id=<?php $item->id() ?>">Read full article</a>
+                <img src="<?= $item->image('miniature',[400,100]) ?>" alt="miniature">
+                <h1><?= $item->text('title') ?></h1>
+                <p><?= $item->number('reading_time') ?></p>
+                <a href="article.php?id=<?= $item->getId() ?>">Read full article</a>
             </article>
             <?php
         }
@@ -131,13 +131,13 @@ $c = new CandideCollectionItem('your_collection_name_in_snake_case', $_GET['id']
 ?>
 <html>
     <head>
-        <title><?php $c->text('title') ?></title>
+        <title><?= $c->text('title') ?></title>
     </head>
     <body>
-        <h1><?php $c->text('title') ?></h1>
-        <p><?php $c->number('reading_time') ?></p>
-        <p><?php $c->text('content',true) ?></p>
-        <img src="<?php $c->image('profil_picture',[200,200]) ?>" alt="Profil picture">
+        <h1><?= $c->text('title') ?></h1>
+        <p><?= $c->number('reading_time') ?></p>
+        <p><?= $c->text('content',true) ?></p>
+        <img src="<?= $c->image('profil_picture',[200,200]) ?>" alt="Profil picture">
     </body>
 </html>
 ```
@@ -158,14 +158,14 @@ $c[2] = new CandidePage('footer');
     <head></head>
     <body>
         <header>
-            <h2><?php $c[0]->text('website_name') ?></h2>
-            <p><?php $c[0]->text('catch_phrase') ?></p>
+            <h2><?= $c[0]->text('website_name') ?></h2>
+            <p><?= $c[0]->text('catch_phrase') ?></p>
         </header>
         <main>
-            <p><?php $c[1]->text('content',true) ?></p>
+            <p><?= $c[1]->text('content',true) ?></p>
         </main>
         <footer>
-            <img src="<?php $c[2]->image('footer_image',[1000,250]) ?>" alt="Footer banner" />
+            <img src="<?= $c[2]->image('footer_image',[1000,250]) ?>" alt="Footer banner" />
         </footer>
     </body>
 </html>
@@ -179,70 +179,70 @@ Candide support the 3 main data types natively but it can be extended to any dat
 Each of this element getter functions can be called on a CandidePage or a CandideCollectionItem instance and also on a item iterated via the CandideCollection().items().
 
 ### Text element
-It creates a textfield (WYSIWYG or not) on the admin side and echo the text on the frontside of your website.
+It creates a textfield (WYSIWYG or not) on the admin side and return the text on the frontside of your website.
 
 ```php
 <?php
 /**
  * Generate a text field on admin platform
- * Echo text on frontside
+ * Return text on frontside
  *
  * @param String $title [Field title for admin interface]
  * @param Bool $wysiwyg [Option to enable a wysiwyg editor in admin interface]
- * @return void
+ * @return String
  */
-public function text(String $title, Bool $wysiwyg = false) {...}
+public function text(String $title, Bool $wysiwyg = false):String {...}
 ?>
 
 /**
  *  Call text on a CandidePage, CandideCollectionItem, or one of a CandideCollection().items()
  */
-<?php $c->text('name',false) ?>
+<?= $c->text('name',false) ?>
 ```
 
 ### Image element
-It creates an image field on the admin side and echo the image url from root directory on the frontside of your website.
+It creates an image field on the admin side and return the image url from root directory on the frontside of your website.
 
 ```php
 <?php
 /**
  * Generate an image field on admin platform
- * Echo image url from root directory on front side
+ * Return image url from root directory on front side
  *
  * @param String $title [Field title for admin interface]
  * @param Array $size [ [Width,Height] of your image, Candide automatically resize the input image]
  * @param Bool $crop [If you pass crop to false, the image will always fit the size you defined without cropping]
- * @return void
+ * @return String
  */
-public function image(String $title, Array $size, Bool $crop = true){...}
+public function image(String $title, Array $size, Bool $crop = true):String {...}
 ?>
 
 /**
  *  Call text on a CandidePage, CandideCollectionItem, or one of a CandideCollection().items()
  */
-<?php $c->image('banner',[1000,400],true) ?>
+<?= $c->image('banner',[1000,400],true) ?>
 ```
 
 ### Number element
-It creates a number field on the admin side and echo the number formatted according to a [NumberFormatter configuration](https://www.php.net/manual/en/class.numberformatter.php) on the frontside of your website.
+It creates a number field on the admin side and return the number formatted according to a [NumberFormatter configuration](https://www.php.net/manual/en/class.numberformatter.php) on the frontside of your website.
 
 ```php
 <?php
 /**
  * Generate a number field on admin platform
- * Echo formatted number on the front side
+ * Return formatted number on the front side
  *
  * @param String $title [Field title for admin interface]
  * @param Int $format [Echo formatting method]
- * @return void
+ * @return String
  */
-public function number(String $title, Int $format = NumberFormatter::DECIMAL){...}
+public function number(String $title, Int $format = NumberFormatter::DECIMAL):String {...}
 ?>
 
 /**
  *  Call text on a CandidePage, CandideCollectionItem, or one of a CandideCollection().items()
  */
-<?php $c->number('reading_duration', NumberFormatter::DECIMAL) ?>
+<?= $c->number('reading_duration', NumberFormatter::DECIMAL) ?>
 ```
 
 <a name="configuration"/>

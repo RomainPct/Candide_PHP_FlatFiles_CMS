@@ -4,11 +4,15 @@ switch ($_GET["extension_type"]) {
         // UserInteractive getter function
         $this->addCallable(
             "youtube_video",
-            function (String $title, Bool $allowfullscreen = true) {
-                $this->getElement($title,"youtube_video",[
-                    "allowfullscreen"=>$allowfullscreen,
-                    "plugin"=> "sample_candide_class_plugin"
-                    ]);
+            function (String $title, Bool $allowfullscreen = true):String {
+                return $this->getElement(
+                    $title,
+                    "youtube_video",
+                    [
+                        "allowfullscreen"=>$allowfullscreen,
+                        "plugin"=> "sample_candide_class_plugin"
+                    ]
+                );
             }
         );
         // Formatter to display data properly

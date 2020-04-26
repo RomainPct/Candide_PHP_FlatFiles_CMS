@@ -1,1 +1,1 @@
-[]
+[{"text_nom":{"type":"text","wysiwyg":false,"data":"Episode 1"},"number_vues":{"type":"number","format":1,"data":"125"},"image_bandeau":{"type":"image","width":800,"height":200,"crop":true,"data":"\/CandideData\/files\/episodes_podcast\/0\/image_bandeau_1587892356fond_ecran_2.jpg"},"youtube_video_video":{"type":"youtube_video","allowfullscreen":true,"plugin":"sample_candide_class_plugin","data":"oTOuU7En93o"},"id":0}]

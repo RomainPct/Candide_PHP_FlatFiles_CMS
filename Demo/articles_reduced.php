@@ -11,8 +11,8 @@ $c = new CandideCollection("articles");
 foreach($c->items() as $item) {
     ?>
     <article>
-        <h1><?php $item->text("titre") ?></h1>
-        <a href="article.php?id=<?php $item->id() ?>">En savoir plus</a>
+        <h1><?= $item->text("titre") ?></h1>
+        <a href="article.php?id=<?= $item->getId() ?>">En savoir plus</a>
     </article>
     <?php
 }

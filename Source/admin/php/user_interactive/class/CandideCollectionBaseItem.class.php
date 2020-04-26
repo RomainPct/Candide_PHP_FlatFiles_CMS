@@ -33,12 +33,12 @@ class CandideCollectionBaseItem extends Basic {
     }
 
     /**
-     * Echo the item id
+     * Return the item id
      *
-     * @return void
+     * @return String
      */
-    public function id() {
-        echo $this->_data["id"];
+    public function getId():String {
+        return $this->_data["id"];
     }
 
     /**
