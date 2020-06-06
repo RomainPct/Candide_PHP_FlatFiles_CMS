@@ -17,7 +17,9 @@
  */
 class AdminTextsManager {
 
-    use JsonReader;
+    use JsonReader {
+        JsonReader::readJsonFile as atm_readJsonFile;
+    }
 
     private $_languagesPath = ROOT_DIR."/admin/config/languages/", $_texts = [];
 
@@ -37,7 +39,7 @@ class AdminTextsManager {
                 file_put_contents($this->_languagesPath.$code.".json",$tradsData);
             }
         }
-        $tmp_texts = $this->readJsonFile($this->_languagesPath.$code.".json");
+        $tmp_texts = $this->atm_readJsonFile($this->_languagesPath.$code.".json");
         $this->_texts = (key_exists($moduleName,$tmp_texts)) ? $tmp_texts[$moduleName] : [] ;
     }
 

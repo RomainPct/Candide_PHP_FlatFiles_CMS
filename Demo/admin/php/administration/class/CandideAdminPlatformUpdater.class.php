@@ -10,7 +10,9 @@
 
 class CandideAdminPlatformUpdater {
 
-    use JsonReader;
+    use JsonReader {
+        JsonReader::readJsonFile as capu_readJsonFile;
+    }
 
     private $_indexAdmin;
     private $_phpFiles = [];
@@ -63,7 +65,7 @@ class CandideAdminPlatformUpdater {
      */
     private function recordCollectionConfigFile(String $collectionConfigFilePath) {
         $collectionName = $this->getInstanceNameFromFilePath($collectionConfigFilePath);
-        $config = $this->readJsonFile($collectionConfigFilePath);
+        $config = $this->capu_readJsonFile($collectionConfigFilePath);
         if (key_exists('instances', $config)) {
             foreach ($config['instances'] as $instanceName) {
                 $this->recordCollectionConfig($instanceName, $config);
@@ -107,7 +109,7 @@ class CandideAdminPlatformUpdater {
      */
     private function recordPageConfigFile(String $pageConfigFilePath) {
         $c = new CandidePage($this->getInstanceNameFromFilePath($pageConfigFilePath));
-        foreach ($this->readJsonFile($pageConfigFilePath) as $title => $field) {
+        foreach ($this->capu_readJsonFile($pageConfigFilePath) as $title => $field) {
             $c->setElementFromConfigFile($title, $field);
         }
         $this->recordCandideInstance($c);

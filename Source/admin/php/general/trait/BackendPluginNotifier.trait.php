@@ -16,7 +16,9 @@
  */
 trait BackendPluginNotifier {
 
-    use JsonReader;
+    use JsonReader {
+        JsonReader::readJsonFile as bpn_readJsonFile;
+    }
 
     protected $_backendPlugins = null;
 
@@ -28,7 +30,7 @@ trait BackendPluginNotifier {
     private function setBackendPlugins(){
         $this->_backendPlugins = [];
         foreach (glob(self::PLUGINS_DIRECTORY."*", GLOB_ONLYDIR) as $pluginFolder) {
-            $plugin = $this->readJsonFile($pluginFolder."/config.json");
+            $plugin = $this->bpn_readJsonFile($pluginFolder."/config.json");
             if ($plugin["is_backend_extension"]) {
                 $this->_backendPlugins[] = $pluginFolder."/eventHandler.php";
             }

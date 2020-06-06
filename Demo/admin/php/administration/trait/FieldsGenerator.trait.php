@@ -16,7 +16,7 @@
  */
 trait FieldsGenerator {
 
-    use BackendPluginNotifier, FilesManager;
+    use BackendPluginNotifier;
 
     protected $_texts = null, $_extensionsUsed = [];
 

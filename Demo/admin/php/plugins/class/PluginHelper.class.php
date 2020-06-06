@@ -17,7 +17,9 @@
  */
 class PluginHelper {
 
-    use JsonReader;
+    use JsonReader {
+        JsonReader::readJsonFile as ph_readJsonFile;
+    }
 
     private $_config, $_pluginName;
 
@@ -28,7 +30,7 @@ class PluginHelper {
      */
     public function __construct(String $pluginName) {
         $this->_pluginName = $pluginName;
-        $this->_config = $this->readJsonFile(ROOT_DIR."/admin/plugins/".$pluginName."/config.json");
+        $this->_config = $this->ph_readJsonFile(ROOT_DIR."/admin/plugins/".$pluginName."/config.json");
     }
 
     /**
